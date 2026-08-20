@@ -12,10 +12,22 @@
 
   <meta
     name="description"
-    content="Use MoneyCheck's free affordability calculator to see whether you can comfortably afford a purchase."
+    content="MoneyCheck offers free affordability, savings and debt calculators to help you make smarter decisions about your money."
   >
 
-  <title>Can I Afford It? | MoneyCheck</title>
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0f172a"
+  >
+
+  <title>
+    Free Money Calculators | Affordability, Savings & Debt | MoneyCheck
+  </title>
 
   <link rel="stylesheet" href="style.css">
 
@@ -25,15 +37,26 @@
 <body>
 
 
-  <!-- NAVIGATION -->
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
 
   <nav class="navbar">
 
     <div class="nav-inner">
 
-      <a href="#" class="logo">
-        <span class="logo-icon">£</span>
+      <a
+        href="#"
+        class="logo"
+        aria-label="MoneyCheck home"
+      >
+
+        <span class="logo-icon">
+          £
+        </span>
+
         MoneyCheck
+
       </a>
 
 
@@ -63,33 +86,43 @@
 
 
 
-  <!-- HERO -->
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
 
   <header class="hero">
 
     <div class="hero-badge">
-      FREE MONEY TOOL
+      FREE FINANCIAL CALCULATORS
     </div>
 
 
     <h1>
-      Can I afford it?
+      Make smarter money decisions.
     </h1>
 
 
     <p>
-      Before you buy, find out how the purchase
-      could affect your budget.
+      Use our free calculators to see what you can
+      comfortably afford, plan your savings goals,
+      and estimate how long it could take to pay
+      off debt.
     </p>
 
 
     <div class="trust-points">
 
-      <span>✓ Free to use</span>
+      <span>
+        ✓ Free to use
+      </span>
 
-      <span>✓ No sign-up</span>
+      <span>
+        ✓ No sign-up
+      </span>
 
-      <span>✓ No financial account required</span>
+      <span>
+        ✓ No financial account required
+      </span>
 
     </div>
 
@@ -97,7 +130,9 @@
 
 
 
-  <!-- SAVINGS GOAL CALCULATOR -->
+  <!-- =====================================================
+       SAVINGS GOAL CALCULATOR
+       ===================================================== -->
 
   <section
     id="savings-calculator"
@@ -135,7 +170,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="currentSavings"
@@ -150,7 +187,7 @@
 
 
 
-      <!-- GOAL -->
+      <!-- SAVINGS GOAL -->
 
       <div class="form-section">
 
@@ -160,7 +197,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="savingsGoal"
@@ -185,7 +224,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="monthlySaving"
@@ -200,7 +241,7 @@
 
 
 
-      <!-- BUTTON -->
+      <!-- CALCULATE -->
 
       <button
         id="savingsCalculateButton"
@@ -210,10 +251,15 @@
 
         Calculate my goal
 
-        <span>→</span>
+        <span>
+          →
+        </span>
 
       </button>
 
+
+
+      <!-- RESET -->
 
       <button
         id="savingsResetButton"
@@ -224,6 +270,7 @@
         Clear everything
 
       </button>
+
 
 
       <!-- RESULT -->
@@ -240,33 +287,40 @@
 
 
 
-  <!-- MAIN CALCULATOR -->
+  <!-- =====================================================
+       AFFORDABILITY CALCULATOR
+       ===================================================== -->
 
   <main id="calculator">
 
     <div class="calculator-card">
 
+
+      <!-- INTRO -->
+
       <div class="card-heading">
 
         <span class="step">
-          YOUR NUMBERS
+          AFFORDABILITY
         </span>
 
         <h2>
-          Let's see if it fits
+          Can you comfortably afford it?
         </h2>
 
         <p>
           Enter as much information as you can.
           The more you enter, the more useful
-          the result will be.
+          the estimate will be.
         </p>
 
       </div>
 
 
 
-      <!-- INCOME -->
+      <!-- =================================================
+           INCOME
+           ================================================= -->
 
       <div class="form-section">
 
@@ -281,7 +335,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="income"
@@ -296,7 +352,9 @@
 
 
 
-      <!-- HOUSING -->
+      <!-- =================================================
+           HOUSING
+           ================================================= -->
 
       <div class="form-section">
 
@@ -311,7 +369,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="rent"
@@ -326,7 +386,9 @@
 
 
 
-      <!-- EXPENSES -->
+      <!-- =================================================
+           EXPENSES
+           ================================================= -->
 
       <div class="form-section">
 
@@ -340,13 +402,17 @@
         </p>
 
 
+        <!-- BILLS -->
+
         <label for="bills">
           Bills & utilities
         </label>
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="bills"
@@ -358,13 +424,18 @@
         </div>
 
 
+
+        <!-- FOOD -->
+
         <label for="food">
           Food & groceries
         </label>
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="food"
@@ -376,13 +447,18 @@
         </div>
 
 
+
+        <!-- TRANSPORT -->
+
         <label for="transport">
           Transport
         </label>
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="transport"
@@ -394,13 +470,18 @@
         </div>
 
 
+
+        <!-- SUBSCRIPTIONS -->
+
         <label for="subscriptions">
           Subscriptions
         </label>
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="subscriptions"
@@ -412,13 +493,18 @@
         </div>
 
 
+
+        <!-- DEBT PAYMENTS -->
+
         <label for="debt">
           Debt payments
         </label>
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="debt"
@@ -433,7 +519,9 @@
 
 
 
-      <!-- SAVINGS -->
+      <!-- =================================================
+           SAVINGS
+           ================================================= -->
 
       <div class="form-section">
 
@@ -448,7 +536,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="savings"
@@ -460,13 +550,16 @@
         </div>
 
 
+
         <label for="emergency">
           Emergency fund target
         </label>
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="emergency"
@@ -481,7 +574,9 @@
 
 
 
-      <!-- PURCHASE -->
+      <!-- =================================================
+           PURCHASE
+           ================================================= -->
 
       <div class="form-section purchase-section">
 
@@ -496,7 +591,9 @@
 
         <div class="input-wrapper purchase-input">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="purchase"
@@ -506,6 +603,7 @@
           >
 
         </div>
+
 
 
         <label for="monthlyPayment">
@@ -520,7 +618,9 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span>
+            £
+          </span>
 
           <input
             id="monthlyPayment"
@@ -535,19 +635,25 @@
 
 
 
-      <!-- BUTTON -->
+      <!-- CALCULATE -->
 
       <button
         id="calculateButton"
         class="calculate-button"
+        type="button"
       >
 
         Check my affordability
 
-        <span>→</span>
+        <span>
+          →
+        </span>
 
       </button>
 
+
+
+      <!-- RESET -->
 
       <button
         id="resetButton"
@@ -572,7 +678,9 @@
 
 
 
-    <!-- DEBT PAYOFF CALCULATOR -->
+    <!-- =================================================
+         DEBT PAYOFF CALCULATOR
+         ================================================= -->
 
     <section
       id="debt-calculator"
@@ -590,8 +698,9 @@
         </h2>
 
         <p>
-          Enter your debt and monthly payment to
-          estimate how long it could take to pay it off.
+          Enter your current balance, interest rate
+          and monthly payment to estimate how long
+          it could take to pay off your debt.
         </p>
 
       </div>
@@ -600,7 +709,7 @@
       <div class="calculator-card">
 
 
-        <!-- DEBT -->
+        <!-- CURRENT DEBT -->
 
         <div class="form-section">
 
@@ -610,7 +719,9 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span>
+              £
+            </span>
 
             <input
               id="debtBalance"
@@ -626,7 +737,7 @@
 
 
 
-        <!-- APR -->
+        <!-- INTEREST -->
 
         <div class="form-section">
 
@@ -644,7 +755,9 @@
               placeholder="20"
             >
 
-            <span>%</span>
+            <span>
+              %
+            </span>
 
           </div>
 
@@ -652,7 +765,7 @@
 
 
 
-        <!-- MONTHLY PAYMENT -->
+        <!-- PAYMENT -->
 
         <div class="form-section">
 
@@ -662,7 +775,9 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span>
+              £
+            </span>
 
             <input
               id="debtPayment"
@@ -678,7 +793,7 @@
 
 
 
-        <!-- BUTTON -->
+        <!-- CALCULATE -->
 
         <button
           id="debtCalculateButton"
@@ -688,10 +803,15 @@
 
           Calculate my payoff
 
-          <span>→</span>
+          <span>
+            →
+          </span>
 
         </button>
 
+
+
+        <!-- RESET -->
 
         <button
           id="debtResetButton"
@@ -702,6 +822,7 @@
           Clear everything
 
         </button>
+
 
 
         <!-- RESULT -->
@@ -720,11 +841,13 @@
 
 
 
-  <!-- HOW IT WORKS -->
+  <!-- =====================================================
+       WHY MONEYCHECK
+       ===================================================== -->
 
   <section
-    id="how-it-works"
     class="how-section"
+    aria-labelledby="why-moneycheck"
   >
 
     <div class="how-inner">
@@ -732,18 +855,26 @@
       <div>
 
         <span class="step">
-          HOW IT WORKS
+          MONEYCHECK
         </span>
 
-        <h2>
-          A simple way to think
-          before you spend.
+        <h2 id="why-moneycheck">
+          Simple tools for smarter money decisions.
         </h2>
+
+        <p>
+          MoneyCheck turns a few numbers into a simple
+          way to understand your budget before making
+          an important financial decision.
+        </p>
 
       </div>
 
 
       <div class="how-grid">
+
+
+        <!-- STEP 1 -->
 
         <div class="how-card">
 
@@ -752,16 +883,20 @@
           </div>
 
           <h3>
-            Enter your income
+            Understand your budget
           </h3>
 
           <p>
-            Tell us roughly how much money
-            comes into your account each month.
+            Enter your income and regular costs to
+            get a clearer picture of what you have
+            available each month.
           </p>
 
         </div>
 
+
+
+        <!-- STEP 2 -->
 
         <div class="how-card">
 
@@ -770,16 +905,20 @@
           </div>
 
           <h3>
-            Add your costs
+            Plan your goals
           </h3>
 
           <p>
-            Add rent and your regular expenses.
-            You can leave unknown amounts blank.
+            Work out how long it could take to reach
+            a savings target based on what you can
+            put away each month.
           </p>
 
         </div>
 
+
+
+        <!-- STEP 3 -->
 
         <div class="how-card">
 
@@ -788,12 +927,13 @@
           </div>
 
           <h3>
-            See the bigger picture
+            Understand your debt
           </h3>
 
           <p>
-            We'll explain how significant the
-            purchase is compared with your budget.
+            Estimate how long your debt could take
+            to repay based on your balance, interest
+            rate and monthly payment.
           </p>
 
         </div>
@@ -806,15 +946,24 @@
 
 
 
-  <!-- FOOTER -->
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
 
   <footer>
 
     <div class="footer-inner">
 
+
+      <!-- BRAND -->
+
       <div>
 
-        <a href="#" class="logo">
+        <a
+          href="#"
+          class="logo"
+          aria-label="MoneyCheck home"
+        >
 
           <span class="logo-icon">
             £
@@ -831,10 +980,21 @@
       </div>
 
 
+
+      <!-- FOOTER LINKS -->
+
       <div class="footer-links">
 
         <a href="#calculator">
-          Calculator
+          Affordability
+        </a>
+
+        <a href="#savings-calculator">
+          Savings
+        </a>
+
+        <a href="#debt-calculator">
+          Debt
         </a>
 
         <a href="#how-it-works">
@@ -845,6 +1005,9 @@
 
     </div>
 
+
+
+    <!-- FOOTER BOTTOM -->
 
     <div class="footer-bottom">
 
@@ -863,7 +1026,10 @@
 
 
 
+  <!-- JAVASCRIPT -->
+
   <script src="script.js"></script>
+
 
 </body>
 
