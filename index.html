@@ -5,7 +5,10 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
@@ -36,19 +39,23 @@
 
       <div class="nav-links">
 
-  <a href="#calculator">
-    Affordability
-  </a>
+        <a href="#calculator">
+          Affordability
+        </a>
 
-  <a href="#savings-calculator">
-    Savings
-  </a>
+        <a href="#savings-calculator">
+          Savings
+        </a>
 
-  <a href="#how-it-works">
-    How it works
-  </a>
+        <a href="#debt-calculator">
+          Debt
+        </a>
 
-</div>
+        <a href="#how-it-works">
+          How it works
+        </a>
+
+      </div>
 
     </div>
 
@@ -90,147 +97,151 @@
 
 
 
-  <!-- CALCULATOR -->
-<!-- SAVINGS GOAL CALCULATOR -->
+  <!-- SAVINGS GOAL CALCULATOR -->
 
-<section
-  id="savings-calculator"
-  class="savings-section"
->
+  <section
+    id="savings-calculator"
+    class="savings-section"
+  >
 
-  <div class="savings-heading">
+    <div class="savings-heading">
 
-    <span class="step">
-      SAVINGS GOAL
-    </span>
+      <span class="step">
+        SAVINGS GOAL
+      </span>
 
-    <h2>
-      How long will it take?
-    </h2>
+      <h2>
+        How long will it take?
+      </h2>
 
-    <p>
-      Set a savings goal and we'll work out
-      how long it could take to reach it.
-    </p>
-
-  </div>
-
-
-  <div class="calculator-card savings-card">
-
-
-    <!-- CURRENT SAVINGS -->
-
-    <div class="form-section">
-
-      <label for="currentSavings">
-        Current savings
-      </label>
-
-      <div class="input-wrapper">
-
-        <span>£</span>
-
-        <input
-          id="currentSavings"
-          type="number"
-          min="0"
-          placeholder="1,000"
-        >
-
-      </div>
+      <p>
+        Set a savings goal and we'll work out
+        how long it could take to reach it.
+      </p>
 
     </div>
 
 
-
-    <!-- GOAL -->
-
-    <div class="form-section">
-
-      <label for="savingsGoal">
-        Savings goal
-      </label>
-
-      <div class="input-wrapper">
-
-        <span>£</span>
-
-        <input
-          id="savingsGoal"
-          type="number"
-          min="0"
-          placeholder="5,000"
-        >
-
-      </div>
-
-    </div>
+    <div class="calculator-card savings-card">
 
 
+      <!-- CURRENT SAVINGS -->
 
-    <!-- MONTHLY SAVING -->
+      <div class="form-section">
 
-    <div class="form-section">
+        <label for="currentSavings">
+          Current savings
+        </label>
 
-      <label for="monthlySaving">
-        How much can you save each month?
-      </label>
+        <div class="input-wrapper">
 
-      <div class="input-wrapper">
+          <span>£</span>
 
-        <span>£</span>
+          <input
+            id="currentSavings"
+            type="number"
+            min="0"
+            placeholder="1,000"
+          >
 
-        <input
-          id="monthlySaving"
-          type="number"
-          min="0"
-          placeholder="250"
-        >
+        </div>
 
       </div>
 
+
+
+      <!-- GOAL -->
+
+      <div class="form-section">
+
+        <label for="savingsGoal">
+          Savings goal
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="savingsGoal"
+            type="number"
+            min="0"
+            placeholder="5,000"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MONTHLY SAVING -->
+
+      <div class="form-section">
+
+        <label for="monthlySaving">
+          How much can you save each month?
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="monthlySaving"
+            type="number"
+            min="0"
+            placeholder="250"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- BUTTON -->
+
+      <button
+        id="savingsCalculateButton"
+        class="calculate-button"
+        type="button"
+      >
+
+        Calculate my goal
+
+        <span>→</span>
+
+      </button>
+
+
+      <button
+        id="savingsResetButton"
+        class="reset-button"
+        type="button"
+      >
+
+        Clear everything
+
+      </button>
+
+
+      <!-- RESULT -->
+
+      <div
+        id="savingsResult"
+        class="result savings-result hidden"
+      ></div>
+
+
     </div>
 
+  </section>
 
 
-    <!-- BUTTON -->
 
-    <button
-      id="savingsCalculateButton"
-      class="calculate-button"
-      type="button"
-    >
+  <!-- MAIN CALCULATOR -->
 
-      Calculate my goal
-
-      <span>→</span>
-
-    </button>
-
-
-    <button
-      id="savingsResetButton"
-      class="reset-button"
-      type="button"
-    >
-
-      Clear everything
-
-    </button>
-
-
-    <!-- RESULT -->
-
-    <div
-      id="savingsResult"
-      class="result savings-result hidden"
-    ></div>
-
-
-  </div>
-
-</section>
   <main id="calculator">
 
     <div class="calculator-card">
@@ -498,10 +509,13 @@
 
 
         <label for="monthlyPayment">
+
           Monthly finance payment
+
           <span class="optional">
             OPTIONAL
           </span>
+
         </label>
 
         <div class="input-wrapper">
@@ -540,19 +554,167 @@
         class="reset-button"
         type="button"
       >
+
         Clear everything
+
       </button>
 
     </div>
 
 
-    <!-- RESULT -->
+
+    <!-- AFFORDABILITY RESULT -->
 
     <div
       id="result"
       class="result hidden"
     ></div>
 
+
+
+    <!-- DEBT PAYOFF CALCULATOR -->
+
+    <section
+      id="debt-calculator"
+      class="debt-section"
+    >
+
+      <div class="savings-heading">
+
+        <span class="step">
+          DEBT PAYOFF
+        </span>
+
+        <h2>
+          How quickly can you become debt-free?
+        </h2>
+
+        <p>
+          Enter your debt and monthly payment to
+          estimate how long it could take to pay it off.
+        </p>
+
+      </div>
+
+
+      <div class="calculator-card">
+
+
+        <!-- DEBT -->
+
+        <div class="form-section">
+
+          <label for="debtBalance">
+            Current debt
+          </label>
+
+          <div class="input-wrapper">
+
+            <span>£</span>
+
+            <input
+              id="debtBalance"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="5,000"
+            >
+
+          </div>
+
+        </div>
+
+
+
+        <!-- APR -->
+
+        <div class="form-section">
+
+          <label for="interestRate">
+            Interest rate (APR)
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              id="interestRate"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="20"
+            >
+
+            <span>%</span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- MONTHLY PAYMENT -->
+
+        <div class="form-section">
+
+          <label for="debtPayment">
+            Monthly payment
+          </label>
+
+          <div class="input-wrapper">
+
+            <span>£</span>
+
+            <input
+              id="debtPayment"
+              type="number"
+              min="0"
+              step="0.01"
+              placeholder="200"
+            >
+
+          </div>
+
+        </div>
+
+
+
+        <!-- BUTTON -->
+
+        <button
+          id="debtCalculateButton"
+          class="calculate-button"
+          type="button"
+        >
+
+          Calculate my payoff
+
+          <span>→</span>
+
+        </button>
+
+
+        <button
+          id="debtResetButton"
+          class="reset-button"
+          type="button"
+        >
+
+          Clear everything
+
+        </button>
+
+
+        <!-- RESULT -->
+
+        <div
+          id="debtResult"
+          class="result hidden"
+        ></div>
+
+
+      </div>
+
+    </section>
 
   </main>
 
@@ -653,8 +815,13 @@
       <div>
 
         <a href="#" class="logo">
-          <span class="logo-icon">£</span>
+
+          <span class="logo-icon">
+            £
+          </span>
+
           MoneyCheck
+
         </a>
 
         <p>
@@ -697,126 +864,7 @@
 
 
   <script src="script.js"></script>
-<!-- DEBT PAYOFF CALCULATOR -->
 
-<section id="debt-calculator" class="debt-section">
-
-  <div class="savings-heading">
-
-    <span class="step">
-      DEBT PAYOFF
-    </span>
-
-    <h2>
-      How quickly can you become debt-free?
-    </h2>
-
-    <p>
-      Enter your debt and monthly payment to
-      estimate how long it could take to pay it off.
-    </p>
-
-  </div>
-
-
-  <div class="calculator-card">
-
-    <div class="form-section">
-
-      <label for="debtBalance">
-        Current debt
-      </label>
-
-      <div class="input-wrapper">
-
-        <span>£</span>
-
-        <input
-          id="debtBalance"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="5,000"
-        >
-
-      </div>
-
-    </div>
-
-
-    <div class="form-section">
-
-      <label for="interestRate">
-        Interest rate (APR)
-      </label>
-
-      <div class="input-wrapper">
-
-        <input
-          id="interestRate"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="20"
-        >
-
-        <span>%</span>
-
-      </div>
-
-    </div>
-
-
-    <div class="form-section">
-
-      <label for="debtPayment">
-        Monthly payment
-      </label>
-
-      <div class="input-wrapper">
-
-        <span>£</span>
-
-        <input
-          id="debtPayment"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="200"
-        >
-
-      </div>
-
-    </div>
-
-
-    <button
-      id="debtCalculateButton"
-      class="calculate-button"
-      type="button"
-    >
-      Calculate my payoff
-      <span>→</span>
-    </button>
-
-
-    <button
-      id="debtResetButton"
-      class="reset-button"
-      type="button"
-    >
-      Clear everything
-    </button>
-
-
-    <div
-      id="debtResult"
-      class="result hidden"
-    ></div>
-
-  </div>
-
-</section>
 </body>
 
 </html>
