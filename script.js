@@ -19,110 +19,108 @@ document.addEventListener("DOMContentLoaded", function () {
     calculateButton.addEventListener("click", function () {
 
       // =====================================================
-      // READ INPUTS
+      // READ VALUES
       // =====================================================
 
       const income =
         Number(document.getElementById("income").value) || 0;
 
+      const rentInput =
+        document.getElementById("rent");
+
+      const billsInput =
+        document.getElementById("bills");
+
+      const foodInput =
+        document.getElementById("food");
+
+      const transportInput =
+        document.getElementById("transport");
+
+      const subscriptionsInput =
+        document.getElementById("subscriptions");
+
+      const debtInput =
+        document.getElementById("debt");
+
+      const savingsInput =
+        document.getElementById("savings");
+
+      const emergencyInput =
+        document.getElementById("emergency");
+
+      const purchaseInput =
+        document.getElementById("purchase");
+
+      const monthlyPaymentInput =
+        document.getElementById("monthlyPayment");
+
+
       const rent =
-        Number(document.getElementById("rent").value) || 0;
+        Number(rentInput.value) || 0;
 
       const bills =
-        Number(document.getElementById("bills").value) || 0;
+        Number(billsInput.value) || 0;
 
       const food =
-        Number(document.getElementById("food").value) || 0;
+        Number(foodInput.value) || 0;
 
       const transport =
-        Number(document.getElementById("transport").value) || 0;
+        Number(transportInput.value) || 0;
 
       const subscriptions =
-        Number(document.getElementById("subscriptions").value) || 0;
+        Number(subscriptionsInput.value) || 0;
 
       const debt =
-        Number(document.getElementById("debt").value) || 0;
+        Number(debtInput.value) || 0;
 
       const savings =
-        Number(document.getElementById("savings").value) || 0;
+        Number(savingsInput.value) || 0;
 
       const emergency =
-        Number(document.getElementById("emergency").value) || 0;
+        Number(emergencyInput.value) || 0;
 
       const purchase =
-        Number(document.getElementById("purchase").value) || 0;
+        Number(purchaseInput.value) || 0;
 
       const monthlyPayment =
-        Number(document.getElementById("monthlyPayment").value) || 0;
+        Number(monthlyPaymentInput.value) || 0;
 
 
       // =====================================================
-      // CHECK WHICH INFORMATION HAS BEEN ENTERED
+      // ONLY USE EXPENSES ACTUALLY ENTERED
+      //
+      // Blank fields are NOT treated as confirmed £0 expenses.
+      // They simply aren't included in the assessment.
       // =====================================================
 
       const hasRent =
-        document.getElementById("rent").value !== "";
+        rentInput.value.trim() !== "";
 
       const hasBills =
-        document.getElementById("bills").value !== "";
+        billsInput.value.trim() !== "";
 
       const hasFood =
-        document.getElementById("food").value !== "";
+        foodInput.value.trim() !== "";
 
       const hasTransport =
-        document.getElementById("transport").value !== "";
+        transportInput.value.trim() !== "";
 
       const hasSubscriptions =
-        document.getElementById("subscriptions").value !== "";
+        subscriptionsInput.value.trim() !== "";
 
       const hasDebt =
-        document.getElementById("debt").value !== "";
+        debtInput.value.trim() !== "";
 
       const hasSavings =
-        document.getElementById("savings").value !== "";
+        savingsInput.value.trim() !== "";
 
       const hasEmergency =
-        document.getElementById("emergency").value !== "";
+        emergencyInput.value.trim() !== "";
 
       const hasFinance =
-        document.getElementById("monthlyPayment").value !== "" &&
+        monthlyPaymentInput.value.trim() !== "" &&
         monthlyPayment > 0;
-
-
-      // =====================================================
-      // FIND MISSING EXPENSE INFORMATION
-      // =====================================================
-
-      const missingExpenses = [];
-
-
-      if (!hasRent) {
-        missingExpenses.push("rent");
-      }
-
-      if (!hasBills) {
-        missingExpenses.push("bills");
-      }
-
-      if (!hasFood) {
-        missingExpenses.push("food");
-      }
-
-      if (!hasTransport) {
-        missingExpenses.push("transport");
-      }
-
-      if (!hasSubscriptions) {
-        missingExpenses.push("subscriptions");
-      }
-
-      if (!hasDebt) {
-        missingExpenses.push("debt payments");
-      }
-
-
-      const allMainExpensesEntered =
-        missingExpenses.length === 0;
 
 
       // =====================================================
@@ -163,20 +161,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       // =====================================================
-      // TOTAL MONTHLY EXPENSES
+      // COUNT ONLY EXPENSES THAT WERE ACTUALLY ENTERED
       // =====================================================
 
-      const totalMonthlyExpenses =
-        rent +
-        bills +
-        food +
-        transport +
-        subscriptions +
-        debt;
+      let totalMonthlyExpenses = 0;
+
+      let expenseCount = 0;
+
+
+      if (hasRent) {
+
+        totalMonthlyExpenses += rent;
+        expenseCount++;
+
+      }
+
+      if (hasBills) {
+
+        totalMonthlyExpenses += bills;
+        expenseCount++;
+
+      }
+
+      if (hasFood) {
+
+        totalMonthlyExpenses += food;
+        expenseCount++;
+
+      }
+
+      if (hasTransport) {
+
+        totalMonthlyExpenses += transport;
+        expenseCount++;
+
+      }
+
+      if (hasSubscriptions) {
+
+        totalMonthlyExpenses += subscriptions;
+        expenseCount++;
+
+      }
+
+      if (hasDebt) {
+
+        totalMonthlyExpenses += debt;
+        expenseCount++;
+
+      }
 
 
       // =====================================================
-      // ACTUAL DISPOSABLE INCOME
+      // MONEY LEFT FROM THE INFORMATION PROVIDED
       // =====================================================
 
       const disposableIncome =
@@ -184,31 +221,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       // =====================================================
-      // CORE PERCENTAGES
+      // EXPENSE PERCENTAGE
+      //
+      // This is informational only.
+      // It does NOT automatically make a small purchase
+      // unaffordable.
       // =====================================================
-
-      const housingPercentage =
-        income > 0
-          ? (rent / income) * 100
-          : 0;
-
 
       const expensePercentage =
         income > 0
           ? (totalMonthlyExpenses / income) * 100
-          : 100;
+          : 0;
 
 
-      const purchasePercentage =
-        disposableIncome > 0
-          ? (purchase / disposableIncome) * 100
-          : 100;
+      // =====================================================
+      // HOUSING PERCENTAGE
+      // =====================================================
+
+      const housingPercentage =
+        income > 0 && hasRent
+          ? (rent / income) * 100
+          : null;
 
 
-      const purchaseIncomePercentage =
-        income > 0
-          ? (purchase / income) * 100
-          : 100;
+      // =====================================================
+      // PURCHASE IMPACT
+      //
+      // This is one of the most important parts of the
+      // new system.
+      //
+      // The question is:
+      //
+      // "How significant is this purchase compared with
+      // the money this person actually has left?"
+      // =====================================================
+
+      let purchasePercentage = 100;
+
+
+      if (disposableIncome > 0) {
+
+        purchasePercentage =
+          (purchase / disposableIncome) * 100;
+
+      }
 
 
       // =====================================================
@@ -220,21 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       // =====================================================
-      // FINANCE CALCULATIONS
-      // =====================================================
-
-      const moneyAfterFinance =
-        disposableIncome - monthlyPayment;
-
-
-      const financePercentage =
-        disposableIncome > 0
-          ? (monthlyPayment / disposableIncome) * 100
-          : 100;
-
-
-      // =====================================================
-      // SAVINGS / EMERGENCY FUND ANALYSIS
+      // SAVINGS CHECK
       // =====================================================
 
       let savingsAfterPurchase = null;
@@ -242,8 +284,6 @@ document.addEventListener("DOMContentLoaded", function () {
       let savingsInsufficient = false;
 
       let emergencyFundBroken = false;
-
-      let emergencyFundMonths = null;
 
 
       if (hasSavings) {
@@ -268,16 +308,130 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+      }
 
-        /*
-         * If the user has entered an emergency-fund target,
-         * estimate how many months of that target their
-         * remaining savings would represent.
-         */
-        if (emergency > 0) {
 
-          emergencyFundMonths =
-            savingsAfterPurchase / emergency;
+      // =====================================================
+      // FINANCE CALCULATIONS
+      // =====================================================
+
+      const moneyAfterFinance =
+        disposableIncome - monthlyPayment;
+
+
+      const financePercentage =
+        disposableIncome > 0
+          ? (monthlyPayment / disposableIncome) * 100
+          : 100;
+
+
+      // =====================================================
+      // COMMON-SENSE AFFORDABILITY SCORE
+      //
+      // This is deliberately NOT a simple "100 minus
+      // deductions" system.
+      //
+      // The score starts with the person's actual cashflow
+      // and then considers how significant the purchase is.
+      //
+      // Blank fields have ZERO effect on the score.
+      // =====================================================
+
+      let score = 100;
+
+
+      // =====================================================
+      // 1. NEGATIVE CASHFLOW
+      //
+      // If entered expenses already exceed income, the
+      // purchase is not affordable from the information
+      // provided.
+      // =====================================================
+
+      if (disposableIncome < 0) {
+
+        score = 10;
+
+      }
+
+      else if (disposableIncome === 0) {
+
+        score = 15;
+
+      }
+
+      else {
+
+        // ===================================================
+        // 2. HOW MUCH OF AVAILABLE MONEY DOES THE PURCHASE USE?
+        //
+        // Small purchases receive very little penalty.
+        // Larger purchases become increasingly significant.
+        // ===================================================
+
+        if (purchasePercentage <= 5) {
+
+          score -= 0;
+
+        }
+
+        else if (purchasePercentage <= 10) {
+
+          score -= 2;
+
+        }
+
+        else if (purchasePercentage <= 15) {
+
+          score -= 5;
+
+        }
+
+        else if (purchasePercentage <= 20) {
+
+          score -= 10;
+
+        }
+
+        else if (purchasePercentage <= 30) {
+
+          score -= 17;
+
+        }
+
+        else if (purchasePercentage <= 40) {
+
+          score -= 25;
+
+        }
+
+        else if (purchasePercentage <= 50) {
+
+          score -= 35;
+
+        }
+
+        else if (purchasePercentage <= 65) {
+
+          score -= 48;
+
+        }
+
+        else if (purchasePercentage <= 80) {
+
+          score -= 60;
+
+        }
+
+        else if (purchasePercentage <= 100) {
+
+          score -= 72;
+
+        }
+
+        else {
+
+          score -= 85;
 
         }
 
@@ -285,278 +439,157 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       // =====================================================
-      // NEW AFFORDABILITY ASSESSMENT
+      // 3. VERY TIGHT MONTHLY CASHFLOW
       //
-      // Rather than relying entirely on a score, MoneyCheck
-      // identifies the strongest financial signals and uses
-      // those signals to shape the recommendation.
+      // This matters because even a purchase that technically
+      // fits can be risky when almost nothing is left.
+      //
+      // It is deliberately a smaller adjustment than before.
       // =====================================================
-
-      let deductions = 0;
-
-
-      // -----------------------------------------------------
-      // CASHFLOW PRESSURE
-      // -----------------------------------------------------
-
-      if (disposableIncome <= 0) {
-
-        deductions += 70;
-
-      }
-
-      else if (disposableIncome < income * 0.05) {
-
-        deductions += 55;
-
-      }
-
-      else if (disposableIncome < income * 0.10) {
-
-        deductions += 40;
-
-      }
-
-      else if (disposableIncome < income * 0.20) {
-
-        deductions += 25;
-
-      }
-
-      else if (disposableIncome < income * 0.30) {
-
-        deductions += 10;
-
-      }
-
-
-      // -----------------------------------------------------
-      // PURCHASE SIZE
-      // -----------------------------------------------------
 
       if (disposableIncome > 0) {
 
-        if (purchasePercentage > 100) {
+        const remainingIncomePercentage =
+          (disposableIncome / income) * 100;
 
-          deductions += 45;
 
-        }
+        if (remainingIncomePercentage < 5) {
 
-        else if (purchasePercentage > 75) {
-
-          deductions += 35;
+          score -= 18;
 
         }
 
-        else if (purchasePercentage > 50) {
+        else if (remainingIncomePercentage < 10) {
 
-          deductions += 25;
-
-        }
-
-        else if (purchasePercentage > 35) {
-
-          deductions += 18;
+          score -= 12;
 
         }
 
-        else if (purchasePercentage > 25) {
+        else if (remainingIncomePercentage < 15) {
 
-          deductions += 12;
+          score -= 7;
 
         }
 
-        else if (purchasePercentage > 15) {
+        else if (remainingIncomePercentage < 20) {
 
-          deductions += 6;
+          score -= 3;
 
         }
 
       }
 
 
-      // -----------------------------------------------------
-      // TOTAL EXPENSE BURDEN
-      // -----------------------------------------------------
+      // =====================================================
+      // 4. SAVINGS
+      //
+      // Savings only meaningfully affects the score when
+      // the purchase would actually use a significant amount
+      // of available savings.
+      //
+      // A £20 or £50 purchase shouldn't suddenly become
+      // "unaffordable" just because savings weren't entered.
+      // =====================================================
 
-      if (expensePercentage > 95) {
+      if (hasSavings && savings > 0) {
 
-        deductions += 25;
-
-      }
-
-      else if (expensePercentage > 85) {
-
-        deductions += 18;
-
-      }
-
-      else if (expensePercentage > 75) {
-
-        deductions += 10;
-
-      }
+        const purchaseToSavings =
+          (purchase / savings) * 100;
 
 
-      // -----------------------------------------------------
-      // HOUSING
-      // -----------------------------------------------------
+        if (purchaseToSavings > 100) {
 
-      if (housingPercentage > 50) {
+          score -= 10;
 
-        deductions += 15;
+        }
 
-      }
+        else if (purchaseToSavings > 75) {
 
-      else if (housingPercentage > 40) {
+          score -= 7;
 
-        deductions += 10;
+        }
 
-      }
+        else if (purchaseToSavings > 50) {
 
-      else if (housingPercentage > 35) {
+          score -= 4;
 
-        deductions += 5;
+        }
+
+        else if (purchaseToSavings > 25) {
+
+          score -= 2;
+
+        }
 
       }
 
 
-      // -----------------------------------------------------
-      // SAVINGS
-      // -----------------------------------------------------
-
-      if (savingsInsufficient) {
-
-        deductions += 15;
-
-      }
-
+      // =====================================================
+      // 5. EMERGENCY FUND
+      //
+      // This is a meaningful warning rather than a giant
+      // automatic penalty.
+      // =====================================================
 
       if (emergencyFundBroken) {
 
-        deductions += 15;
+        score -= 12;
 
       }
 
 
-      // -----------------------------------------------------
-      // FINANCE
-      // -----------------------------------------------------
+      // =====================================================
+      // 6. FINANCE
+      //
+      // Financing is judged by the ongoing monthly payment,
+      // not simply by the purchase price.
+      // =====================================================
 
-      if (hasFinance) {
+      if (hasFinance && disposableIncome > 0) {
 
         if (moneyAfterFinance <= 0) {
 
-          deductions += 30;
+          score -= 25;
 
         }
 
         else if (financePercentage > 30) {
 
-          deductions += 20;
+          score -= 18;
 
         }
 
         else if (financePercentage > 20) {
 
-          deductions += 12;
+          score -= 10;
 
         }
 
         else if (financePercentage > 10) {
 
-          deductions += 5;
+          score -= 4;
 
         }
 
       }
 
 
-      // -----------------------------------------------------
-      // MISSING INFORMATION
-      // -----------------------------------------------------
-
-      deductions +=
-        missingExpenses.length * 8;
-
-
-      // -----------------------------------------------------
+      // =====================================================
       // FINAL SCORE
-      // -----------------------------------------------------
+      // =====================================================
 
-      const score =
+      score =
         Math.max(
           5,
           Math.min(
             100,
-            Math.round(100 - deductions)
+            Math.round(score)
           )
         );
 
 
       // =====================================================
-      // SITUATION FLAGS
-      //
-      // These flags are what make the advice more personal.
-      // =====================================================
-
-      const cashflowTight =
-        disposableIncome > 0 &&
-        disposableIncome < income * 0.10;
-
-
-      const cashflowComfortable =
-        disposableIncome >= income * 0.30;
-
-
-      const expensesVeryHigh =
-        expensePercentage >= 90;
-
-
-      const expensesHigh =
-        expensePercentage >= 75 &&
-        expensePercentage < 90;
-
-
-      const purchaseVeryLarge =
-        disposableIncome > 0 &&
-        purchasePercentage > 75;
-
-
-      const purchaseLarge =
-        disposableIncome > 0 &&
-        purchasePercentage > 50 &&
-        purchasePercentage <= 75;
-
-
-      const purchaseMeaningful =
-        disposableIncome > 0 &&
-        purchasePercentage > 25 &&
-        purchasePercentage <= 50;
-
-
-      const housingHigh =
-        housingPercentage > 35;
-
-
-      const housingVeryHigh =
-        housingPercentage > 50;
-
-
-      const financeHeavy =
-        hasFinance &&
-        disposableIncome > 0 &&
-        financePercentage > 20;
-
-
-      const financeVeryHeavy =
-        hasFinance &&
-        disposableIncome > 0 &&
-        financePercentage > 30;
-
-
-      // =====================================================
-      // MAIN RESULT
+      // RESULT CATEGORY
       // =====================================================
 
       let title;
@@ -567,10 +600,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       // =====================================================
-      // PRIORITY 1 — NEGATIVE CASHFLOW
+      // NEGATIVE CASHFLOW
       // =====================================================
 
-      if (disposableIncome <= 0) {
+      if (disposableIncome < 0) {
 
         title =
           "I wouldn't buy it right now";
@@ -579,190 +612,70 @@ document.addEventListener("DOMContentLoaded", function () {
           "bad";
 
         advice = `
-          Your normal monthly expenses are currently using
-          all of your take-home income or more.
+          Based on the expenses you've entered, you're
+          already spending more than your monthly
+          take-home income.
 
-          That means there isn't a reliable amount left over
-          for this purchase without creating additional
-          financial pressure.
-
-          <strong>
-            I'd deal with the monthly cash-flow problem first,
-            then come back to the purchase.
-          </strong>
+          I'd avoid adding this purchase until your
+          monthly budget is back into positive territory.
         `;
 
       }
 
 
       // =====================================================
-      // PRIORITY 2 — PURCHASE DOESN'T FIT THIS MONTH
+      // NO MONEY LEFT
       // =====================================================
 
-      else if (moneyAfterPurchase < 0) {
+      else if (disposableIncome === 0) {
 
         title =
-          "I'd save for it first";
+          "I'd wait and plan for it";
 
         colour =
           "bad";
 
         advice = `
-          Your normal monthly costs leave you with
-          <strong>
-            £${disposableIncome.toFixed(2)}
-          </strong>,
-          but the purchase costs
-          <strong>
-            £${purchase.toFixed(2)}
-          </strong>.
+          The expenses you've entered currently use all
+          of your monthly income.
 
-          You'd therefore be approximately
-          <strong>
-            £${Math.abs(moneyAfterPurchase).toFixed(2)}
-          </strong>
-          short after paying your usual expenses.
-
-          <strong>
-            I'd save toward the purchase rather than
-            stretching your budget or relying on credit.
-          </strong>
+          Even though the purchase may be small, there
+          isn't any money left in the budget you've provided
+          to comfortably absorb it.
         `;
 
       }
 
 
       // =====================================================
-      // PRIORITY 3 — EMERGENCY FUND WOULD BE BROKEN
+      // PURCHASE DOESN'T FIT
+      // =====================================================
+
+      else if (moneyAfterPurchase < 0) {
+
+        title =
+          "I'd wait and save for it";
+
+        colour =
+          "bad";
+
+        advice = `
+          Based on the expenses you've entered, you don't
+          currently have enough money left in this month's
+          budget to buy this outright.
+
+          I'd save toward the purchase rather than relying
+          on debt simply to make it possible.
+        `;
+
+      }
+
+
+      // =====================================================
+      // EMERGENCY FUND WOULD BE BROKEN
       // =====================================================
 
       else if (emergencyFundBroken) {
-
-        title =
-          "Your budget can handle it, but I'd protect your buffer";
-
-        colour =
-          "warning";
-
-        advice = `
-          Your monthly cash flow can technically handle the
-          purchase, but there's another issue I'd pay attention
-          to.
-
-          Paying for it from your savings would leave you below
-          the emergency-fund target you entered.
-
-          <strong>
-            I'd wait if the purchase isn't necessary and keep
-            that emergency buffer intact.
-          </strong>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PRIORITY 4 — SAVINGS WOULD BE EXHAUSTED
-      // =====================================================
-
-      else if (savingsInsufficient) {
-
-        title =
-          "I'd think twice before using your savings";
-
-        colour =
-          "warning";
-
-        advice = `
-          Your monthly budget appears able to absorb the
-          purchase, but your current savings aren't large
-          enough to cover it outright.
-
-          That means the purchase could leave you dependent
-          on future income or credit if something unexpected
-          happens.
-
-          <strong>
-            I'd build the cash buffer first unless the purchase
-            is genuinely necessary.
-          </strong>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PRIORITY 5 — VERY TIGHT CASHFLOW
-      // =====================================================
-
-      else if (cashflowTight) {
-
-        title =
-          "I'd wait and give yourself more breathing room";
-
-        colour =
-          "warning";
-
-        advice = `
-          You technically have enough money left after your
-          normal expenses, but your monthly breathing room is
-          quite small.
-
-          After this purchase you'd have approximately
-          <strong>
-            £${moneyAfterPurchase.toFixed(2)}
-          </strong>
-          left.
-
-          That's not much room for an unexpected bill,
-          irregular expense or change in circumstances.
-
-          <strong>
-            I'd prefer to see a larger buffer before making
-            the purchase.
-          </strong>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PRIORITY 6 — HEAVY FINANCE COMMITMENT
-      // =====================================================
-
-      else if (financeVeryHeavy) {
-
-        title =
-          "I'd be very cautious with the finance option";
-
-        colour =
-          "warning";
-
-        advice = `
-          The purchase itself may fit within your current
-          monthly budget, but the proposed finance payment
-          would consume about
-          <strong>
-            ${financePercentage.toFixed(0)}%
-          </strong>
-          of your disposable income.
-
-          That's a substantial ongoing commitment.
-
-          <strong>
-            I'd avoid taking on that payment unless you have
-            plenty of room for unexpected costs as well.
-          </strong>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PRIORITY 7 — HIGH EXPENSE BURDEN
-      // =====================================================
-
-      else if (expensesVeryHigh) {
 
         title =
           "I'd be cautious";
@@ -771,136 +684,46 @@ document.addEventListener("DOMContentLoaded", function () {
           "warning";
 
         advice = `
-          The purchase is possible based on the numbers
-          you've entered, but your normal monthly expenses
-          already use about
-          <strong>
-            ${expensePercentage.toFixed(0)}%
-          </strong>
-          of your income.
+          You appear able to cover the purchase from your
+          monthly budget, but paying for it from savings
+          would take your emergency fund below the target
+          you've entered.
 
-          That leaves relatively little flexibility.
-
-          <strong>
-            I'd treat your remaining money as a buffer rather
-            than assuming it's all available to spend.
-          </strong>
+          Unless the purchase is necessary, I'd consider
+          waiting until that buffer is stronger.
         `;
 
       }
 
 
       // =====================================================
-      // PRIORITY 8 — LARGE PURCHASE
+      // SCORE 85+
       // =====================================================
 
-      else if (purchaseVeryLarge) {
+      else if (score >= 85) {
 
         title =
-          "It's possible, but this is a big purchase for your budget";
-
-        colour =
-          "warning";
-
-        advice = `
-          You can cover the purchase from this month's
-          disposable income, but it would use about
-          <strong>
-            ${purchasePercentage.toFixed(0)}%
-          </strong>
-          of the money you normally have left after expenses.
-
-          That's a substantial amount of your available
-          breathing room.
-
-          <strong>
-            I'd consider saving for it over a few months
-            rather than using such a large portion of your
-            available cash at once.
-          </strong>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PRIORITY 9 — MEANINGFUL PURCHASE
-      // =====================================================
-
-      else if (purchaseLarge) {
-
-        title =
-          "Probably manageable, but don't rush it";
+          "Looks affordable";
 
         colour =
           "good";
 
         advice = `
-          You appear able to afford the purchase from your
-          current monthly cash flow.
+          Based on the information you've provided, this
+          purchase looks comfortably manageable.
 
-          However, it would use about
-          <strong>
-            ${purchasePercentage.toFixed(0)}%
-          </strong>
-          of your disposable income, so it isn't a trivial
-          purchase relative to your budget.
-
-          <strong>
-            If you can make the purchase while keeping a
-            comfortable cash buffer, it looks reasonable.
-          </strong>
+          It uses a relatively small amount of the money
+          you have left after the expenses you've entered.
         `;
 
       }
 
 
       // =====================================================
-      // PRIORITY 10 — STRONG POSITION
+      // SCORE 70–84
       // =====================================================
 
-      else if (
-        score >= 80 &&
-        cashflowComfortable &&
-        !housingVeryHigh &&
-        !financeHeavy
-      ) {
-
-        title =
-          "Looks comfortably affordable";
-
-        colour =
-          "good";
-
-        advice = `
-          Your numbers show a relatively healthy position.
-
-          After your listed monthly expenses, you have
-          approximately
-          <strong>
-            £${disposableIncome.toFixed(2)}
-          </strong>
-          left, and this purchase would use only about
-          <strong>
-            ${purchasePercentage.toFixed(0)}%
-          </strong>
-          of that amount.
-
-          <strong>
-            Based on the information you've entered, this
-            looks like a purchase your budget can comfortably
-            absorb.
-          </strong>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PRIORITY 11 — DEFAULT
-      // =====================================================
-
-      else if (score >= 65) {
+      else if (score >= 70) {
 
         title =
           "Probably manageable";
@@ -909,109 +732,117 @@ document.addEventListener("DOMContentLoaded", function () {
           "good";
 
         advice = `
-          Your current budget appears able to handle the
-          purchase.
+          You appear to have enough room in your budget
+          for this purchase.
 
-          You'd have approximately
-          <strong>
-            £${moneyAfterPurchase.toFixed(2)}
-          </strong>
-          left after your listed expenses and the purchase.
-
-          <strong>
-            I'd just make sure that remaining money isn't
-            already needed for upcoming or irregular costs.
-          </strong>
+          It isn't likely to put major pressure on your
+          finances based on the information you've entered,
+          although I'd still leave yourself some room for
+          unexpected costs.
         `;
 
       }
 
 
-      else {
+      // =====================================================
+      // SCORE 50–69
+      // =====================================================
+
+      else if (score >= 50) {
 
         title =
-          "I'd wait and plan for it";
+          "I'd think twice";
 
         colour =
           "warning";
 
         advice = `
-          The purchase isn't necessarily impossible, but the
-          numbers suggest it would put more pressure on your
-          budget than I'd be comfortable with.
+          You can potentially afford this purchase, but
+          it would take a noticeable amount of the money
+          you have available.
 
-          <strong>
-            I'd consider waiting, saving more first, or
-            choosing a cheaper option.
-          </strong>
+          I'd consider whether you have upcoming expenses
+          or unexpected costs that could make your budget
+          tighter after buying it.
         `;
 
       }
 
 
       // =====================================================
-      // BUDGET ADVICE
+      // SCORE BELOW 50
+      // =====================================================
+
+      else {
+
+        title =
+          "I'd be cautious";
+
+        colour =
+          "bad";
+
+        advice = `
+          This purchase would take a significant amount
+          of the money you currently have available.
+
+          I'd consider waiting, saving more first, or
+          looking for a cheaper option so you keep some
+          breathing room in your budget.
+        `;
+
+      }
+
+
+      // =====================================================
+      // BUDGET INFORMATION
       // =====================================================
 
       let budgetAdvice = "";
 
 
-      if (expensesVeryHigh) {
+      if (expenseCount === 0) {
 
         budgetAdvice = `
           <p class="warning">
-            ⚠️ Your listed expenses use about
-            <strong>
-              ${expensePercentage.toFixed(0)}%
-            </strong>
-            of your monthly income.
+            ⚠️ You haven't entered any monthly expenses yet.
 
-            That leaves approximately
-            <strong>
-              £${disposableIncome.toFixed(2)}
-            </strong>
-            before this purchase.
-
-            Your remaining money is therefore an important
-            safety buffer, not necessarily spare spending
-            money.
+            The calculation is therefore based only on your
+            income and purchase price. Add any regular costs
+            you have for a more useful result.
           </p>
         `;
 
       }
 
-      else if (expensesHigh) {
+      else if (expensePercentage >= 90) {
 
         budgetAdvice = `
           <p class="warning">
-            Your listed expenses use about
+            Your entered expenses use about
             <strong>
               ${expensePercentage.toFixed(0)}%
             </strong>
             of your monthly income.
 
-            You have some breathing room, but I'd avoid
-            treating all of it as disposable spending money.
+            That leaves a relatively small amount of
+            breathing room based on the costs you've provided.
           </p>
         `;
 
       }
 
-      else if (cashflowComfortable) {
+      else if (expensePercentage >= 75) {
 
         budgetAdvice = `
-          <p class="good">
-            ✓ Your listed expenses use about
+          <p class="warning">
+            Your entered expenses use about
             <strong>
               ${expensePercentage.toFixed(0)}%
             </strong>
             of your monthly income.
 
-            That leaves approximately
-            <strong>
-              £${disposableIncome.toFixed(2)}
-            </strong>
-            before this purchase.
+            You have some money left, but I'd avoid treating
+            all of it as completely spare.
           </p>
         `;
 
@@ -1020,8 +851,8 @@ document.addEventListener("DOMContentLoaded", function () {
       else {
 
         budgetAdvice = `
-          <p>
-            Your listed expenses use about
+          <p class="good">
+            ✓ Your entered expenses use about
             <strong>
               ${expensePercentage.toFixed(0)}%
             </strong>
@@ -1031,7 +862,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <strong>
               £${disposableIncome.toFixed(2)}
             </strong>
-            before this purchase.
+            based on the expenses you've provided.
           </p>
         `;
 
@@ -1048,22 +879,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!hasRent) {
 
         housingAdvice = `
-          <p class="warning">
-            ⚠️ You haven't entered your housing cost.
-
-            Because housing is often one of the largest
-            monthly expenses, this makes the affordability
-            result less reliable.
-
-            <strong>
-              Add it before relying heavily on this result.
-            </strong>
+          <p>
+            Housing costs haven't been included because
+            you left the rent field blank.
           </p>
         `;
 
       }
 
-      else if (housingVeryHigh) {
+      else if (housingPercentage > 50) {
 
         housingAdvice = `
           <p class="warning">
@@ -1073,30 +897,27 @@ document.addEventListener("DOMContentLoaded", function () {
             </strong>
             of your take-home income.
 
-            That's a very large housing commitment.
-
-            <strong>
-              I'd be particularly careful about adding
-              another significant monthly commitment.
-            </strong>
+            That's a significant housing cost, so keeping
+            other spending under control is particularly
+            important.
           </p>
         `;
 
       }
 
-      else if (housingHigh) {
+      else if (housingPercentage > 35) {
 
         housingAdvice = `
-          <p class="warning">
+          <p>
             Your rent is about
             <strong>
               ${housingPercentage.toFixed(0)}%
             </strong>
             of your take-home income.
 
-            Housing is taking a meaningful share of your
-            income, so keeping the rest of your spending
-            flexible is particularly important.
+            Housing takes a meaningful share of your income,
+            so keeping some room in the rest of your budget
+            is useful.
           </p>
         `;
 
@@ -1111,10 +932,6 @@ document.addEventListener("DOMContentLoaded", function () {
               ${housingPercentage.toFixed(0)}%
             </strong>
             of your take-home income.
-
-            Housing doesn't appear to be creating an
-            unusually high share of your monthly income
-            based on the information entered.
           </p>
         `;
 
@@ -1131,17 +948,13 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!hasSavings) {
 
         savingsAdvice = `
-          <p class="warning">
-            💡 You haven't entered your savings.
+          <p>
+            Savings haven't been included because you left
+            that field blank.
 
-            That means MoneyCheck can't tell whether this
-            purchase would leave you with a comfortable
-            cash buffer.
-
-            <strong>
-              For a significant purchase, I'd check your
-              savings position before going ahead.
-            </strong>
+            For a larger purchase, it's worth checking that
+            you would still have a reasonable cash buffer
+            afterwards.
           </p>
         `;
 
@@ -1150,18 +963,13 @@ document.addEventListener("DOMContentLoaded", function () {
       else if (savingsInsufficient) {
 
         savingsAdvice = `
-          <p class="bad">
-            ⚠️ Your current savings wouldn't fully cover
-            this purchase.
+          <p class="warning">
+            Your current savings wouldn't fully cover this
+            purchase.
 
-            Your monthly income may be able to handle it,
-            but you don't currently have enough saved to
-            pay for it outright.
-
-            <strong>
-              Saving first would give you more financial
-              resilience.
-            </strong>
+            That's not necessarily a problem if you're paying
+            from your monthly budget, but I'd avoid emptying
+            your savings just to make the purchase.
           </p>
         `;
 
@@ -1171,32 +979,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         savingsAdvice = `
           <p class="warning">
-            ⚠️ Your savings can cover the purchase, but
-            doing so would take you below your emergency
-            fund target.
+            You could pay for the purchase from savings,
+            but doing so would take your savings below your
+            emergency-fund target.
 
-            <strong>
-              I'd protect that emergency buffer unless
-              the purchase is genuinely necessary.
-            </strong>
-          </p>
-        `;
-
-      }
-
-      else if (hasEmergency && emergency > 0) {
-
-        savingsAdvice = `
-          <p class="good">
-            ✓ Your savings could cover the purchase while
-            keeping the emergency-fund target you've
-            entered intact.
-
-            After the purchase you'd have approximately
-            <strong>
-              £${savingsAfterPurchase.toFixed(2)}
-            </strong>
-            in savings.
+            I'd consider rebuilding that buffer first.
           </p>
         `;
 
@@ -1207,11 +994,7 @@ document.addEventListener("DOMContentLoaded", function () {
         savingsAdvice = `
           <p class="good">
             ✓ Your entered savings could cover the purchase
-            without your savings becoming negative.
-
-            I'd still keep a separate emergency buffer
-            rather than treating all savings as available
-            spending money.
+            without falling below your emergency-fund target.
           </p>
         `;
 
@@ -1232,19 +1015,16 @@ document.addEventListener("DOMContentLoaded", function () {
           financeAdvice = `
             <p class="bad">
               ⚠️ The proposed finance payment would use
-              essentially all of your current disposable
-              income.
+              essentially all of the money you've currently
+              got left each month.
 
-              <strong>
-                I would not consider that a comfortable
-                level of affordability.
-              </strong>
+              I wouldn't consider that comfortable.
             </p>
           `;
 
         }
 
-        else if (financeVeryHeavy) {
+        else if (financePercentage > 20) {
 
           financeAdvice = `
             <p class="warning">
@@ -1256,31 +1036,24 @@ document.addEventListener("DOMContentLoaded", function () {
               of your current disposable income.
 
               That's a significant ongoing commitment.
-
-              <strong>
-                Remember that a finance payment doesn't
-                just affect this month — it reduces your
-                flexibility in future months too.
-              </strong>
             </p>
           `;
 
         }
 
-        else if (financeHeavy) {
+        else if (financePercentage > 10) {
 
           financeAdvice = `
             <p class="warning">
-              ⚠️ The proposed finance payment would use
+              The proposed finance payment would use
               about
               <strong>
                 ${financePercentage.toFixed(0)}%
               </strong>
               of your current disposable income.
 
-              That's a meaningful monthly commitment,
-              so I'd make sure you could still handle
-              unexpected expenses comfortably.
+              Make sure that payment still feels comfortable
+              after allowing for unexpected costs.
             </p>
           `;
 
@@ -1296,14 +1069,103 @@ document.addEventListener("DOMContentLoaded", function () {
                 ${financePercentage.toFixed(0)}%
               </strong>
               of your current disposable income.
-
-              Based on the figures entered, the payment
-              doesn't appear to consume an unusually large
-              share of your available monthly cash flow.
             </p>
           `;
 
         }
+
+      }
+
+
+      // =====================================================
+      // INFORMATION MESSAGE
+      //
+      // IMPORTANT:
+      // This does NOT affect the score.
+      // =====================================================
+
+      const missingExpenses = [];
+
+
+      if (!hasRent) {
+        missingExpenses.push("rent");
+      }
+
+      if (!hasBills) {
+        missingExpenses.push("bills");
+      }
+
+      if (!hasFood) {
+        missingExpenses.push("food");
+      }
+
+      if (!hasTransport) {
+        missingExpenses.push("transport");
+      }
+
+      if (!hasSubscriptions) {
+        missingExpenses.push("subscriptions");
+      }
+
+      if (!hasDebt) {
+        missingExpenses.push("debt payments");
+      }
+
+
+      let dataMessage = "";
+
+
+      if (missingExpenses.length > 0) {
+
+        dataMessage = `
+          <div class="info-box">
+
+            <strong>
+              ℹ️ Based on the information you've entered
+            </strong>
+
+            <p>
+              The calculator has only used the expenses
+              you provided. It has <strong>not</strong>
+              assumed that blank fields are £0 spending.
+            </p>
+
+            <p>
+              You left these expense categories blank:
+            </p>
+
+            <p>
+              <strong>
+                ${missingExpenses.join(", ")}
+              </strong>
+            </p>
+
+            <p>
+              If you have costs in these areas, adding them
+              will give you a more complete picture.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else {
+
+        dataMessage = `
+          <div class="info-box good-box">
+
+            <strong>
+              ✓ All main expense categories included
+            </strong>
+
+            <p>
+              Your calculation includes rent, bills, food,
+              transport, subscriptions and debt payments.
+            </p>
+
+          </div>
+        `;
 
       }
 
@@ -1319,428 +1181,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         purchaseAdvice = `
           <p class="bad">
-            ⚠️ After your normal monthly expenses, you would
-            be approximately
+            ⚠️ Based on the expenses you've entered, buying
+            this outright would leave you approximately
             <strong>
               £${Math.abs(moneyAfterPurchase).toFixed(2)}
             </strong>
-            short if you bought this outright this month.
-
-            I'd save toward the purchase rather than
-            stretching your budget.
+            short this month.
           </p>
         `;
 
       }
 
-      else if (purchaseVeryLarge) {
-
-        purchaseAdvice = `
-          <p class="warning">
-            This purchase would use about
-            <strong>
-              ${purchasePercentage.toFixed(0)}%
-            </strong>
-            of the money you normally have left after
-            your monthly expenses.
-
-            That's a large hit to your available cash flow.
-
-            After buying it, you'd have approximately
-            <strong>
-              £${moneyAfterPurchase.toFixed(2)}
-            </strong>
-            left.
-          </p>
-        `;
-
-      }
-
-      else if (purchaseMeaningful || purchaseLarge) {
+      else {
 
         purchaseAdvice = `
           <p>
-            This purchase would use about
-            <strong>
-              ${purchasePercentage.toFixed(0)}%
-            </strong>
-            of your disposable monthly income.
-
-            After buying it, you'd have approximately
+            After your entered expenses and this purchase,
+            you'd have approximately
             <strong>
               £${moneyAfterPurchase.toFixed(2)}
             </strong>
             left.
           </p>
-        `;
-
-      }
-
-      else {
-
-        purchaseAdvice = `
-          <p class="good">
-            ✓ The purchase represents about
-            <strong>
-              ${purchasePercentage.toFixed(0)}%
-            </strong>
-            of your disposable monthly income.
-
-            You'd have approximately
-            <strong>
-              £${moneyAfterPurchase.toFixed(2)}
-            </strong>
-            left after the purchase and your listed
-            monthly expenses.
-          </p>
-        `;
-
-      }
-
-
-      // =====================================================
-      // INFORMATION MESSAGE
-      // =====================================================
-
-      let dataMessage = "";
-
-
-      if (!allMainExpensesEntered) {
-
-        const missingExpenseText =
-          missingExpenses.join(", ");
-
-
-        dataMessage = `
-          <div class="info-box">
-
-            <strong>
-              ⚠️ This result is based on incomplete
-              expense information
-            </strong>
-
-            <p>
-              The calculator has included every expense
-              you've entered, but these categories are
-              still blank:
-            </p>
-
-            <p>
-              <strong>
-                ${missingExpenseText}
-              </strong>
-            </p>
-
-            <p>
-              A blank category is not automatically assumed
-              to mean you spend nothing on it.
-
-              <strong>
-                Add those costs for a more reliable
-                affordability assessment.
-              </strong>
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else {
-
-        dataMessage = `
-          <div class="info-box good-box">
-
-            <strong>
-              ✓ Full monthly expenses included
-            </strong>
-
-            <p>
-              This calculation includes your rent, bills,
-              food, transport, subscriptions and debt
-              payments.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-
-      // =====================================================
-      // PERSONAL CONTEXT MESSAGE
-      // =====================================================
-
-      let contextAdvice = "";
-
-
-      if (
-        hasSavings &&
-        hasEmergency &&
-        !emergencyFundBroken &&
-        savingsAfterPurchase >= emergency &&
-        moneyAfterPurchase >= 0
-      ) {
-
-        contextAdvice = `
-          <div class="info-box good-box">
-
-            <strong>
-              🛡️ Your safety buffer matters
-            </strong>
-
-            <p>
-              After the purchase, your entered savings would
-              still be above your emergency-fund target.
-
-              That's an important positive because the
-              purchase isn't relying entirely on your next
-              month's income to keep you financially secure.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (
-        hasSavings &&
-        hasEmergency &&
-        emergencyFundBroken
-      ) {
-
-        contextAdvice = `
-          <div class="info-box">
-
-            <strong>
-              🛡️ The main concern is your safety buffer
-            </strong>
-
-            <p>
-              Your monthly cash flow may technically support
-              the purchase, but using your savings would
-              reduce your emergency cushion below the level
-              you've chosen.
-
-              That's why MoneyCheck is being more cautious
-              about the purchase.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (
-        !hasSavings &&
-        purchasePercentage > 25
-      ) {
-
-        contextAdvice = `
-          <div class="info-box">
-
-            <strong>
-              💡 The missing piece is your cash buffer
-            </strong>
-
-            <p>
-              The monthly budget tells us you can potentially
-              make the purchase, but we don't know how much
-              money you'd have available if an unexpected
-              expense appeared.
-
-              That's particularly important because this
-              purchase represents a meaningful share of your
-              disposable income.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (
-        hasFinance &&
-        financePercentage > 20
-      ) {
-
-        contextAdvice = `
-          <div class="info-box">
-
-            <strong>
-              🔄 The ongoing commitment matters
-            </strong>
-
-            <p>
-              The purchase may fit today, but the finance
-              payment would continue reducing your monthly
-              flexibility.
-
-              That's why the finance option deserves more
-              caution than simply comparing the purchase
-              price with your current savings.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-
-      // =====================================================
-      // NEXT STEP / RECOMMENDATION
-      // =====================================================
-
-      let nextStep = "";
-
-
-      if (disposableIncome <= 0) {
-
-        nextStep = `
-          <div class="info-box">
-
-            <strong>
-              👉 What I'd do next
-            </strong>
-
-            <p>
-              Focus first on creating some positive monthly
-              cash flow.
-
-              Once your normal expenses are comfortably below
-              your income, run the purchase through MoneyCheck
-              again.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (moneyAfterPurchase < 0) {
-
-        const amountToSave =
-          Math.abs(moneyAfterPurchase);
-
-
-        nextStep = `
-          <div class="info-box">
-
-            <strong>
-              👉 What I'd do next
-            </strong>
-
-            <p>
-              You'd need roughly
-              <strong>
-                £${amountToSave.toFixed(2)}
-              </strong>
-              more available money to cover the purchase
-              without going into negative monthly cash flow.
-
-              Saving that amount first would give you a
-              cleaner starting point.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (emergencyFundBroken) {
-
-        const emergencyShortfall =
-          emergency - savingsAfterPurchase;
-
-
-        nextStep = `
-          <div class="info-box">
-
-            <strong>
-              👉 What I'd do next
-            </strong>
-
-            <p>
-              If you want to make the purchase without
-              breaking your emergency-fund target, you'd
-              ideally want about
-              <strong>
-                £${Math.max(emergencyShortfall, 0).toFixed(2)}
-              </strong>
-              more in savings first.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (purchaseVeryLarge) {
-
-        nextStep = `
-          <div class="info-box">
-
-            <strong>
-              👉 What I'd do next
-            </strong>
-
-            <p>
-              If you don't need the purchase immediately,
-              consider spreading the cost over a few months
-              of saving.
-
-              That would let you buy it without taking such
-              a large bite out of one month's available
-              money.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else if (cashflowComfortable) {
-
-        nextStep = `
-          <div class="info-box good-box">
-
-            <strong>
-              👉 What I'd do next
-            </strong>
-
-            <p>
-              If the purchase is planned and your upcoming
-              expenses are already covered, your numbers
-              suggest you have reasonable room for it.
-
-              I'd still keep your emergency savings separate
-              from money you intend to spend.
-            </p>
-
-          </div>
-        `;
-
-      }
-
-      else {
-
-        nextStep = `
-          <div class="info-box">
-
-            <strong>
-              👉 What I'd do next
-            </strong>
-
-            <p>
-              Before buying, check your next few weeks of
-              expected spending and make sure no large
-              irregular bills are about to arrive.
-
-              If everything is covered, the purchase looks
-              more manageable.
-            </p>
-
-          </div>
         `;
 
       }
@@ -1791,7 +1253,20 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="stat">
 
           <span>
-            Total monthly expenses
+            Expenses entered
+          </span>
+
+          <strong>
+            ${expenseCount}
+          </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            Total entered monthly expenses
           </span>
 
           <strong>
@@ -1804,7 +1279,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="stat">
 
           <span>
-            Money left after all listed expenses
+            Money left after entered expenses
           </span>
 
           <strong>
@@ -1830,7 +1305,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="stat">
 
           <span>
-            Purchase vs disposable income
+            Purchase vs available money
           </span>
 
           <strong>
@@ -1839,19 +1314,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 ? purchasePercentage.toFixed(1)
                 : "—"
             }%
-          </strong>
-
-        </div>
-
-
-        <div class="stat">
-
-          <span>
-            Purchase vs monthly income
-          </span>
-
-          <strong>
-            ${purchaseIncomePercentage.toFixed(1)}%
           </strong>
 
         </div>
@@ -1890,21 +1352,17 @@ document.addEventListener("DOMContentLoaded", function () {
         ${financeAdvice}
 
 
-        ${contextAdvice}
-
-
-        ${nextStep}
-
-
         ${dataMessage}
 
 
         <p class="disclaimer">
           This calculator provides an estimate based on
-          the information entered. It is not financial
-          advice. Real affordability can also depend on
-          irregular expenses, upcoming commitments,
-          interest, taxes and individual circumstances.
+          the information entered. Blank expense fields
+          are not included in the calculation. It is not
+          financial advice. Real affordability can also
+          depend on irregular expenses, upcoming
+          commitments, interest, taxes and individual
+          circumstances.
         </p>
 
       `);
