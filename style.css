@@ -384,7 +384,7 @@ input::placeholder {
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
   opacity: 0.5;
-
+}
 
 /* =========================================================
    BUTTONS
