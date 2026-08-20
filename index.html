@@ -697,7 +697,126 @@
 
 
   <script src="script.js"></script>
+<!-- DEBT PAYOFF CALCULATOR -->
 
+<section id="debt-calculator" class="debt-section">
+
+  <div class="savings-heading">
+
+    <span class="step">
+      DEBT PAYOFF
+    </span>
+
+    <h2>
+      How quickly can you become debt-free?
+    </h2>
+
+    <p>
+      Enter your debt and monthly payment to
+      estimate how long it could take to pay it off.
+    </p>
+
+  </div>
+
+
+  <div class="calculator-card">
+
+    <div class="form-section">
+
+      <label for="debtBalance">
+        Current debt
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>£</span>
+
+        <input
+          id="debtBalance"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="5,000"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+      <label for="interestRate">
+        Interest rate (APR)
+      </label>
+
+      <div class="input-wrapper">
+
+        <input
+          id="interestRate"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="20"
+        >
+
+        <span>%</span>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+      <label for="debtPayment">
+        Monthly payment
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>£</span>
+
+        <input
+          id="debtPayment"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="200"
+        >
+
+      </div>
+
+    </div>
+
+
+    <button
+      id="debtCalculateButton"
+      class="calculate-button"
+      type="button"
+    >
+      Calculate my payoff
+      <span>→</span>
+    </button>
+
+
+    <button
+      id="debtResetButton"
+      class="reset-button"
+      type="button"
+    >
+      Clear everything
+    </button>
+
+
+    <div
+      id="debtResult"
+      class="result hidden"
+    ></div>
+
+  </div>
+
+</section>
 </body>
 
 </html>
