@@ -1291,5 +1291,551 @@ const monthsSaved50 =
     });
 
   }
+  // =====================================================
+  // DEBT PAYOFF CALCULATOR
+  // =====================================================
+
+  const debtCalculateButton =
+    document.getElementById("debtCalculateButton");
+
+  const debtResetButton =
+    document.getElementById("debtResetButton");
+
+  const debtResult =
+    document.getElementById("debtResult");
+
+
+  if (debtCalculateButton) {
+
+    debtCalculateButton.addEventListener(
+      "click",
+      function () {
+
+        const balance =
+          Number(
+            document.getElementById("debtBalance").value
+          ) || 0;
+
+        const annualRate =
+          Number(
+            document.getElementById("interestRate").value
+          ) || 0;
+
+        const payment =
+          Number(
+            document.getElementById("debtPayment").value
+          ) || 0;
+
+
+        if (balance <= 0) {
+
+          showDebtResult(`
+
+            <h2 class="warning">
+              Enter your debt balance
+            </h2>
+
+            <p>
+              Enter the amount you currently owe.
+            </p>
+
+          `);
+
+          return;
+        }
+
+
+        if (payment <= 0) {
+
+          showDebtResult(`
+
+            <h2 class="warning">
+              Enter your monthly payment
+            </h2>
+
+            <p>
+              Tell us how much you can pay toward
+              the debt each month.
+            </p>
+
+          `);
+
+          return;
+        }
+
+
+        const monthlyRate =
+          annualRate / 100 / 12;
+
+
+        if (
+          monthlyRate > 0 &&
+          payment <= balance * monthlyRate
+        ) {
+
+          showDebtResult(`
+
+            <h2 class="bad">
+              This payment may not pay off the debt
+            </h2>
+
+            <p>
+              At an APR of
+              <strong>
+                ${annualRate.toFixed(2)}%
+              </strong>,
+              your first month's interest is approximately
+              <strong>
+                £${(balance * monthlyRate).toFixed(2)}
+              </strong>.
+            </p>
+
+            <div class="info-box">
+
+              <strong>
+                ⚠️ Important
+              </strong>
+
+              <p>
+                Your monthly payment needs to be greater
+                than the interest being added each month
+                if you want the balance to decrease.
+              </p>
+
+            </div>
+
+          `);
+
+          return;
+        }
+
+
+        let remaining = balance;
+
+        let totalInterest = 0;
+
+        let months = 0;
+
+        const maxMonths = 1200;
+
+
+        while (
+          remaining > 0.01 &&
+          months < maxMonths
+        ) {
+
+          const interest =
+            remaining * monthlyRate;
+
+          const principal =
+            payment - interest;
+
+
+          if (principal <= 0) {
+            break;
+          }
+
+
+          totalInterest += interest;
+
+          remaining -= principal;
+
+          months++;
+
+        }
+
+
+        if (
+          months >= maxMonths ||
+          remaining > 0.01
+        ) {
+
+          showDebtResult(`
+
+            <h2 class="warning">
+              This debt may take a very long time
+              to repay
+            </h2>
+
+            <p>
+              Try increasing your monthly payment
+              and calculate again.
+            </p>
+
+          `);
+
+          return;
+        }
+
+
+        const totalPaid =
+          balance + totalInterest;
+
+
+        const payoffDate =
+          new Date();
+
+
+        payoffDate.setMonth(
+          payoffDate.getMonth() + months
+        );
+
+
+        const payoffDateText =
+          payoffDate.toLocaleDateString(
+            "en-GB",
+            {
+              month: "long",
+              year: "numeric"
+            }
+          );
+
+
+        const extra25 =
+          calculateDebtMonths(
+            balance,
+            annualRate,
+            payment + 25
+          );
+
+
+        const extra50 =
+          calculateDebtMonths(
+            balance,
+            annualRate,
+            payment + 50
+          );
+
+
+        const saved25 =
+          Math.max(
+            months - extra25,
+            0
+          );
+
+
+        const saved50 =
+          Math.max(
+            months - extra50,
+            0
+          );
+
+
+        let advice;
+
+
+        if (months <= 12) {
+
+          advice = `
+            You're on a relatively short payoff
+            timeline. Staying consistent with your
+            payments should keep you moving toward
+            being debt-free.
+          `;
+
+        } else if (months <= 36) {
+
+          advice = `
+            You're making progress, but this debt
+            will take a while to clear. If you can
+            safely increase your payment, even a
+            small amount could shorten the timeline.
+          `;
+
+        } else {
+
+          advice = `
+            This is a long payoff timeline. Focus
+            on keeping the payment consistent and
+            look for opportunities to increase it
+            when your budget allows.
+          `;
+
+        }
+
+
+        showDebtResult(`
+
+          <div class="score-circle">
+
+            <span>
+              ${months}
+            </span>
+
+            <small>
+              months
+            </small>
+
+          </div>
+
+
+          <h2>
+            Debt-free in approximately
+            ${months} months
+          </h2>
+
+
+          <p>
+            At your current payment of
+            <strong>
+              £${payment.toFixed(2)}
+            </strong>
+            per month, your estimated payoff date is
+            <strong>
+              ${payoffDateText}
+            </strong>.
+          </p>
+
+
+          <div class="stat">
+
+            <span>
+              Starting debt
+            </span>
+
+            <strong>
+              £${balance.toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <div class="stat">
+
+            <span>
+              APR
+            </span>
+
+            <strong>
+              ${annualRate.toFixed(2)}%
+            </strong>
+
+          </div>
+
+
+          <div class="stat">
+
+            <span>
+              Monthly payment
+            </span>
+
+            <strong>
+              £${payment.toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <div class="stat">
+
+            <span>
+              Estimated interest
+            </span>
+
+            <strong>
+              £${totalInterest.toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <div class="stat">
+
+            <span>
+              Estimated total paid
+            </span>
+
+            <strong>
+              £${totalPaid.toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <h3>
+            🚀 What if you paid more?
+          </h3>
+
+
+          <div class="what-if-box">
+
+            <div class="what-if-grid">
+
+              <div class="what-if-card">
+
+                <span>
+                  Pay £25 more
+                </span>
+
+                <strong>
+                  ${extra25} months
+                </strong>
+
+                <small>
+                  ${
+                    saved25 > 0
+                      ? `About ${saved25} month${saved25 === 1 ? "" : "s"} sooner`
+                      : "No major time change"
+                  }
+                </small>
+
+              </div>
+
+
+              <div class="what-if-card featured">
+
+                <span>
+                  Pay £50 more
+                </span>
+
+                <strong>
+                  ${extra50} months
+                </strong>
+
+                <small>
+                  ${
+                    saved50 > 0
+                      ? `About ${saved50} month${saved50 === 1 ? "" : "s"} sooner`
+                      : "No major time change"
+                  }
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <h3>
+            🧠 MoneyCheck's advice
+          </h3>
+
+
+          <p>
+            ${advice}
+          </p>
+
+
+          <p class="disclaimer">
+            This calculator provides an estimate based
+            on the information entered. Actual lender
+            calculations may differ.
+          </p>
+
+        `);
+
+      });
+
+  }
+
+
+  // =====================================================
+  // DEBT RESET
+  // =====================================================
+
+  if (debtResetButton) {
+
+    debtResetButton.addEventListener(
+      "click",
+      function () {
+
+        document
+          .getElementById("debtBalance")
+          .value = "";
+
+        document
+          .getElementById("interestRate")
+          .value = "";
+
+        document
+          .getElementById("debtPayment")
+          .value = "";
+
+        debtResult.innerHTML = "";
+
+        debtResult.classList.add("hidden");
+
+      }
+    );
+
+  }
+
+
+  // =====================================================
+  // DEBT CALCULATION HELPER
+  // =====================================================
+
+  function calculateDebtMonths(
+    balance,
+    annualRate,
+    payment
+  ) {
+
+    const monthlyRate =
+      annualRate / 100 / 12;
+
+
+    if (
+      monthlyRate > 0 &&
+      payment <= balance * monthlyRate
+    ) {
+
+      return 1200;
+
+    }
+
+
+    let remaining = balance;
+
+    let months = 0;
+
+
+    while (
+      remaining > 0.01 &&
+      months < 1200
+    ) {
+
+      const interest =
+        remaining * monthlyRate;
+
+      const principal =
+        payment - interest;
+
+
+      if (principal <= 0) {
+        return 1200;
+      }
+
+
+      remaining -= principal;
+
+      months++;
+
+    }
+
+
+    return months;
+
+  }
+
+
+  // =====================================================
+  // DEBT RESULT HELPER
+  // =====================================================
+
+  function showDebtResult(html) {
+
+    debtResult.innerHTML = html;
+
+    debtResult.classList.remove("hidden");
+
+    debtResult.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  }
+
 
 });
