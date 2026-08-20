@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Use MoneyCheck's free affordability calculator to see whether you can comfortably afford a purchase."
+  >
+
+  <title>Can I Afford It? | MoneyCheck</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="navbar">
+
+    <div class="nav-inner">
+
+      <a href="#" class="logo">
+        <span class="logo-icon">£</span>
+        MoneyCheck
+      </a>
+
+
+      <div class="nav-links">
+
+  <a href="#calculator">
+    Affordability
+  </a>
+
+  <a href="#savings-calculator">
+    Savings
+  </a>
+
+  <a href="#how-it-works">
+    How it works
+  </a>
+
+</div>
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div class="hero-badge">
+      FREE MONEY TOOL
+    </div>
+
+
+    <h1>
+      Can I afford it?
+    </h1>
+
+
+    <p>
+      Before you buy, find out how the purchase
+      could affect your budget.
+    </p>
+
+
+    <div class="trust-points">
+
+      <span>✓ Free to use</span>
+
+      <span>✓ No sign-up</span>
+
+      <span>✓ No financial account required</span>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- CALCULATOR -->
+<!-- SAVINGS GOAL CALCULATOR -->
+
+<section
+  id="savings-calculator"
+  class="savings-section"
+>
+
+  <div class="savings-heading">
+
+    <span class="step">
+      SAVINGS GOAL
+    </span>
+
+    <h2>
+      How long will it take?
+    </h2>
+
+    <p>
+      Set a savings goal and we'll work out
+      how long it could take to reach it.
+    </p>
+
+  </div>
+
+
+  <div class="calculator-card savings-card">
+
+
+    <!-- CURRENT SAVINGS -->
+
+    <div class="form-section">
+
+      <label for="currentSavings">
+        Current savings
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>£</span>
+
+        <input
+          id="currentSavings"
+          type="number"
+          min="0"
+          placeholder="1,000"
+        >
+
+      </div>
+
+    </div>
+
+
+
+    <!-- GOAL -->
+
+    <div class="form-section">
+
+      <label for="savingsGoal">
+        Savings goal
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>£</span>
+
+        <input
+          id="savingsGoal"
+          type="number"
+          min="0"
+          placeholder="5,000"
+        >
+
+      </div>
+
+    </div>
+
+
+
+    <!-- MONTHLY SAVING -->
+
+    <div class="form-section">
+
+      <label for="monthlySaving">
+        How much can you save each month?
+      </label>
+
+      <div class="input-wrapper">
+
+        <span>£</span>
+
+        <input
+          id="monthlySaving"
+          type="number"
+          min="0"
+          placeholder="250"
+        >
+
+      </div>
+
+    </div>
+
+
+
+    <!-- BUTTON -->
+
+    <button
+      id="savingsCalculateButton"
+      class="calculate-button"
+      type="button"
+    >
+
+      Calculate my goal
+
+      <span>→</span>
+
+    </button>
+
+
+    <button
+      id="savingsResetButton"
+      class="reset-button"
+      type="button"
+    >
+
+      Clear everything
+
+    </button>
+
+
+    <!-- RESULT -->
+
+    <div
+      id="savingsResult"
+      class="result savings-result hidden"
+    ></div>
+
+
+  </div>
+
+</section>
+  <main id="calculator">
+
+    <div class="calculator-card">
+
+      <div class="card-heading">
+
+        <span class="step">
+          YOUR NUMBERS
+        </span>
+
+        <h2>
+          Let's see if it fits
+        </h2>
+
+        <p>
+          Enter as much information as you can.
+          The more you enter, the more useful
+          the result will be.
+        </p>
+
+      </div>
+
+
+
+      <!-- INCOME -->
+
+      <div class="form-section">
+
+        <h3>
+          Monthly income
+        </h3>
+
+
+        <label for="income">
+          Take-home income
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="income"
+            type="number"
+            min="0"
+            placeholder="2,500"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- HOUSING -->
+
+      <div class="form-section">
+
+        <h3>
+          Housing
+        </h3>
+
+
+        <label for="rent">
+          Rent / mortgage
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="rent"
+            type="number"
+            min="0"
+            placeholder="800"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- EXPENSES -->
+
+      <div class="form-section">
+
+        <h3>
+          Monthly expenses
+        </h3>
+
+        <p class="section-help">
+          Don't know an exact number?
+          You can leave it blank.
+        </p>
+
+
+        <label for="bills">
+          Bills & utilities
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="bills"
+            type="number"
+            min="0"
+            placeholder="200"
+          >
+
+        </div>
+
+
+        <label for="food">
+          Food & groceries
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="food"
+            type="number"
+            min="0"
+            placeholder="250"
+          >
+
+        </div>
+
+
+        <label for="transport">
+          Transport
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="transport"
+            type="number"
+            min="0"
+            placeholder="150"
+          >
+
+        </div>
+
+
+        <label for="subscriptions">
+          Subscriptions
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="subscriptions"
+            type="number"
+            min="0"
+            placeholder="50"
+          >
+
+        </div>
+
+
+        <label for="debt">
+          Debt payments
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="debt"
+            type="number"
+            min="0"
+            placeholder="100"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- SAVINGS -->
+
+      <div class="form-section">
+
+        <h3>
+          Savings
+        </h3>
+
+
+        <label for="savings">
+          Current savings
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="savings"
+            type="number"
+            min="0"
+            placeholder="2,000"
+          >
+
+        </div>
+
+
+        <label for="emergency">
+          Emergency fund target
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="emergency"
+            type="number"
+            min="0"
+            placeholder="3,000"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- PURCHASE -->
+
+      <div class="form-section purchase-section">
+
+        <h3>
+          What are you buying?
+        </h3>
+
+
+        <label for="purchase">
+          Purchase price
+        </label>
+
+        <div class="input-wrapper purchase-input">
+
+          <span>£</span>
+
+          <input
+            id="purchase"
+            type="number"
+            min="0"
+            placeholder="500"
+          >
+
+        </div>
+
+
+        <label for="monthlyPayment">
+          Monthly finance payment
+          <span class="optional">
+            OPTIONAL
+          </span>
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>£</span>
+
+          <input
+            id="monthlyPayment"
+            type="number"
+            min="0"
+            placeholder="0"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- BUTTON -->
+
+      <button
+        id="calculateButton"
+        class="calculate-button"
+      >
+
+        Check my affordability
+
+        <span>→</span>
+
+      </button>
+
+
+      <button
+        id="resetButton"
+        class="reset-button"
+        type="button"
+      >
+        Clear everything
+      </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+      id="result"
+      class="result hidden"
+    ></div>
+
+
+  </main>
+
+
+
+  <!-- HOW IT WORKS -->
+
+  <section
+    id="how-it-works"
+    class="how-section"
+  >
+
+    <div class="how-inner">
+
+      <div>
+
+        <span class="step">
+          HOW IT WORKS
+        </span>
+
+        <h2>
+          A simple way to think
+          before you spend.
+        </h2>
+
+      </div>
+
+
+      <div class="how-grid">
+
+        <div class="how-card">
+
+          <div class="how-number">
+            1
+          </div>
+
+          <h3>
+            Enter your income
+          </h3>
+
+          <p>
+            Tell us roughly how much money
+            comes into your account each month.
+          </p>
+
+        </div>
+
+
+        <div class="how-card">
+
+          <div class="how-number">
+            2
+          </div>
+
+          <h3>
+            Add your costs
+          </h3>
+
+          <p>
+            Add rent and your regular expenses.
+            You can leave unknown amounts blank.
+          </p>
+
+        </div>
+
+
+        <div class="how-card">
+
+          <div class="how-number">
+            3
+          </div>
+
+          <h3>
+            See the bigger picture
+          </h3>
+
+          <p>
+            We'll explain how significant the
+            purchase is compared with your budget.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <a href="#" class="logo">
+          <span class="logo-icon">£</span>
+          MoneyCheck
+        </a>
+
+        <p>
+          Simple tools for smarter money decisions.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="#calculator">
+          Calculator
+        </a>
+
+        <a href="#how-it-works">
+          How it works
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 MoneyCheck
+      </span>
+
+      <span>
+        For educational purposes only.
+        Not financial advice.
+      </span>
+
+    </div>
+
+  </footer>
+
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
