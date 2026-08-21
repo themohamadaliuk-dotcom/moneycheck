@@ -328,13 +328,18 @@ document.addEventListener("DOMContentLoaded", function () {
       // =====================================================
       // COMMON-SENSE AFFORDABILITY SCORE
       //
-      // This is deliberately NOT a simple "100 minus
-      // deductions" system.
+      // ONLY information actually entered is used.
       //
-      // The score starts with the person's actual cashflow
-      // and then considers how significant the purchase is.
+      // Blank fields have ZERO effect.
       //
-      // Blank fields have ZERO effect on the score.
+      // The main question is:
+      //
+      // "After the costs you've told us about, does this
+      // purchase look sensible compared with the money
+      // you have left?"
+      //
+      // Small purchases should stay small.
+      // Larger purchases become increasingly important.
       // =====================================================
 
       let score = 100;
@@ -342,15 +347,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // =====================================================
       // 1. NEGATIVE CASHFLOW
-      //
-      // If entered expenses already exceed income, the
-      // purchase is not affordable from the information
-      // provided.
       // =====================================================
 
       if (disposableIncome < 0) {
 
-        score = 10;
+        score = 5;
 
       }
 
@@ -363,211 +364,247 @@ document.addEventListener("DOMContentLoaded", function () {
       else {
 
         // ===================================================
-        // 2. HOW MUCH OF AVAILABLE MONEY DOES THE PURCHASE USE?
-        //
-        // Small purchases receive very little penalty.
-        // Larger purchases become increasingly significant.
+        // 2. PURCHASE COMPARED WITH MONEY LEFT
         // ===================================================
 
-        if (purchasePercentage <= 5) {
+        const purchaseRatio =
+          purchase / disposableIncome;
 
+
+        if (purchaseRatio <= 0.025) {
+
+          // Up to 2.5%
           score -= 0;
 
         }
 
-        else if (purchasePercentage <= 10) {
+        else if (purchaseRatio <= 0.05) {
 
-          score -= 2;
-
-        }
-
-        else if (purchasePercentage <= 15) {
-
-          score -= 5;
+          // 2.5% - 5%
+          score -= 1;
 
         }
 
-        else if (purchasePercentage <= 20) {
+        else if (purchaseRatio <= 0.10) {
 
-          score -= 10;
-
-        }
-
-        else if (purchasePercentage <= 30) {
-
-          score -= 17;
+          // 5% - 10%
+          score -= 4;
 
         }
 
-        else if (purchasePercentage <= 40) {
+        else if (purchaseRatio <= 0.15) {
 
-          score -= 25;
-
-        }
-
-        else if (purchasePercentage <= 50) {
-
-          score -= 35;
+          // 10% - 15%
+          score -= 9;
 
         }
 
-        else if (purchasePercentage <= 65) {
+        else if (purchaseRatio <= 0.20) {
 
-          score -= 48;
-
-        }
-
-        else if (purchasePercentage <= 80) {
-
-          score -= 60;
+          // 15% - 20%
+          score -= 15;
 
         }
 
-        else if (purchasePercentage <= 100) {
+        else if (purchaseRatio <= 0.30) {
 
-          score -= 72;
+          // 20% - 30%
+          score -= 23;
+
+        }
+
+        else if (purchaseRatio <= 0.40) {
+
+          // 30% - 40%
+          score -= 32;
+
+        }
+
+        else if (purchaseRatio <= 0.50) {
+
+          // 40% - 50%
+          score -= 42;
+
+        }
+
+        else if (purchaseRatio <= 0.65) {
+
+          // 50% - 65%
+          score -= 55;
+
+        }
+
+        else if (purchaseRatio <= 0.80) {
+
+          // 65% - 80%
+          score -= 68;
+
+        }
+
+        else if (purchaseRatio <= 1) {
+
+          // 80% - 100%
+          score -= 80;
 
         }
 
         else {
 
-          score -= 85;
+          // Purchase is bigger than the money left
+          score -= 90;
 
         }
 
-      }
+
+        // ===================================================
+        // 3. MONEY LEFT AFTER BUYING
+        // ===================================================
+
+        const remainingAfterPurchase =
+          disposableIncome - purchase;
 
 
-      // =====================================================
-      // 3. VERY TIGHT MONTHLY CASHFLOW
-      //
-      // This matters because even a purchase that technically
-      // fits can be risky when almost nothing is left.
-      //
-      // It is deliberately a smaller adjustment than before.
-      // =====================================================
-
-      if (disposableIncome > 0) {
-
-        const remainingIncomePercentage =
-          (disposableIncome / income) * 100;
+        const remainingAfterPurchasePercentage =
+          income > 0
+            ? (remainingAfterPurchase / income) * 100
+            : 0;
 
 
-        if (remainingIncomePercentage < 5) {
+        if (remainingAfterPurchase < 0) {
 
-          score -= 18;
+          score -= 10;
 
         }
 
-        else if (remainingIncomePercentage < 10) {
+        else if (remainingAfterPurchasePercentage < 5) {
 
           score -= 12;
 
         }
 
-        else if (remainingIncomePercentage < 15) {
+        else if (remainingAfterPurchasePercentage < 10) {
 
           score -= 7;
 
         }
 
-        else if (remainingIncomePercentage < 20) {
+        else if (remainingAfterPurchasePercentage < 15) {
 
           score -= 3;
 
         }
 
-      }
 
+        // ===================================================
+        // 4. VERY HIGH KNOWN EXPENSES
+        //
+        // Only entered expenses are considered.
+        // Blank fields have NO effect.
+        // ===================================================
 
-      // =====================================================
-      // 4. SAVINGS
-      //
-      // Savings only meaningfully affects the score when
-      // the purchase would actually use a significant amount
-      // of available savings.
-      //
-      // A £20 or £50 purchase shouldn't suddenly become
-      // "unaffordable" just because savings weren't entered.
-      // =====================================================
+        if (expensePercentage >= 95) {
 
-      if (hasSavings && savings > 0) {
-
-        const purchaseToSavings =
-          (purchase / savings) * 100;
-
-
-        if (purchaseToSavings > 100) {
-
-          score -= 10;
+          score -= 8;
 
         }
 
-        else if (purchaseToSavings > 75) {
+        else if (expensePercentage >= 90) {
 
-          score -= 7;
-
-        }
-
-        else if (purchaseToSavings > 50) {
-
-          score -= 4;
+          score -= 5;
 
         }
 
-        else if (purchaseToSavings > 25) {
+        else if (expensePercentage >= 80) {
 
           score -= 2;
 
         }
 
-      }
+
+        // ===================================================
+        // 5. SAVINGS
+        //
+        // Only considered if savings were actually entered.
+        // ===================================================
+
+        if (hasSavings && savings > 0) {
+
+          const purchaseToSavings =
+            (purchase / savings) * 100;
 
 
-      // =====================================================
-      // 5. EMERGENCY FUND
-      //
-      // This is a meaningful warning rather than a giant
-      // automatic penalty.
-      // =====================================================
+          if (purchaseToSavings > 100) {
 
-      if (emergencyFundBroken) {
+            score -= 8;
 
-        score -= 12;
+          }
 
-      }
+          else if (purchaseToSavings > 75) {
 
+            score -= 5;
 
-      // =====================================================
-      // 6. FINANCE
-      //
-      // Financing is judged by the ongoing monthly payment,
-      // not simply by the purchase price.
-      // =====================================================
+          }
 
-      if (hasFinance && disposableIncome > 0) {
+          else if (purchaseToSavings > 50) {
 
-        if (moneyAfterFinance <= 0) {
+            score -= 3;
 
-          score -= 25;
+          }
 
-        }
+          else if (purchaseToSavings > 25) {
 
-        else if (financePercentage > 30) {
+            score -= 1;
 
-          score -= 18;
-
-        }
-
-        else if (financePercentage > 20) {
-
-          score -= 10;
+          }
 
         }
 
-        else if (financePercentage > 10) {
 
-          score -= 4;
+        // ===================================================
+        // 6. EMERGENCY FUND
+        //
+        // Only relevant if savings and emergency target
+        // were actually entered.
+        // ===================================================
+
+        if (emergencyFundBroken) {
+
+          score -= 8;
+
+        }
+
+
+        // ===================================================
+        // 7. FINANCE
+        //
+        // Judged using the ongoing monthly payment.
+        // ===================================================
+
+        if (hasFinance && disposableIncome > 0) {
+
+          if (moneyAfterFinance <= 0) {
+
+            score -= 20;
+
+          }
+
+          else if (financePercentage > 30) {
+
+            score -= 15;
+
+          }
+
+          else if (financePercentage > 20) {
+
+            score -= 8;
+
+          }
+
+          else if (financePercentage > 10) {
+
+            score -= 3;
+
+          }
 
         }
 
