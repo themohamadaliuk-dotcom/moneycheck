@@ -1210,3 +1210,324 @@ input:focus-visible {
     gap: 4px;
   }
 }
+/* =========================================================
+   PRIVACY NOTICE
+   ========================================================= */
+
+.privacy-notice {
+  margin-bottom: 32px;
+
+  padding: 17px 18px;
+
+  background: #f6f5ff;
+
+  border: 1px solid #dedcff;
+
+  border-radius: 14px;
+}
+
+.privacy-notice-inner {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+}
+
+.privacy-icon {
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #e9e7ff;
+
+  font-size: 15px;
+}
+
+.privacy-notice strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #38317f;
+
+  font-size: 13px;
+}
+
+.privacy-notice p {
+  margin: 0;
+
+  color: #6e7182;
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   CALCULATOR PRIVACY
+   ========================================================= */
+
+.calculator-privacy {
+  margin: -10px 0 22px;
+
+  color: #858b9b;
+
+  text-align: center;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   ABOUT SECTION
+   ========================================================= */
+
+.about-section {
+  padding: 90px 20px;
+
+  background: #f7f8fc;
+
+  border-top: 1px solid #e8eaf0;
+}
+
+.about-inner {
+  max-width: 760px;
+
+  margin: auto;
+}
+
+.about-inner h2 {
+  margin: 12px 0 20px;
+
+  color: #151827;
+
+  font-size: 40px;
+  line-height: 1.15;
+
+  letter-spacing: -1.5px;
+}
+
+.about-inner p {
+  max-width: 700px;
+
+  margin: 0 0 18px;
+
+  color: #687186;
+
+  font-size: 16px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   INFORMATION SECTIONS
+   ========================================================= */
+
+.information-section {
+  padding: 85px 20px;
+
+  background: white;
+
+  border-top: 1px solid #e8eaf0;
+}
+
+.information-inner {
+  max-width: 1000px;
+
+  margin: auto;
+}
+
+.information-inner > h2 {
+  margin: 12px 0 18px;
+
+  font-size: 38px;
+
+  line-height: 1.15;
+
+  letter-spacing: -1.4px;
+}
+
+.information-inner > p {
+  max-width: 760px;
+
+  color: #687186;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   PRIVACY CARDS
+   ========================================================= */
+
+.privacy-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-top: 32px;
+}
+
+.privacy-card {
+  padding: 23px;
+
+  background: #f8f9fc;
+
+  border: 1px solid #e8eaf1;
+
+  border-radius: 16px;
+}
+
+.privacy-card strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #151827;
+
+  font-size: 15px;
+}
+
+.privacy-card p {
+  margin: 0;
+
+  color: #737b8d;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   DISCLAIMER
+   ========================================================= */
+
+.disclaimer-section {
+  background: #f7f8fc;
+}
+
+.disclaimer-section .information-inner {
+  max-width: 850px;
+}
+
+.disclaimer-section p {
+  margin-bottom: 17px;
+}
+
+
+/* =========================================================
+   PURCHASE SECTION
+   ========================================================= */
+
+.purchase-section {
+  margin-top: 5px;
+
+  padding: 23px;
+
+  background: linear-gradient(
+    135deg,
+    #fafaff,
+    #f5f4ff
+  );
+
+  border: 1px solid #e2e0ff;
+
+  border-radius: 16px;
+}
+
+.purchase-section h3 {
+  color: #302b8f;
+}
+
+.purchase-input {
+  border-color: #c9c6ff;
+}
+
+.purchase-input:focus-within {
+  border-color: #635bff;
+}
+
+
+/* =========================================================
+   BETTER MOBILE PRIVACY / ABOUT
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .privacy-notice {
+    padding: 15px;
+  }
+
+  .privacy-notice-inner {
+    gap: 10px;
+  }
+
+  .about-section,
+  .information-section {
+    padding: 65px 20px;
+  }
+
+  .about-inner h2,
+  .information-inner > h2 {
+    font-size: 30px;
+
+    letter-spacing: -1px;
+  }
+
+  .about-inner p,
+  .information-inner > p {
+    font-size: 15px;
+  }
+
+  .privacy-grid {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .privacy-card {
+    padding: 20px;
+  }
+
+  .purchase-section {
+    padding: 18px 15px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
