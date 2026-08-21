@@ -1531,3 +1531,78 @@ input:focus-visible {
   }
 
 }
+/* =========================================================
+   CURRENCY SELECTOR
+   ========================================================= */
+
+.currency-selector {
+  max-width: 680px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.currency-selector label {
+  margin: 0;
+  color: #737b8d;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.currency-selector select {
+  padding: 9px 34px 9px 12px;
+
+  border: 1px solid #dfe2ea;
+  border-radius: 10px;
+
+  background: white;
+  color: #303548;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.currency-selector select:hover {
+  border-color: #cdd1dc;
+}
+
+.currency-selector select:focus {
+  border-color: #635bff;
+
+  box-shadow:
+    0 0 0 4px rgba(99, 91, 255, 0.1);
+}
+
+@media (max-width: 700px) {
+  .currency-selector {
+    justify-content: space-between;
+  }
+
+  .currency-selector select {
+    max-width: 230px;
+  }
+}
+
+@media (max-width: 420px) {
+  .currency-selector {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .currency-selector select {
+    width: 100%;
+    max-width: none;
+  }
+}
