@@ -1,13 +1,51 @@
 /* =========================================================
-   WORTHCHEX — GLOBAL
+   WORTHCHEX — COMPLETE STYLESHEET
    ========================================================= */
 
-* {
+:root {
+  --primary: #635bff;
+  --primary-dark: #5148e8;
+  --primary-light: #f1efff;
+
+  --text: #171a2b;
+  --text-soft: #606779;
+  --text-muted: #858c9d;
+
+  --background: #f7f8fc;
+  --white: #ffffff;
+
+  --border: #e3e6ee;
+  --border-dark: #d5d9e3;
+
+  --success: #168a5a;
+  --warning: #b77900;
+  --danger: #d13c45;
+
+  --dark: #151827;
+  --dark-card: #202335;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --container: 1100px;
+  --calculator: 700px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -23,10 +61,12 @@ body {
     Arial,
     sans-serif;
 
-  color: #151827;
-  background: #f7f8fc;
+  color: var(--text);
+  background: var(--background);
 
   line-height: 1.6;
+
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -44,6 +84,12 @@ button {
   cursor: pointer;
 }
 
+input,
+select,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 
 /* =========================================================
    NAVIGATION
@@ -52,21 +98,22 @@ button {
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.96);
 
-  border-bottom: 1px solid #e8eaf0;
+  border-bottom: 1px solid var(--border);
 
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .nav-inner {
-  width: min(1100px, calc(100% - 40px));
-
-  margin: 0 auto;
+  width: min(var(--container), calc(100% - 40px));
 
   min-height: 72px;
+
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
@@ -75,17 +122,22 @@ button {
   gap: 30px;
 }
 
+
+/* LOGO */
+
 .logo {
   display: inline-flex;
   align-items: center;
   gap: 9px;
 
-  color: #151827;
+  color: var(--text);
 
   font-size: 20px;
   font-weight: 800;
 
   letter-spacing: -0.5px;
+
+  white-space: nowrap;
 }
 
 .logo-icon {
@@ -96,34 +148,43 @@ button {
   align-items: center;
   justify-content: center;
 
-  color: white;
+  flex-shrink: 0;
 
-  background: #635bff;
+  color: #fff;
+
+  background: var(--primary);
 
   border-radius: 10px;
 
   font-size: 17px;
   font-weight: 800;
+
+  box-shadow: 0 5px 14px rgba(99, 91, 255, 0.2);
 }
+
+
+/* NAV LINKS */
 
 .nav-links {
   display: flex;
   align-items: center;
 
-  gap: 25px;
+  gap: 26px;
 
-  color: #62697a;
+  color: var(--text-soft);
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .nav-links a {
-  transition: color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .nav-links a:hover {
-  color: #635bff;
+  color: var(--primary);
 }
 
 
@@ -136,7 +197,7 @@ button {
 
   margin: 0 auto;
 
-  padding: 85px 0 65px;
+  padding: 92px 0 72px;
 
   text-align: center;
 }
@@ -145,32 +206,32 @@ button {
 .step {
   display: inline-block;
 
-  color: #635bff;
+  color: var(--primary);
 
   font-size: 11px;
   font-weight: 800;
 
-  letter-spacing: 1.2px;
+  letter-spacing: 1.25px;
 }
 
 .hero h1 {
-  margin: 15px 0 18px;
+  margin: 15px 0 20px;
 
-  color: #151827;
+  color: var(--text);
 
-  font-size: clamp(38px, 6vw, 62px);
+  font-size: clamp(40px, 6vw, 62px);
 
-  line-height: 1.05;
+  line-height: 1.04;
 
-  letter-spacing: -2.5px;
+  letter-spacing: -2.8px;
 }
 
 .hero > p {
-  max-width: 680px;
+  max-width: 690px;
 
   margin: 0 auto;
 
-  color: #697083;
+  color: var(--text-soft);
 
   font-size: 18px;
 
@@ -182,14 +243,19 @@ button {
 
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 
-  gap: 18px;
+  gap: 20px;
 
-  color: #606779;
+  color: #62697a;
 
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 650;
+}
+
+.trust-points span {
+  white-space: nowrap;
 }
 
 
@@ -201,22 +267,87 @@ main {
   width: 100%;
 }
 
+
+/* =========================================================
+   CURRENCY SELECTOR
+   ========================================================= */
+
+.currency-selector {
+  width: min(var(--calculator), calc(100% - 40px));
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+}
+
+.currency-selector label {
+  margin: 0;
+
+  color: var(--text-soft);
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.currency-selector select {
+  min-height: 40px;
+
+  padding: 8px 35px 8px 12px;
+
+  color: #303548;
+
+  background: #fff;
+
+  border: 1px solid var(--border-dark);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.currency-selector select:hover {
+  border-color: #c4c9d5;
+}
+
+.currency-selector select:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 4px rgba(99, 91, 255, 0.1);
+}
+
+
+/* =========================================================
+   CALCULATOR CARD
+   ========================================================= */
+
 .calculator-card {
-  width: min(700px, calc(100% - 40px));
+  width: min(var(--calculator), calc(100% - 40px));
 
   margin: 0 auto;
 
   padding: 42px;
 
-  background: white;
+  background: var(--white);
 
-  border: 1px solid #e5e7ee;
+  border: 1px solid var(--border);
 
   border-radius: 22px;
 
   box-shadow:
     0 15px 45px rgba(25, 29, 50, 0.07);
 }
+
+
+/* =========================================================
+   CARD HEADING
+   ========================================================= */
 
 .card-heading {
   margin-bottom: 35px;
@@ -225,6 +356,8 @@ main {
 .card-heading h2,
 .savings-heading h2 {
   margin: 8px 0 10px;
+
+  color: var(--text);
 
   font-size: 30px;
 
@@ -240,52 +373,8 @@ main {
   color: #747b8d;
 
   font-size: 15px;
-}
 
-
-/* =========================================================
-   CURRENCY SELECTOR
-   ========================================================= */
-
-.currency-selector {
-  width: min(700px, calc(100% - 40px));
-
-  margin: 0 auto 18px;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  gap: 10px;
-}
-
-.currency-selector label {
-  margin: 0;
-
-  color: #606779;
-
-  font-size: 13px;
-}
-
-.currency-selector select {
-  padding: 9px 12px;
-
-  color: #303548;
-
-  background: white;
-
-  border: 1px solid #dfe2ea;
-
-  border-radius: 9px;
-
-  outline: none;
-}
-
-.currency-selector select:focus {
-  border-color: #635bff;
-
-  box-shadow:
-    0 0 0 4px rgba(99, 91, 255, 0.1);
+  line-height: 1.65;
 }
 
 
@@ -294,7 +383,7 @@ main {
    ========================================================= */
 
 .privacy-notice {
-  margin-bottom: 35px;
+  margin-bottom: 38px;
 
   padding: 18px;
 
@@ -308,13 +397,26 @@ main {
 .privacy-notice-inner {
   display: flex;
 
-  gap: 13px;
-
   align-items: flex-start;
+
+  gap: 13px;
 }
 
 .privacy-icon {
-  font-size: 20px;
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ebe9ff;
+
+  border-radius: 9px;
+
+  font-size: 16px;
 }
 
 .privacy-notice strong {
@@ -333,32 +435,45 @@ main {
   color: #72798b;
 
   font-size: 13px;
+
+  line-height: 1.55;
 }
 
 
 /* =========================================================
-   FORM
+   FORM SECTIONS
    ========================================================= */
 
 .form-section {
   margin-bottom: 35px;
 }
 
+.form-section:last-of-type {
+  margin-bottom: 28px;
+}
+
 .form-section h3 {
   margin: 0 0 16px;
+
+  color: var(--text);
 
   font-size: 18px;
   line-height: 1.3;
 }
 
 .section-help {
-  margin-top: -8px;
-  margin-bottom: 17px;
+  margin: -8px 0 17px;
 
-  color: #8a91a1;
+  color: var(--text-muted);
 
   font-size: 13px;
+  line-height: 1.5;
 }
+
+
+/* =========================================================
+   LABELS
+   ========================================================= */
 
 label {
   display: flex;
@@ -375,6 +490,8 @@ label {
 }
 
 .optional {
+  display: inline-block;
+
   color: #949baa;
 
   font-size: 9px;
@@ -389,6 +506,10 @@ label {
    ========================================================= */
 
 .input-wrapper {
+  width: 100%;
+
+  min-height: 51px;
+
   display: flex;
   align-items: center;
 
@@ -411,40 +532,51 @@ label {
 }
 
 .input-wrapper:focus-within {
-  background: white;
+  background: #fff;
 
-  border-color: #635bff;
+  border-color: var(--primary);
 
   box-shadow:
     0 0 0 4px rgba(99, 91, 255, 0.1);
 }
 
-.input-wrapper > span:first-child {
-  padding-left: 14px;
+
+/* =========================================================
+   INPUT PREFIX / SUFFIX
+   ========================================================= */
+
+.input-wrapper > span {
+  flex-shrink: 0;
 
   color: #8a91a1;
 
   font-weight: 650;
 
-  flex-shrink: 0;
-
   user-select: none;
 }
+
+
+/* LEFT SYMBOL */
+
+.input-wrapper > span:first-child {
+  padding-left: 14px;
+}
+
+
+/* RIGHT SYMBOL */
 
 .input-wrapper > span:last-child {
   padding-right: 14px;
-
-  color: #8a91a1;
-
-  font-weight: 650;
-
-  flex-shrink: 0;
-
-  user-select: none;
 }
 
-input {
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-wrapper input {
   width: 100%;
+  min-width: 0;
 
   border: 0;
   outline: 0;
@@ -453,14 +585,22 @@ input {
 
   padding: 14px 13px;
 
-  color: #151827;
+  color: var(--text);
 
   font-size: 16px;
+  font-weight: 500;
 }
 
-input::placeholder {
+.input-wrapper input::placeholder {
   color: #b4b9c5;
 }
+
+.input-wrapper input:focus {
+  outline: none;
+}
+
+
+/* NUMBER INPUT ARROWS */
 
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
@@ -469,18 +609,22 @@ input::-webkit-outer-spin-button {
 
 
 /* =========================================================
-   PURCHASE
+   PURCHASE SECTION
    ========================================================= */
 
 .purchase-section {
-  padding-top: 10px;
+  padding-top: 8px;
+
+  margin-bottom: 30px;
 }
 
 .purchase-input {
-  border-color: #635bff;
+  border-color: #c9c5ff;
+
+  background: #fbfaff;
 
   box-shadow:
-    0 0 0 3px rgba(99, 91, 255, 0.06);
+    0 0 0 3px rgba(99, 91, 255, 0.05);
 }
 
 
@@ -491,9 +635,11 @@ input::-webkit-outer-spin-button {
 .calculate-button {
   width: 100%;
 
+  min-height: 53px;
+
   margin-top: 5px;
 
-  padding: 16px 20px;
+  padding: 15px 20px;
 
   display: flex;
   align-items: center;
@@ -501,9 +647,9 @@ input::-webkit-outer-spin-button {
 
   gap: 12px;
 
-  color: white;
+  color: #fff;
 
-  background: #635bff;
+  background: var(--primary);
 
   border: 0;
 
@@ -519,7 +665,7 @@ input::-webkit-outer-spin-button {
 }
 
 .calculate-button:hover {
-  background: #554cf0;
+  background: var(--primary-dark);
 
   transform: translateY(-1px);
 
@@ -527,8 +673,18 @@ input::-webkit-outer-spin-button {
     0 8px 20px rgba(99, 91, 255, 0.25);
 }
 
+.calculate-button:active {
+  transform: translateY(0);
+}
+
+.calculate-button:focus-visible {
+  outline: 3px solid rgba(99, 91, 255, 0.25);
+  outline-offset: 2px;
+}
+
 .calculate-button span {
   font-size: 20px;
+  line-height: 1;
 }
 
 .reset-button {
@@ -544,12 +700,16 @@ input::-webkit-outer-spin-button {
 
   border: 0;
 
+  border-radius: 8px;
+
   font-size: 13px;
   font-weight: 650;
 }
 
 .reset-button:hover {
-  color: #635bff;
+  color: var(--primary);
+
+  background: #f7f7ff;
 }
 
 
@@ -558,15 +718,15 @@ input::-webkit-outer-spin-button {
    ========================================================= */
 
 .result {
-  width: min(700px, calc(100% - 40px));
+  width: min(var(--calculator), calc(100% - 40px));
 
   margin: 25px auto 0;
 
   padding: 35px;
 
-  background: white;
+  background: #fff;
 
-  border: 1px solid #e5e7ee;
+  border: 1px solid var(--border);
 
   border-radius: 20px;
 
@@ -581,6 +741,8 @@ input::-webkit-outer-spin-button {
 .result h2 {
   margin: 15px 0 10px;
 
+  color: var(--text);
+
   font-size: 27px;
 
   line-height: 1.2;
@@ -589,6 +751,8 @@ input::-webkit-outer-spin-button {
 .result h3 {
   margin: 28px 0 12px;
 
+  color: var(--text);
+
   font-size: 18px;
 }
 
@@ -596,6 +760,8 @@ input::-webkit-outer-spin-button {
   color: #62697a;
 
   font-size: 14px;
+
+  line-height: 1.65;
 }
 
 .score-circle {
@@ -612,11 +778,11 @@ input::-webkit-outer-spin-button {
 
   background: #f1f0ff;
 
-  border: 7px solid #635bff;
+  border: 7px solid var(--primary);
 
   border-radius: 50%;
 
-  color: #635bff;
+  color: var(--primary);
 }
 
 .score-circle span {
@@ -637,16 +803,19 @@ input::-webkit-outer-spin-button {
   text-align: center;
 }
 
+
+/* RESULT STATES */
+
 .good {
-  color: #168a5a !important;
+  color: var(--success) !important;
 }
 
 .warning {
-  color: #b77900 !important;
+  color: var(--warning) !important;
 }
 
 .bad {
-  color: #d13c45 !important;
+  color: var(--danger) !important;
 }
 
 
@@ -661,6 +830,7 @@ input::-webkit-outer-spin-button {
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   gap: 20px;
 
@@ -716,7 +886,7 @@ input::-webkit-outer-spin-button {
 
 
 /* =========================================================
-   WHAT-IF
+   WHAT IF
    ========================================================= */
 
 .what-if-box {
@@ -740,32 +910,32 @@ input::-webkit-outer-spin-button {
 }
 
 .what-if-grid {
+  margin-top: 15px;
+
   display: grid;
 
   grid-template-columns: repeat(2, 1fr);
 
   gap: 12px;
-
-  margin-top: 15px;
 }
 
 .what-if-card {
   padding: 17px;
 
-  background: white;
-
-  border: 1px solid #e2e4eb;
-
-  border-radius: 12px;
-
   display: flex;
   flex-direction: column;
 
   gap: 4px;
+
+  background: #fff;
+
+  border: 1px solid #e2e4eb;
+
+  border-radius: 12px;
 }
 
 .what-if-card.featured {
-  border-color: #635bff;
+  border-color: var(--primary);
 
   box-shadow:
     0 5px 15px rgba(99, 91, 255, 0.08);
@@ -784,7 +954,7 @@ input::-webkit-outer-spin-button {
 }
 
 .what-if-card small {
-  color: #168a5a;
+  color: var(--success);
 
   font-size: 11px;
 }
@@ -796,7 +966,6 @@ input::-webkit-outer-spin-button {
 
 .progress-container {
   width: 100%;
-
   height: 12px;
 
   margin: 20px 0;
@@ -811,7 +980,7 @@ input::-webkit-outer-spin-button {
 .progress-bar {
   height: 100%;
 
-  background: #635bff;
+  background: var(--primary);
 
   border-radius: inherit;
 
@@ -820,16 +989,16 @@ input::-webkit-outer-spin-button {
 
 
 /* =========================================================
-   SAVINGS / DEBT SECTIONS
+   SAVINGS / DEBT
    ========================================================= */
 
 .savings-section,
 .debt-section {
-  padding: 100px 0 20px;
+  padding: 110px 0 20px;
 }
 
 .savings-heading {
-  width: min(700px, calc(100% - 40px));
+  width: min(var(--calculator), calc(100% - 40px));
 
   margin: 0 auto 30px;
 }
@@ -864,13 +1033,13 @@ input::-webkit-outer-spin-button {
 
   padding: 90px 20px;
 
-  background: #151827;
+  color: #fff;
 
-  color: white;
+  background: var(--dark);
 }
 
 .how-inner {
-  width: min(1100px, 100%);
+  width: min(var(--container), 100%);
 
   margin: 0 auto;
 }
@@ -884,6 +1053,8 @@ input::-webkit-outer-spin-button {
 
   margin: 10px 0 18px;
 
+  color: #fff;
+
   font-size: 36px;
 
   line-height: 1.2;
@@ -893,6 +1064,8 @@ input::-webkit-outer-spin-button {
 
 .how-section > .how-inner > div:first-child > p {
   max-width: 650px;
+
+  margin: 0;
 
   color: #aeb3c2;
 
@@ -912,7 +1085,7 @@ input::-webkit-outer-spin-button {
 .how-card {
   padding: 25px;
 
-  background: #202335;
+  background: var(--dark-card);
 
   border: 1px solid #303448;
 
@@ -923,15 +1096,15 @@ input::-webkit-outer-spin-button {
   width: 35px;
   height: 35px;
 
+  margin-bottom: 20px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 20px;
+  color: #fff;
 
-  color: white;
-
-  background: #635bff;
+  background: var(--primary);
 
   border-radius: 9px;
 
@@ -940,6 +1113,8 @@ input::-webkit-outer-spin-button {
 
 .how-card h3 {
   margin: 0 0 10px;
+
+  color: #fff;
 
   font-size: 17px;
 }
@@ -954,7 +1129,7 @@ input::-webkit-outer-spin-button {
 
 
 /* =========================================================
-   ABOUT
+   ABOUT / INFORMATION
    ========================================================= */
 
 .about-section,
@@ -973,6 +1148,8 @@ input::-webkit-outer-spin-button {
 .information-inner h2 {
   margin: 10px 0 20px;
 
+  color: var(--text);
+
   font-size: 36px;
 
   line-height: 1.2;
@@ -987,6 +1164,8 @@ input::-webkit-outer-spin-button {
   color: #697083;
 
   font-size: 16px;
+
+  line-height: 1.7;
 }
 
 
@@ -1007,9 +1186,9 @@ input::-webkit-outer-spin-button {
 .privacy-card {
   padding: 22px;
 
-  background: white;
+  background: #fff;
 
-  border: 1px solid #e5e7ee;
+  border: 1px solid var(--border);
 
   border-radius: 14px;
 }
@@ -1035,6 +1214,8 @@ input::-webkit-outer-spin-button {
 
 .disclaimer-section {
   background: #f0f1f5;
+
+  border-top: 1px solid #e5e7ec;
 }
 
 .disclaimer-section h2 {
@@ -1059,7 +1240,7 @@ footer {
 }
 
 .footer-inner {
-  width: min(1100px, 100%);
+  width: min(var(--container), 100%);
 
   margin: 0 auto;
 
@@ -1070,7 +1251,7 @@ footer {
 }
 
 footer .logo {
-  color: white;
+  color: #fff;
 }
 
 footer p {
@@ -1082,29 +1263,30 @@ footer p {
 }
 
 .footer-links {
-  display: flex;
+  max-width: 500px;
 
+  display: flex;
   flex-wrap: wrap;
 
   justify-content: flex-end;
 
   gap: 10px 22px;
-
-  max-width: 500px;
 }
 
 .footer-links a {
   color: #aeb3c2;
 
   font-size: 13px;
+
+  transition: color 0.15s ease;
 }
 
 .footer-links a:hover {
-  color: white;
+  color: #fff;
 }
 
 .footer-bottom {
-  width: min(1100px, 100%);
+  width: min(var(--container), 100%);
 
   margin: 40px auto 0;
 
@@ -1130,7 +1312,7 @@ footer p {
 @media (max-width: 750px) {
 
   .nav-inner {
-    width: min(100% - 28px, 1100px);
+    width: calc(100% - 28px);
 
     min-height: 64px;
   }
@@ -1139,13 +1321,18 @@ footer p {
     display: none;
   }
 
+
+  /* HERO */
+
   .hero {
-    width: min(100% - 30px, 850px);
+    width: calc(100% - 30px);
 
     padding: 60px 0 45px;
   }
 
   .hero h1 {
+    margin-top: 13px;
+
     font-size: 40px;
 
     letter-spacing: -1.7px;
@@ -1161,11 +1348,17 @@ footer p {
     gap: 7px;
   }
 
+
+  /* CURRENCY */
+
   .currency-selector {
     width: calc(100% - 30px);
 
     justify-content: space-between;
   }
+
+
+  /* CARDS */
 
   .calculator-card,
   .result,
@@ -1174,7 +1367,7 @@ footer p {
   }
 
   .calculator-card {
-    padding: 25px 20px;
+    padding: 28px 20px;
 
     border-radius: 17px;
   }
@@ -1183,14 +1376,31 @@ footer p {
     padding: 25px 20px;
   }
 
+
+  /* HEADINGS */
+
   .card-heading h2,
   .savings-heading h2 {
     font-size: 26px;
   }
 
+
+  /* WHAT IF */
+
   .what-if-grid {
     grid-template-columns: 1fr;
   }
+
+
+  /* SECTIONS */
+
+  .savings-section,
+  .debt-section {
+    padding-top: 80px;
+  }
+
+
+  /* HOW */
 
   .how-section {
     padding: 70px 15px;
@@ -1207,10 +1417,16 @@ footer p {
     grid-template-columns: 1fr;
   }
 
+
+  /* ABOUT */
+
   .about-section,
   .information-section {
     padding: 70px 15px;
   }
+
+
+  /* FOOTER */
 
   .footer-inner {
     flex-direction: column;
@@ -1225,7 +1441,6 @@ footer p {
 
     gap: 8px;
   }
-
 }
 
 
@@ -1242,14 +1457,23 @@ footer p {
   .logo-icon {
     width: 31px;
     height: 31px;
+
+    border-radius: 9px;
   }
 
   .hero h1 {
     font-size: 34px;
   }
 
+  .hero-badge,
+  .step {
+    font-size: 10px;
+  }
+
   .stat {
     flex-direction: column;
+
+    align-items: flex-start;
 
     gap: 4px;
   }
@@ -1268,4 +1492,19 @@ footer p {
     width: 100%;
   }
 
+  .privacy-notice-inner {
+    gap: 10px;
+  }
+
+  .privacy-notice {
+    padding: 15px;
+  }
+
+  .input-wrapper {
+    min-height: 49px;
+  }
+
+  .calculate-button {
+    min-height: 51px;
+  }
 }
