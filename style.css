@@ -32,7 +32,7 @@ input {
 
 
 /* =========================================================
-   NAVBAR
+   NAVBAR — POLISHED
    ========================================================= */
 
 .navbar {
@@ -40,17 +40,19 @@ input {
   top: 0;
   z-index: 100;
 
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.92);
 
-  border-bottom: 1px solid #e8eaf1;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid rgba(226, 228, 237, 0.85);
 }
 
 .nav-inner {
-  max-width: 1100px;
+  max-width: 1120px;
   margin: auto;
-  padding: 16px 24px;
+
+  padding: 15px 24px;
 
   display: flex;
   justify-content: space-between;
@@ -60,44 +62,52 @@ input {
 .logo {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
 
   color: #151827;
   text-decoration: none;
 
   font-size: 21px;
   font-weight: 800;
-  letter-spacing: -0.4px;
+
+  letter-spacing: -0.5px;
 }
 
 .logo-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 10px;
+  border-radius: 11px;
 
-  background: linear-gradient(135deg, #635bff, #5148e5);
+  background: linear-gradient(
+    135deg,
+    #635bff,
+    #5148e5
+  );
+
   color: white;
 
+  font-size: 17px;
   font-weight: 800;
 
-  box-shadow: 0 5px 14px rgba(99, 91, 255, 0.25);
+  box-shadow:
+    0 6px 16px rgba(99, 91, 255, 0.25);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 28px;
 }
 
 .nav-links a {
   position: relative;
 
-  color: #687085;
+  color: #626a7e;
   text-decoration: none;
 
   font-size: 14px;
@@ -109,16 +119,17 @@ input {
 }
 
 .nav-links a:hover {
-  color: #635bff;
+  color: #5148e5;
 }
 
 .nav-links a::after {
   content: "";
 
   position: absolute;
+
   left: 0;
   right: 0;
-  bottom: -7px;
+  bottom: -8px;
 
   height: 2px;
 
@@ -138,79 +149,131 @@ input {
 
 
 /* =========================================================
-   HERO
+   HERO — POLISHED
    ========================================================= */
 
 .hero {
-  max-width: 800px;
+  position: relative;
+
+  max-width: 900px;
   margin: auto;
 
   text-align: center;
 
-  padding: 88px 20px 55px;
+  padding: 96px 20px 62px;
+}
+
+/* subtle background glow */
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  top: 10px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: radial-gradient(
+    circle,
+    rgba(99, 91, 255, 0.10) 0%,
+    rgba(99, 91, 255, 0.04) 35%,
+    transparent 70%
+  );
+
+  pointer-events: none;
+
+  z-index: -1;
 }
 
 .hero-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 8px 13px;
-  margin-bottom: 20px;
+  padding: 8px 14px;
+  margin-bottom: 22px;
 
   border-radius: 50px;
 
-  background: #eeedff;
-  color: #5a51e8;
+  background: rgba(99, 91, 255, 0.08);
 
-  font-size: 11px;
+  color: #574fe7;
+
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1.5px;
 
-  border: 1px solid #dedcff;
+  letter-spacing: 1.6px;
+
+  border: 1px solid rgba(99, 91, 255, 0.16);
+
+  box-shadow:
+    0 4px 12px rgba(99, 91, 255, 0.05);
 }
 
 .hero h1 {
-  margin: 0;
+  position: relative;
 
-  font-size: clamp(42px, 7vw, 68px);
+  max-width: 850px;
+  margin: 0 auto;
+
+  font-size: clamp(44px, 7vw, 72px);
+
   line-height: 1.02;
 
-  letter-spacing: -3.5px;
+  letter-spacing: -4px;
+
   font-weight: 850;
 
   background: linear-gradient(
     135deg,
-    #151827 15%,
-    #635bff 90%
+    #111522 10%,
+    #302b8f 55%,
+    #635bff 100%
   );
 
   -webkit-background-clip: text;
   background-clip: text;
+
   color: transparent;
 }
 
 .hero > p {
-  max-width: 620px;
-  margin: 24px auto;
+  max-width: 650px;
 
-  color: #697286;
+  margin: 25px auto 27px;
 
-  font-size: 19px;
-  line-height: 1.65;
+  color: #687186;
+
+  font-size: 18px;
+
+  line-height: 1.7;
 }
 
 .trust-points {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px 20px;
+  align-items: center;
 
-  color: #687085;
+  flex-wrap: wrap;
+
+  gap: 10px 22px;
+
+  color: #60697c;
 
   font-size: 13px;
-  font-weight: 600;
+
+  font-weight: 650;
 }
 
 .trust-points span {
+  display: inline-flex;
+  align-items: center;
+
   white-space: nowrap;
 }
 
@@ -385,6 +448,7 @@ input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
   opacity: 0.5;
 }
+
 
 /* =========================================================
    BUTTONS
@@ -1014,16 +1078,31 @@ input:focus-visible {
     display: none;
   }
 
+  .logo {
+    font-size: 20px;
+  }
+
+  .logo-icon {
+    width: 34px;
+    height: 34px;
+  }
+
   .hero {
-    padding: 60px 18px 40px;
+    padding: 68px 18px 45px;
+  }
+
+  .hero::before {
+    width: 300px;
+    height: 300px;
   }
 
   .hero h1 {
-    letter-spacing: -2.5px;
+    letter-spacing: -2.7px;
   }
 
   .hero > p {
     font-size: 17px;
+    line-height: 1.65;
   }
 
   .trust-points {
@@ -1095,15 +1174,17 @@ input:focus-visible {
 @media (max-width: 420px) {
 
   .hero {
-    padding-top: 45px;
+    padding-top: 52px;
   }
 
   .hero h1 {
     font-size: 42px;
+    letter-spacing: -2.2px;
   }
 
   .hero-badge {
-    font-size: 10px;
+    font-size: 9px;
+    letter-spacing: 1.3px;
   }
 
   .trust-points {
