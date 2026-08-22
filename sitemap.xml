@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+
   <url>
     <loc>https://worthchex.com/</loc>
   </url>
+
   <url>
-    <loc>https://worthchex.com/#calculator</loc>
+    <loc>https://worthchex.com/affordability-calculator/</loc>
   </url>
+
   <url>
-    <loc>https://worthchex.com/#savings-calculator</loc>
+    <loc>https://worthchex.com/savings-calculator/</loc>
   </url>
+
   <url>
-    <loc>https://worthchex.com/#debt-calculator</loc>
+    <loc>https://worthchex.com/debt-payoff-calculator/</loc>
   </url>
+
   <url>
-    <loc>https://worthchex.com/#guides</loc>
+    <loc>https://worthchex.com/methodology/</loc>
   </url>
+
   <url>
-    <loc>https://worthchex.com/#methodology</loc>
+    <loc>https://worthchex.com/money-guides/</loc>
   </url>
-  <url>
-    <loc>https://worthchex.com/#faq</loc>
-  </url>
+
 </urlset>
