@@ -1,18 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  /* =========================================================
-     SHARED HELPERS
-     ========================================================= */
+  /* =====================================================
+     HELPERS
+     ===================================================== */
 
-  const money = function (value) {
-    return "£" + Number(value).toLocaleString("en-GB", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  };
-
-
-  const getValue = function (id) {
+  function getNumber(id) {
 
     const element = document.getElementById(id);
 
@@ -25,11 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
     return Number.isFinite(value) && value >= 0
       ? value
       : 0;
+  }
 
-  };
 
-
-  const hasValue = function (id) {
+  function hasValue(id) {
 
     const element = document.getElementById(id);
 
@@ -38,26 +29,46 @@ document.addEventListener("DOMContentLoaded", function () {
       element.value.trim() !== ""
     );
 
-  };
+  }
 
 
-  const scrollToResult = function (element) {
+  function money(value) {
+
+    return new Intl.NumberFormat("en-GB", {
+      style: "currency",
+      currency: "GBP",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(value);
+
+  }
+
+
+  function showResult(element, html) {
 
     if (!element) {
       return;
     }
 
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest"
-    });
+    element.innerHTML = html;
 
-  };
+    element.classList.remove("hidden");
+
+    setTimeout(function () {
+
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+
+    }, 50);
+
+  }
 
 
-  /* =========================================================
-     AFFORDABILITY
-     ========================================================= */
+  /* =====================================================
+     AFFORDABILITY CALCULATOR
+     ===================================================== */
 
   const calculateButton =
     document.getElementById("calculateButton");
@@ -73,86 +84,98 @@ document.addEventListener("DOMContentLoaded", function () {
 
     calculateButton.addEventListener("click", function () {
 
-      const income = getValue("income");
-      const rent = getValue("rent");
-      const bills = getValue("bills");
-      const food = getValue("food");
-      const transport = getValue("transport");
-      const subscriptions = getValue("subscriptions");
-      const debt = getValue("debt");
+      const income =
+        getNumber("income");
 
-      const savings = getValue("savings");
-      const emergency = getValue("emergency");
-
-      const purchase = getValue("purchase");
-      const monthlyPayment = getValue("monthlyPayment");
+      const purchase =
+        getNumber("purchase");
 
 
-      /* =====================================================
-         VALIDATION
-         ===================================================== */
+      if (income <= 0) {
 
-      if (!hasValue("income") || income <= 0) {
+        showResult(result, `
 
-        showAffordabilityResult(`
-          <div class="result-status">
-            <h2 class="bad">Enter your monthly income</h2>
+          <div class="result-header">
+
+            <div class="result-status bad">
+              ● Income required
+            </div>
+
+            <h2>
+              Enter your monthly income
+            </h2>
 
             <p>
-              We need your take-home income before we can
-              assess whether the purchase fits your budget.
+              We need your monthly take-home income before
+              we can assess the purchase.
             </p>
+
           </div>
+
         `);
 
         return;
       }
 
 
-      if (!hasValue("purchase") || purchase <= 0) {
+      if (purchase <= 0) {
 
-        showAffordabilityResult(`
-          <div class="result-status">
-            <h2 class="warning">Enter the purchase price</h2>
+        showResult(result, `
+
+          <div class="result-header">
+
+            <div class="result-status warning">
+              ● Purchase price required
+            </div>
+
+            <h2>
+              Enter the purchase price
+            </h2>
 
             <p>
-              Enter the amount you would actually pay for
-              the purchase.
+              Tell us how much the item or purchase costs.
             </p>
+
           </div>
+
         `);
 
         return;
       }
 
 
-      /* =====================================================
-         ENTERED EXPENSES
-         ===================================================== */
+      /* =================================================
+         READ EXPENSES
+         ================================================= */
 
       const expenseFields = [
-        ["rent", rent],
-        ["bills", bills],
-        ["food", food],
-        ["transport", transport],
-        ["subscriptions", subscriptions],
-        ["debt", debt]
+        ["rent", "Rent / mortgage"],
+        ["bills", "Bills & utilities"],
+        ["food", "Food & groceries"],
+        ["transport", "Transport"],
+        ["subscriptions", "Subscriptions"],
+        ["debt", "Debt payments"]
       ];
 
 
       let totalExpenses = 0;
-      let expenseCount = 0;
+
+      let enteredExpenses = 0;
+
+      const missingExpenses = [];
 
 
-      expenseFields.forEach(function (item) {
-
-        const id = item[0];
-        const value = item[1];
+      expenseFields.forEach(function ([id, name]) {
 
         if (hasValue(id)) {
 
-          totalExpenses += value;
-          expenseCount++;
+          totalExpenses += getNumber(id);
+
+          enteredExpenses++;
+
+        } else {
+
+          missingExpenses.push(name);
 
         }
 
@@ -168,357 +191,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const expensePercentage =
-        income > 0
-          ? (totalExpenses / income) * 100
-          : 0;
-
-
-      const remainingPercentage =
-        income > 0
-          ? (disposable / income) * 100
-          : 0;
+        (totalExpenses / income) * 100;
 
 
       const purchasePercentage =
         disposable > 0
           ? (purchase / disposable) * 100
-          : null;
+          : 100;
 
 
-      /* =====================================================
+      const remainingPercentage =
+        income > 0
+          ? (moneyAfterPurchase / income) * 100
+          : 0;
+
+
+      /* =================================================
          SAVINGS
-         ===================================================== */
+         ================================================= */
+
+      const savingsEntered =
+        hasValue("savings");
+
+      const emergencyEntered =
+        hasValue("emergency");
+
+
+      const savings =
+        getNumber("savings");
+
+      const emergency =
+        getNumber("emergency");
+
 
       let savingsAfterPurchase = null;
-      let savingsBelowEmergency = false;
-      let savingsCannotCover = false;
 
-      if (hasValue("savings")) {
+      let emergencyBroken = false;
+
+      let savingsWarning = "";
+
+
+      if (savingsEntered) {
 
         savingsAfterPurchase =
           savings - purchase;
 
-        savingsCannotCover =
-          savingsAfterPurchase < 0;
 
-        if (
-          hasValue("emergency") &&
-          emergency > 0 &&
-          savingsAfterPurchase < emergency
-        ) {
+        if (savingsAfterPurchase < 0) {
 
-          savingsBelowEmergency = true;
-
-        }
-
-      }
-
-
-      /* =====================================================
-         FINANCE
-         ===================================================== */
-
-      const hasFinance =
-        hasValue("monthlyPayment") &&
-        monthlyPayment > 0;
-
-
-      const financeAfter =
-        disposable - monthlyPayment;
-
-
-      const financePercentage =
-        disposable > 0
-          ? (monthlyPayment / disposable) * 100
-          : null;
-
-
-      /* =====================================================
-         COMPLETENESS
-         ===================================================== */
-
-      const mainExpenseIds = [
-        "rent",
-        "bills",
-        "food",
-        "transport",
-        "subscriptions",
-        "debt"
-      ];
-
-
-      const missingExpenses =
-        mainExpenseIds.filter(function (id) {
-
-          return !hasValue(id);
-
-        });
-
-
-      /* =====================================================
-         DECISION ENGINE
-         
-         Rather than pretending affordability is an exact
-         science, we use a hierarchy of real-world conditions.
-         ===================================================== */
-
-      let status;
-      let title;
-      let advice;
-      let statusClass;
-
-
-      /* -----------------------------------------------------
-         1. ALREADY NEGATIVE
-         ----------------------------------------------------- */
-
-      if (disposable < 0) {
-
-        status = "not comfortable";
-        title = "I'd wait before buying this";
-        statusClass = "bad";
-
-        advice = `
-          <p>
-            The expenses you've entered are already
-            approximately <strong>${money(Math.abs(disposable))}</strong>
-            higher than your monthly take-home income.
-          </p>
-
-          <p>
-            On these numbers, adding this purchase would
-            increase the shortfall rather than leaving you
-            with a comfortable monthly buffer.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         2. EXACTLY ZERO
-         ----------------------------------------------------- */
-
-      else if (disposable === 0) {
-
-        status = "no monthly buffer";
-        title = "I'd wait and plan for it";
-        statusClass = "bad";
-
-        advice = `
-          <p>
-            The expenses you've entered currently use
-            essentially all of your monthly income.
-          </p>
-
-          <p>
-            Even if the purchase itself is relatively small,
-            your current budget doesn't show any spare
-            monthly cash to absorb it comfortably.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         3. PURCHASE DOESN'T FIT
-         ----------------------------------------------------- */
-
-      else if (moneyAfterPurchase < 0) {
-
-        status = "doesn't fit";
-        title = "I'd save for it first";
-        statusClass = "bad";
-
-        advice = `
-          <p>
-            Buying this outright would leave you approximately
-            <strong>${money(Math.abs(moneyAfterPurchase))}</strong>
-            short based on the expenses you've entered.
-          </p>
-
-          <p>
-            I'd avoid borrowing simply to make a purchase fit
-            when the underlying monthly budget doesn't currently
-            support it.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         4. VERY LARGE SHARE OF AVAILABLE CASH
-         ----------------------------------------------------- */
-
-      else if (purchasePercentage > 75) {
-
-        status = "high impact";
-        title = "I'd be very cautious";
-        statusClass = "warning";
-
-        advice = `
-          <p>
-            You can technically cover the purchase from this
-            month's available money, but it would use about
-            <strong>${purchasePercentage.toFixed(0)}%</strong>
-            of what you've got left after the expenses entered.
-          </p>
-
-          <p>
-            That would leave approximately
-            <strong>${money(moneyAfterPurchase)}</strong>.
-            A large purchase can make unexpected costs much
-            harder to absorb.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         5. 50–75%
-         ----------------------------------------------------- */
-
-      else if (purchasePercentage > 50) {
-
-        status = "significant";
-        title = "I'd think twice";
-        statusClass = "warning";
-
-        advice = `
-          <p>
-            The purchase fits your current monthly budget,
-            but it would use about
-            <strong>${purchasePercentage.toFixed(0)}%</strong>
-            of the money you've got left after the expenses
-            entered.
-          </p>
-
-          <p>
-            You'd have approximately
-            <strong>${money(moneyAfterPurchase)}</strong>
-            remaining. I'd make sure you don't have upcoming
-            bills, annual costs or other commitments that
-            aren't included here.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         6. 30–50%
-         ----------------------------------------------------- */
-
-      else if (purchasePercentage > 30) {
-
-        status = "manageable with care";
-        title = "Probably manageable";
-        statusClass = "good";
-
-        advice = `
-          <p>
-            The purchase appears to fit your current budget,
-            although it would use a noticeable share of the
-            money you've got available.
-          </p>
-
-          <p>
-            After the purchase, you'd have approximately
-            <strong>${money(moneyAfterPurchase)}</strong>
-            left based on the expenses you've entered.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         7. 15–30%
-         ----------------------------------------------------- */
-
-      else if (purchasePercentage > 15) {
-
-        status = "reasonable";
-        title = "Looks reasonably affordable";
-        statusClass = "good";
-
-        advice = `
-          <p>
-            The purchase appears to fit comfortably within
-            the money you've got left after the expenses
-            you've entered.
-          </p>
-
-          <p>
-            It would use about
-            <strong>${purchasePercentage.toFixed(0)}%</strong>
-            of that available amount, leaving approximately
-            <strong>${money(moneyAfterPurchase)}</strong>.
-          </p>
-        `;
-
-      }
-
-
-      /* -----------------------------------------------------
-         8. SMALL PURCHASE
-         ----------------------------------------------------- */
-
-      else {
-
-        status = "low impact";
-        title = "Looks affordable";
-        statusClass = "good";
-
-        advice = `
-          <p>
-            Based on the information you've entered, this
-            purchase is relatively small compared with the
-            money you have left after your regular expenses.
-          </p>
-
-          <p>
-            You'd have approximately
-            <strong>${money(moneyAfterPurchase)}</strong>
-            left afterwards.
-          </p>
-        `;
-
-      }
-
-
-      /* =====================================================
-         SAVINGS WARNING
-         ===================================================== */
-
-      let savingsAdvice = "";
-
-
-      if (hasValue("savings")) {
-
-        if (savingsCannotCover) {
-
-          savingsAdvice = `
-            <div class="info-box warning">
+          savingsWarning = `
+            <div class="advice-box warning">
 
               <strong>
-                Savings check
+                Your savings would not cover the purchase
               </strong>
-
-              <p>
-                Your current savings of
-                <strong>${money(savings)}</strong>
-                wouldn't fully cover this purchase.
-              </p>
 
               <p>
                 That's not automatically a problem if you're
-                paying from your monthly budget, but don't
-                assume savings can act as a backup if they
-                aren't actually available.
+                paying from your monthly income, but it means
+                the purchase shouldn't be described as being
+                comfortably covered by your existing savings.
               </p>
 
             </div>
@@ -526,69 +258,292 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        else if (savingsBelowEmergency) {
 
-          savingsAdvice = `
-            <div class="info-box warning">
+        if (
+          emergencyEntered &&
+          savingsAfterPurchase < emergency
+        ) {
 
-              <strong>
-                Your emergency buffer would be affected
-              </strong>
-
-              <p>
-                Paying the full purchase from savings would
-                leave approximately
-                <strong>${money(savingsAfterPurchase)}</strong>,
-                below your chosen emergency-fund target of
-                <strong>${money(emergency)}</strong>.
-              </p>
-
-              <p>
-                If the purchase isn't urgent, rebuilding that
-                buffer first may give you more financial
-                breathing room.
-              </p>
-
-            </div>
-          `;
-
-        }
-
-        else {
-
-          savingsAdvice = `
-            <div class="info-box good-box">
-
-              <strong>
-                Savings check
-              </strong>
-
-              <p>
-                If you chose to pay from savings, the purchase
-                would leave approximately
-                <strong>${money(savingsAfterPurchase)}</strong>
-                in savings.
-              </p>
-
-            </div>
-          `;
+          emergencyBroken = true;
 
         }
 
       }
-      else {
 
-        savingsAdvice = `
-          <div class="info-box">
+
+      /* =================================================
+         FINANCE
+         ================================================= */
+
+      const financeEntered =
+        hasValue("monthlyPayment");
+
+      const monthlyPayment =
+        getNumber("monthlyPayment");
+
+
+      const disposableAfterFinance =
+        disposable - monthlyPayment;
+
+
+      let financePercentage = 0;
+
+
+      if (disposable > 0 && monthlyPayment > 0) {
+
+        financePercentage =
+          (monthlyPayment / disposable) * 100;
+
+      }
+
+
+      /* =================================================
+         DECISION ENGINE
+         =================================================
+
+         The result is based primarily on actual monthly
+         cashflow.
+
+         We deliberately don't use a fake "financial score".
+
+         Broad logic:
+
+         1. Existing negative cashflow = wait.
+         2. Purchase doesn't fit = wait.
+         3. Very little remains after purchase = cautious.
+         4. Purchase uses a modest amount of disposable
+            income = affordable.
+         5. Savings/emergency fund provide additional
+            context rather than automatically deciding
+            the answer.
+      */
+
+
+      let status;
+      let statusClass;
+      let title;
+      let mainAdvice;
+
+
+      if (disposable < 0) {
+
+        status =
+          "Not affordable from the figures entered";
+
+        statusClass =
+          "bad";
+
+        title =
+          "I'd wait before buying it";
+
+        mainAdvice = `
+          <div class="advice-box bad">
 
             <strong>
-              Savings weren't included
+              Your current budget is already running short
             </strong>
 
             <p>
-              You left current savings blank, so this result
-              doesn't assess whether the purchase would leave
-              you with an adequate cash buffer.
+              The expenses you've entered are
+              ${money(Math.abs(disposable))}
+              higher than your monthly income. Adding this
+              purchase would increase that shortfall.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else if (disposable === 0) {
+
+        status =
+          "No monthly budget remaining";
+
+        statusClass =
+          "bad";
+
+        title =
+          "I'd wait and plan for it";
+
+        mainAdvice = `
+          <div class="advice-box bad">
+
+            <strong>
+              Your entered expenses use all of your income
+            </strong>
+
+            <p>
+              There isn't currently any money left in the
+              monthly budget you've provided to comfortably
+              absorb this purchase.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else if (moneyAfterPurchase < 0) {
+
+        status =
+          "Purchase exceeds available monthly money";
+
+        statusClass =
+          "bad";
+
+        title =
+          "I'd wait and save for it";
+
+        mainAdvice = `
+          <div class="advice-box bad">
+
+            <strong>
+              The purchase doesn't fit this month's budget
+            </strong>
+
+            <p>
+              After your entered expenses, you have
+              ${money(disposable)} available, while the
+              purchase costs ${money(purchase)}.
+              You would be approximately
+              ${money(Math.abs(moneyAfterPurchase))}
+              short.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else if (
+        remainingPercentage < 5 ||
+        purchasePercentage > 80
+      ) {
+
+        status =
+          "Very little breathing room";
+
+        statusClass =
+          "warning";
+
+        title =
+          "I'd be cautious";
+
+        mainAdvice = `
+          <div class="advice-box warning">
+
+            <strong>
+              You can technically cover it, but the margin is small
+            </strong>
+
+            <p>
+              The purchase would use about
+              ${purchasePercentage.toFixed(0)}%
+              of the money left after your entered expenses,
+              leaving approximately
+              ${money(moneyAfterPurchase)}.
+              I'd want more breathing room before treating
+              this as a comfortable purchase.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else if (
+        purchasePercentage > 50 ||
+        remainingPercentage < 10
+      ) {
+
+        status =
+          "Manageable, but significant";
+
+        statusClass =
+          "warning";
+
+        title =
+          "I'd think twice";
+
+        mainAdvice = `
+          <div class="advice-box warning">
+
+            <strong>
+              The purchase would take a noticeable amount
+              of your available money
+            </strong>
+
+            <p>
+              You can cover it based on the figures entered,
+              but it would leave approximately
+              ${money(moneyAfterPurchase)}.
+              Consider upcoming expenses before committing.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else if (
+        purchasePercentage <= 20 &&
+        remainingPercentage >= 20
+      ) {
+
+        status =
+          "Comfortable based on the figures entered";
+
+        statusClass =
+          "good";
+
+        title =
+          "This looks affordable";
+
+        mainAdvice = `
+          <div class="advice-box good">
+
+            <strong>
+              You appear to have reasonable breathing room
+            </strong>
+
+            <p>
+              After your entered expenses and this purchase,
+              you'd have approximately
+              ${money(moneyAfterPurchase)}
+              left. The purchase uses about
+              ${purchasePercentage.toFixed(0)}%
+              of the money you currently have left.
+            </p>
+
+          </div>
+        `;
+
+      }
+
+      else {
+
+        status =
+          "Likely manageable";
+
+        statusClass =
+          "good";
+
+        title =
+          "This looks manageable";
+
+        mainAdvice = `
+          <div class="advice-box good">
+
+            <strong>
+              The numbers leave some room after the purchase
+            </strong>
+
+            <p>
+              You appear able to cover the purchase while
+              retaining approximately
+              ${money(moneyAfterPurchase)}
+              after the expenses you've entered.
             </p>
 
           </div>
@@ -597,128 +552,159 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      /* =====================================================
-         FINANCE WARNING
-         ===================================================== */
+      /* =================================================
+         EMERGENCY FUND MESSAGE
+         ================================================= */
 
-      let financeAdvice = "";
+      let emergencyMessage = "";
 
 
-      if (hasFinance) {
+      if (emergencyBroken) {
+
+        emergencyMessage = `
+
+          <div class="advice-box warning">
+
+            <strong>
+              Your emergency-fund target would be affected
+            </strong>
+
+            <p>
+              Paying for the purchase from your savings would
+              leave approximately
+              ${money(savingsAfterPurchase)},
+              below the emergency-fund target of
+              ${money(emergency)}.
+            </p>
+
+          </div>
+
+        `;
+
+      }
+
+
+      /* =================================================
+         FINANCE MESSAGE
+         ================================================= */
+
+      let financeMessage = "";
+
+
+      if (financeEntered && monthlyPayment > 0) {
 
         if (disposable <= 0) {
 
-          financeAdvice = `
-            <div class="info-box warning">
+          financeMessage = `
+
+            <div class="advice-box bad">
 
               <strong>
-                Finance needs extra caution
+                The finance payment doesn't fit the current budget
               </strong>
 
               <p>
-                The monthly finance payment cannot comfortably
-                be assessed because your entered expenses already
-                leave no positive monthly surplus.
+                You don't currently have enough disposable
+                income to comfortably take on a
+                ${money(monthlyPayment)}
+                monthly payment.
               </p>
 
             </div>
+
           `;
 
         }
 
-        else if (financeAfter < 0) {
+        else if (disposableAfterFinance < 0) {
 
-          financeAdvice = `
-            <div class="info-box warning">
+          financeMessage = `
+
+            <div class="advice-box bad">
 
               <strong>
-                The finance payment doesn't fit
+                The finance payment would exceed your remaining money
               </strong>
 
               <p>
-                A payment of
-                <strong>${money(monthlyPayment)}</strong>
-                would be greater than the money currently left
-                after your entered expenses.
-              </p>
-
-              <p>
-                That makes the proposed finance commitment
-                uncomfortable on these numbers.
+                Your entered expenses leave
+                ${money(disposable)}
+                available, while the proposed finance payment
+                is ${money(monthlyPayment)}.
               </p>
 
             </div>
+
           `;
 
         }
 
         else if (financePercentage > 30) {
 
-          financeAdvice = `
-            <div class="info-box warning">
+          financeMessage = `
+
+            <div class="advice-box warning">
 
               <strong>
-                Large ongoing commitment
+                That's a substantial monthly commitment
               </strong>
 
               <p>
-                The proposed finance payment would use about
-                <strong>${financePercentage.toFixed(0)}%</strong>
-                of your current disposable income.
-              </p>
-
-              <p>
-                Remember that finance payments continue every
-                month, so don't judge the purchase only by
-                whether you can cover it this month.
+                The proposed finance payment uses approximately
+                ${financePercentage.toFixed(0)}%
+                of your disposable income.
+                I'd be cautious about taking on that commitment.
               </p>
 
             </div>
+
           `;
 
         }
 
         else if (financePercentage > 15) {
 
-          financeAdvice = `
-            <div class="info-box">
+          financeMessage = `
+
+            <div class="advice-box warning">
 
               <strong>
-                Check the ongoing payment
+                Check that the payment remains comfortable
               </strong>
 
               <p>
-                The proposed finance payment would use about
-                <strong>${financePercentage.toFixed(0)}%</strong>
-                of your current disposable income.
-              </p>
-
-              <p>
-                Make sure the payment remains comfortable
-                during more expensive months too.
+                The proposed finance payment uses approximately
+                ${financePercentage.toFixed(0)}%
+                of your disposable income.
+                Remember that finance also creates an ongoing
+                monthly commitment.
               </p>
 
             </div>
+
           `;
 
         }
 
         else {
 
-          financeAdvice = `
-            <div class="info-box good-box">
+          financeMessage = `
+
+            <div class="advice-box good">
 
               <strong>
-                Finance payment looks manageable
+                The proposed monthly payment looks relatively modest
               </strong>
 
               <p>
-                The proposed payment would use about
-                <strong>${financePercentage.toFixed(0)}%</strong>
-                of your current disposable income.
+                It would use approximately
+                ${financePercentage.toFixed(0)}%
+                of your current disposable income based on
+                the figures entered.
               </p>
 
             </div>
+
           `;
 
         }
@@ -726,74 +712,92 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      /* =====================================================
-         BUDGET QUALITY
-         ===================================================== */
+      /* =================================================
+         HOUSING MESSAGE
+         ================================================= */
 
-      let budgetMessage = "";
+      let housingMessage = "";
+
+      if (hasValue("rent")) {
+
+        const rent =
+          getNumber("rent");
+
+        const housingPercentage =
+          (rent / income) * 100;
 
 
-      if (expenseCount === 0) {
+        if (housingPercentage > 50) {
 
-        budgetMessage = `
-          <div class="info-box warning">
+          housingMessage = `
 
-            <strong>
-              Your result is based on limited information
-            </strong>
+            <div class="info-box">
 
-            <p>
-              You haven't entered any regular monthly expenses.
-              That means the calculator is effectively comparing
-              your income with the purchase alone.
-            </p>
+              <strong>
+                Housing is a large part of your income
+              </strong>
 
-            <p>
-              Add your normal costs for a much more useful
-              affordability assessment.
-            </p>
+              <p>
+                Your entered rent/mortgage is approximately
+                ${housingPercentage.toFixed(0)}%
+                of your take-home income. That doesn't
+                automatically make the purchase unaffordable,
+                but it means maintaining a buffer is especially
+                important.
+              </p>
 
-          </div>
-        `;
+            </div>
+
+          `;
+
+        }
 
       }
 
-      else if (missingExpenses.length > 0) {
 
-        budgetMessage = `
+      /* =================================================
+         MISSING INFORMATION
+         ================================================= */
+
+      let dataMessage = "";
+
+
+      if (missingExpenses.length > 0) {
+
+        dataMessage = `
+
           <div class="info-box">
 
             <strong>
-              Your result is based on ${expenseCount} expense
-              ${expenseCount === 1 ? "category" : "categories"}
+              ℹ️ This is based only on the costs you entered
             </strong>
 
             <p>
-              You left
-              <strong>${missingExpenses.length}</strong>
-              main expense
-              ${missingExpenses.length === 1 ? "category" : "categories"}
-              blank.
+              You left the following expense categories blank:
+              <strong>
+                ${missingExpenses.join(", ")}
+              </strong>.
             </p>
 
             <p>
-              Blank fields are not assumed to be £0. If you have
-              costs in those areas, adding them could change the
-              result.
+              Blank fields have not been treated as confirmed
+              £0 spending. Adding regular costs you have will
+              make the estimate more useful.
             </p>
 
           </div>
+
         `;
 
       }
-
       else {
 
-        budgetMessage = `
-          <div class="info-box good-box">
+        dataMessage = `
+
+          <div class="info-box">
 
             <strong>
-              Your main monthly expenses are included
+              ✓ All main monthly expense categories included
             </strong>
 
             <p>
@@ -802,299 +806,273 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
 
           </div>
+
         `;
 
       }
 
 
-      /* =====================================================
-         RESULT
-         ===================================================== */
+      /* =================================================
+         BUILD RESULT
+         ================================================= */
 
-      const resultMarkup = `
+      showResult(result, `
 
-        <div class="result-top">
+        <div class="result-header">
 
-          <span class="result-label">
-            WORTHCHEX ASSESSMENT
-          </span>
+          <div class="result-status ${statusClass}">
+            ● ${status}
+          </div>
 
-          <h2 class="${statusClass}">
+          <h2>
             ${title}
           </h2>
 
-          <div class="result-status-pill ${statusClass}">
-            ${status}
-          </div>
-
-        </div>
-
-
-        ${advice}
+          <p>
+            This is an estimate based on the information
+            you've provided — not a guarantee of affordability.
+          </p>
 
 
-        <div class="stats">
-
-          <div class="stat">
+          <div class="result-hero-number">
 
             <span>
-              Monthly take-home income
+              Money left after your entered expenses
+              and this purchase
             </span>
 
             <strong>
-              ${money(income)}
-            </strong>
-
-          </div>
-
-
-          <div class="stat">
-
-            <span>
-              Entered monthly expenses
-            </span>
-
-            <strong>
-              ${money(totalExpenses)}
-            </strong>
-
-          </div>
-
-
-          <div class="stat">
-
-            <span>
-              Money left before purchase
-            </span>
-
-            <strong>
-              ${money(disposable)}
-            </strong>
-
-          </div>
-
-
-          <div class="stat">
-
-            <span>
-              Purchase price
-            </span>
-
-            <strong>
-              ${money(purchase)}
-            </strong>
-
-          </div>
-
-
-          <div class="stat">
-
-            <span>
-              Money left after purchase
-            </span>
-
-            <strong class="${moneyAfterPurchase < 0 ? "bad" : ""}">
               ${money(moneyAfterPurchase)}
             </strong>
 
           </div>
 
-
-          ${
-            purchasePercentage !== null
-              ? `
-                <div class="stat">
-
-                  <span>
-                    Purchase as share of available money
-                  </span>
-
-                  <strong>
-                    ${purchasePercentage.toFixed(1)}%
-                  </strong>
-
-                </div>
-              `
-              : ""
-          }
-
-
-          <div class="stat">
-
-            <span>
-              Income used by entered expenses
-            </span>
-
-            <strong>
-              ${expensePercentage.toFixed(0)}%
-            </strong>
-
-          </div>
-
         </div>
 
 
-        <h3>
-          Your budget
-        </h3>
-
-        ${budgetMessage}
+        ${mainAdvice}
 
 
         <h3>
-          Savings & safety buffer
+          Your numbers
         </h3>
 
-        ${savingsAdvice}
 
+        <div class="stat">
 
-        ${
-          hasFinance
-            ? `
-              <h3>
-                Finance payment
-              </h3>
-
-              ${financeAdvice}
-            `
-            : ""
-        }
-
-
-        <div class="result-note">
+          <span>
+            Monthly income
+          </span>
 
           <strong>
-            How to read this result
+            ${money(income)}
           </strong>
 
-          <p>
-            WorthChex doesn't treat a purchase as automatically
-            affordable just because your account balance could
-            technically cover it. The assessment considers your
-            entered monthly cash flow and how much of your
-            remaining money the purchase would consume.
-          </p>
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            Expenses entered
+          </span>
+
+          <strong>
+            ${enteredExpenses}
+          </strong>
 
         </div>
+
+
+        <div class="stat">
+
+          <span>
+            Total monthly expenses entered
+          </span>
+
+          <strong>
+            ${money(totalExpenses)}
+          </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            Money left before purchase
+          </span>
+
+          <strong>
+            ${money(disposable)}
+          </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            Purchase price
+          </span>
+
+          <strong>
+            ${money(purchase)}
+          </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            Purchase uses
+          </span>
+
+          <strong>
+            ${purchasePercentage.toFixed(1)}%
+            of available money
+          </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span>
+            Money left after purchase
+          </span>
+
+          <strong>
+            ${money(moneyAfterPurchase)}
+          </strong>
+
+        </div>
+
+
+        ${housingMessage}
+
+
+        ${emergencyMessage}
+
+
+        ${financeMessage}
+
+
+        <h3>
+          🧠 WorthChex's view
+        </h3>
+
+
+        <p>
+          The most important figure here is not a generic
+          score — it's how much money remains after your
+          known monthly costs and the purchase.
+        </p>
+
+
+        ${dataMessage}
+
+
+        ${savingsWarning}
 
 
         <p class="disclaimer">
-          This is an estimate based on the information you entered.
-          It is not a guarantee that a purchase or finance agreement
-          is suitable for you. Regular, irregular and future costs
-          may change the picture.
+          This calculator uses the figures you provide.
+          It cannot account for every future expense,
+          irregular cost or change in circumstances.
+          It is not financial advice.
         </p>
 
-      `;
-
-
-      showAffordabilityResult(resultMarkup);
+      `);
 
     });
 
   }
 
 
-  if (resetButton && result) {
+  /* =====================================================
+     AFFORDABILITY RESET
+     ===================================================== */
+
+  if (resetButton) {
 
     resetButton.addEventListener("click", function () {
 
-      [
-        "income",
-        "rent",
-        "bills",
-        "food",
-        "transport",
-        "subscriptions",
-        "debt",
-        "savings",
-        "emergency",
-        "purchase",
-        "monthlyPayment"
-      ].forEach(function (id) {
+      document
+        .querySelectorAll("#calculator input")
+        .forEach(function (input) {
 
-        const element =
-          document.getElementById(id);
+          input.value = "";
 
-        if (element) {
-          element.value = "";
-        }
-
-      });
+        });
 
 
-      result.innerHTML = "";
+      if (result) {
 
-      result.classList.add("hidden");
+        result.innerHTML = "";
+
+        result.classList.add("hidden");
+
+      }
 
     });
 
   }
 
 
-  function showAffordabilityResult(html) {
-
-    result.innerHTML = html;
-
-    result.classList.remove("hidden");
-
-    scrollToResult(result);
-
-  }
-
-
-  /* =========================================================
-     SAVINGS GOAL
-     ========================================================= */
+  /* =====================================================
+     SAVINGS CALCULATOR
+     ===================================================== */
 
   const savingsCalculateButton =
-    document.getElementById(
-      "savingsCalculateButton"
-    );
+    document.getElementById("savingsCalculateButton");
 
   const savingsResetButton =
-    document.getElementById(
-      "savingsResetButton"
-    );
+    document.getElementById("savingsResetButton");
 
   const savingsResult =
-    document.getElementById(
-      "savingsResult"
-    );
+    document.getElementById("savingsResult");
 
 
-  if (
-    savingsCalculateButton &&
-    savingsResult
-  ) {
+  if (savingsCalculateButton && savingsResult) {
 
     savingsCalculateButton.addEventListener(
       "click",
       function () {
 
         const current =
-          getValue("currentSavings");
+          getNumber("currentSavings");
 
         const goal =
-          getValue("savingsGoal");
+          getNumber("savingsGoal");
 
         const monthly =
-          getValue("monthlySaving");
+          getNumber("monthlySaving");
 
 
-        if (!hasValue("savingsGoal") || goal <= 0) {
+        if (goal <= 0) {
 
-          showSavingsResult(`
+          showResult(
+            savingsResult,
+            `
+              <div class="result-header">
 
-            <h2 class="warning">
-              Enter a savings goal
-            </h2>
+                <div class="result-status warning">
+                  ● Savings goal required
+                </div>
 
-            <p>
-              Tell us how much you'd like to save.
-            </p>
+                <h2>
+                  Enter a savings goal
+                </h2>
 
-          `);
+                <p>
+                  Tell us how much you'd like to save.
+                </p>
+
+              </div>
+            `
+          );
 
           return;
 
@@ -1103,68 +1081,101 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (current >= goal) {
 
-          showSavingsResult(`
+          showResult(
+            savingsResult,
+            `
 
-            <div class="score-circle">
+              <div class="result-header">
 
-              <span>100</span>
+                <div class="result-status good">
+                  ✓ Goal reached
+                </div>
 
-              <small>%</small>
+                <h2>
+                  You've already reached your goal! 🎉
+                </h2>
 
-            </div>
+                <p>
+                  You have ${money(current)} saved against
+                  a target of ${money(goal)}.
+                </p>
 
+              </div>
 
-            <h2 class="good">
-              You've already reached your goal 🎉
-            </h2>
+              <div class="stat">
 
+                <span>
+                  Savings goal
+                </span>
 
-            <p>
-              You have
-              <strong>${money(current)}</strong>
-              against a target of
-              <strong>${money(goal)}</strong>.
-            </p>
+                <strong>
+                  ${money(goal)}
+                </strong>
 
+              </div>
 
-            <div class="info-box good-box">
+              <div class="stat">
 
-              <strong>
-                Goal reached
-              </strong>
+                <span>
+                  Current savings
+                </span>
 
-              <p>
-                You don't need to save anything further
-                to reach the target you've entered.
-              </p>
+                <strong>
+                  ${money(current)}
+                </strong>
 
-            </div>
+              </div>
 
-          `);
+              <div class="advice-box good">
+
+                <strong>
+                  Nice work.
+                </strong>
+
+                <p>
+                  You've already reached the target you
+                  entered.
+                </p>
+
+              </div>
+
+            `
+          );
 
           return;
+
         }
 
 
-        if (!hasValue("monthlySaving") || monthly <= 0) {
+        if (monthly <= 0) {
 
           const remaining =
             goal - current;
 
 
-          showSavingsResult(`
+          showResult(
+            savingsResult,
+            `
 
-            <h2 class="warning">
-              Enter your monthly saving amount
-            </h2>
+              <div class="result-header">
 
-            <p>
-              You have
-              <strong>${money(remaining)}</strong>
-              left to reach your goal.
-            </p>
+                <div class="result-status warning">
+                  ● Monthly saving required
+                </div>
 
-          `);
+                <h2>
+                  Enter a monthly saving amount
+                </h2>
+
+                <p>
+                  You currently need ${money(remaining)}
+                  more to reach your goal.
+                </p>
+
+              </div>
+
+            `
+          );
 
           return;
 
@@ -1237,87 +1248,76 @@ document.addEventListener("DOMContentLoaded", function () {
         if (months <= 3) {
 
           advice = `
-            Your goal is relatively close. The most useful
-            thing now is consistency: keep the monthly amount
-            realistic rather than setting a target that makes
-            your normal budget uncomfortable.
+            This is a relatively short-term target.
+            Staying consistent should put you on track
+            to reach it soon.
           `;
 
         }
-
         else if (months <= 12) {
 
           advice = `
-            This is a manageable medium-term target based
-            on the amount you've entered. An automatic transfer
-            shortly after payday can make consistency easier.
+            This looks like a manageable medium-term goal.
+            An automatic transfer after payday can make
+            consistency easier.
           `;
 
         }
-
         else if (months <= 24) {
 
           advice = `
-            This is a longer-term target. Consider breaking it
-            into smaller milestones so you can see progress
-            along the way.
+            This is a longer-term goal. Breaking it into
+            smaller milestones can make the target easier
+            to stay motivated towards.
           `;
 
         }
-
         else {
 
           advice = `
-            This is a substantial target at your current rate.
-            You could either accept the longer timeline or
-            explore whether a small increase in monthly saving
-            is realistic without putting pressure on essentials.
+            This is a substantial target. Consider setting
+            smaller milestones and reviewing your monthly
+            saving amount whenever your circumstances change.
           `;
 
         }
 
 
-        showSavingsResult(`
+        showResult(
+          savingsResult,
+          `
 
-          <div class="score-circle">
+            <div class="result-header">
 
-            <span>
-              ${progress.toFixed(0)}
-            </span>
+              <div class="result-status good">
+                ● Savings plan
+              </div>
 
-            <small>%</small>
+              <h2>
+                You're ${progress.toFixed(0)}% there
+              </h2>
 
-          </div>
+              <p>
+                At your current saving rate, you could
+                reach the goal in approximately
+                <strong>
+                  ${months}
+                  month${months === 1 ? "" : "s"}
+                </strong>.
+              </p>
 
-
-          <h2>
-            You're ${progress.toFixed(0)}% there
-          </h2>
-
-
-          <p>
-            At
-            <strong>${money(monthly)}</strong>
-            per month, you could reach your goal in
-            approximately
-            <strong>
-              ${months}
-              ${months === 1 ? "month" : "months"}
-            </strong>.
-          </p>
+            </div>
 
 
-          <div class="progress-container">
+            <div class="progress-container">
 
-            <div
-              class="progress-bar"
-              style="width:${Math.max(progress, 1)}%"
-            ></div>
+              <div
+                class="progress-bar"
+                style="width: ${progress}%"
+              ></div>
 
-          </div>
+            </div>
 
-
-          <div class="stats">
 
             <div class="stat">
 
@@ -1383,98 +1383,95 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </div>
 
-          </div>
-
-
-          <h3>
-            WorthChex's advice
-          </h3>
-
-
-          <p>
-            ${advice}
-          </p>
-
-
-          <div class="what-if-box">
 
             <h3>
-              What if you saved more?
+              🧠 WorthChex's view
             </h3>
 
             <p>
-              Even a relatively small increase can shorten
-              the timeline.
+              ${advice}
             </p>
 
 
-            <div class="what-if-grid">
+            <div class="what-if-box">
 
-              <div class="what-if-card">
+              <h3>
+                🚀 What if you saved more?
+              </h3>
 
-                <span>
-                  Save £25 more
-                </span>
-
-                <strong>
-                  ${monthsPlus25}
-                  ${monthsPlus25 === 1 ? "month" : "months"}
-                </strong>
-
-                <small>
-                  ${
-                    saved25 > 0
-                      ? `${saved25} ${saved25 === 1 ? "month" : "months"} sooner`
-                      : "No change"
-                  }
-                </small>
-
-              </div>
+              <p class="what-if-intro">
+                Even a relatively small increase can shorten
+                the timeline.
+              </p>
 
 
-              <div class="what-if-card featured">
+              <div class="what-if-grid">
 
-                <span>
-                  Save £50 more
-                </span>
+                <div class="what-if-card">
 
-                <strong>
-                  ${monthsPlus50}
-                  ${monthsPlus50 === 1 ? "month" : "months"}
-                </strong>
+                  <span>
+                    Save £25 more
+                  </span>
 
-                <small>
-                  ${
-                    saved50 > 0
-                      ? `${saved50} ${saved50 === 1 ? "month" : "months"} sooner`
-                      : "No change"
-                  }
-                </small>
+                  <strong>
+                    ${monthsPlus25} months
+                  </strong>
+
+                  <small>
+                    ${
+                      saved25 > 0
+                        ? `${saved25} month${saved25 === 1 ? "" : "s"} sooner`
+                        : "Same estimated timeline"
+                    }
+                  </small>
+
+                </div>
+
+
+                <div class="what-if-card featured">
+
+                  <span>
+                    Save £50 more
+                  </span>
+
+                  <strong>
+                    ${monthsPlus50} months
+                  </strong>
+
+                  <small>
+                    ${
+                      saved50 > 0
+                        ? `${saved50} month${saved50 === 1 ? "" : "s"} sooner`
+                        : "Same estimated timeline"
+                    }
+                  </small>
+
+                </div>
 
               </div>
 
             </div>
 
-          </div>
 
+            <p class="disclaimer">
+              This is a simple estimate assuming a consistent
+              monthly saving amount and no interest on savings.
+            </p>
 
-          <p class="disclaimer">
-            This estimate assumes the monthly amount remains
-            consistent and does not include investment returns,
-            interest or changes to your savings rate.
-          </p>
+          `
+        );
 
-        `);
-
-      });
+      }
+    );
 
   }
 
 
-  if (
-    savingsResetButton &&
-    savingsResult
-  ) {
+  /* =====================================================
+     SAVINGS RESET
+     ===================================================== */
+
+  if (savingsResetButton) {
 
     savingsResetButton.addEventListener(
       "click",
@@ -1486,19 +1483,23 @@ document.addEventListener("DOMContentLoaded", function () {
           "monthlySaving"
         ].forEach(function (id) {
 
-          const element =
+          const input =
             document.getElementById(id);
 
-          if (element) {
-            element.value = "";
+          if (input) {
+            input.value = "";
           }
 
         });
 
 
-        savingsResult.innerHTML = "";
+        if (savingsResult) {
 
-        savingsResult.classList.add("hidden");
+          savingsResult.innerHTML = "";
+
+          savingsResult.classList.add("hidden");
+
+        }
 
       }
     );
@@ -1506,94 +1507,149 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  function showSavingsResult(html) {
+  /* =====================================================
+     DEBT CALCULATOR
+     ===================================================== */
 
-    savingsResult.innerHTML = html;
+  const debtCalculateButton =
+    document.getElementById("debtCalculateButton");
 
-    savingsResult.classList.remove("hidden");
+  const debtResetButton =
+    document.getElementById("debtResetButton");
 
-    scrollToResult(savingsResult);
+  const debtResult =
+    document.getElementById("debtResult");
+
+
+  function calculateDebtMonths(
+    balance,
+    annualRate,
+    payment
+  ) {
+
+    const monthlyRate =
+      annualRate / 100 / 12;
+
+
+    if (
+      monthlyRate > 0 &&
+      payment <= balance * monthlyRate
+    ) {
+
+      return 1200;
+
+    }
+
+
+    let remaining =
+      balance;
+
+    let months =
+      0;
+
+
+    while (
+      remaining > 0.01 &&
+      months < 1200
+    ) {
+
+      const interest =
+        remaining * monthlyRate;
+
+      const principal =
+        payment - interest;
+
+
+      if (principal <= 0) {
+
+        return 1200;
+
+      }
+
+
+      remaining -= principal;
+
+      months++;
+
+    }
+
+
+    return months;
 
   }
 
 
-  /* =========================================================
-     DEBT PAYOFF
-     ========================================================= */
-
-  const debtCalculateButton =
-    document.getElementById(
-      "debtCalculateButton"
-    );
-
-  const debtResetButton =
-    document.getElementById(
-      "debtResetButton"
-    );
-
-  const debtResult =
-    document.getElementById(
-      "debtResult"
-    );
-
-
-  if (
-    debtCalculateButton &&
-    debtResult
-  ) {
+  if (debtCalculateButton && debtResult) {
 
     debtCalculateButton.addEventListener(
       "click",
       function () {
 
         const balance =
-          getValue("debtBalance");
+          getNumber("debtBalance");
 
         const annualRate =
-          getValue("interestRate");
+          getNumber("interestRate");
 
         const payment =
-          getValue("debtPayment");
+          getNumber("debtPayment");
 
 
-        if (
-          !hasValue("debtBalance") ||
-          balance <= 0
-        ) {
+        if (balance <= 0) {
 
-          showDebtResult(`
+          showResult(
+            debtResult,
+            `
 
-            <h2 class="warning">
-              Enter your current debt
-            </h2>
+              <div class="result-header">
 
-            <p>
-              Enter the amount you currently owe.
-            </p>
+                <div class="result-status warning">
+                  ● Debt balance required
+                </div>
 
-          `);
+                <h2>
+                  Enter your current debt
+                </h2>
+
+                <p>
+                  Enter the amount you currently owe.
+                </p>
+
+              </div>
+
+            `
+          );
 
           return;
 
         }
 
 
-        if (
-          !hasValue("debtPayment") ||
-          payment <= 0
-        ) {
+        if (payment <= 0) {
 
-          showDebtResult(`
+          showResult(
+            debtResult,
+            `
 
-            <h2 class="warning">
-              Enter your monthly payment
-            </h2>
+              <div class="result-header">
 
-            <p>
-              Enter the amount you plan to pay each month.
-            </p>
+                <div class="result-status warning">
+                  ● Monthly payment required
+                </div>
 
-          `);
+                <h2>
+                  Enter your monthly payment
+                </h2>
+
+                <p>
+                  Tell us how much you're currently able
+                  to pay each month.
+                </p>
+
+              </div>
+
+            `
+          );
 
           return;
 
@@ -1613,64 +1669,107 @@ document.addEventListener("DOMContentLoaded", function () {
           payment <= firstMonthInterest
         ) {
 
-          showDebtResult(`
+          showResult(
+            debtResult,
+            `
 
-            <h2 class="bad">
-              This payment may not reduce the debt
-            </h2>
+              <div class="result-header">
 
-            <p>
-              At an APR of
-              <strong>${annualRate.toFixed(2)}%</strong>,
-              the first month's estimated interest is
-              approximately
-              <strong>${money(firstMonthInterest)}</strong>.
-            </p>
+                <div class="result-status bad">
+                  ● Payment may not reduce the balance
+                </div>
+
+                <h2>
+                  This payment may not pay off the debt
+                </h2>
+
+                <p>
+                  At an APR of ${annualRate.toFixed(2)}%,
+                  the estimated interest in the first month
+                  is ${money(firstMonthInterest)}.
+                </p>
+
+              </div>
 
 
-            <div class="info-box warning">
+              <div class="advice-box bad">
 
-              <strong>
-                Important
-              </strong>
+                <strong>
+                  The payment needs to exceed the interest
+                </strong>
 
-              <p>
-                Your payment needs to be greater than the
-                interest being added for the balance to
-                start falling under this simplified model.
-              </p>
+                <p>
+                  If the monthly payment is no greater than
+                  the interest being added, the balance may
+                  not decrease.
+                </p>
 
-              <p>
-                Check the actual terms of your debt or speak
-                with your lender if you're unsure.
-              </p>
+              </div>
 
-            </div>
-
-          `);
+            `
+          );
 
           return;
 
         }
 
 
-        let remaining = balance;
+        const months =
+          calculateDebtMonths(
+            balance,
+            annualRate,
+            payment
+          );
 
-        let totalInterest = 0;
 
-        let months = 0;
+        if (months >= 1200) {
 
-        const maxMonths = 1200;
+          showResult(
+            debtResult,
+            `
+
+              <div class="result-header">
+
+                <div class="result-status warning">
+                  ● Very long repayment period
+                </div>
+
+                <h2>
+                  This debt could take a very long time to repay
+                </h2>
+
+                <p>
+                  Try increasing the monthly payment and
+                  calculate again.
+                </p>
+
+              </div>
+
+            `
+          );
+
+          return;
+
+        }
+
+
+        let remaining =
+          balance;
+
+        let totalInterest =
+          0;
+
+        let month =
+          0;
 
 
         while (
           remaining > 0.01 &&
-          months < maxMonths
+          month < months
         ) {
 
           const interest =
             remaining * monthlyRate;
-
 
           const principal =
             payment - interest;
@@ -1685,35 +1784,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           remaining -= principal;
 
-          months++;
-
-        }
-
-
-        if (
-          months >= maxMonths ||
-          remaining > 0.01
-        ) {
-
-          showDebtResult(`
-
-            <h2 class="warning">
-              This repayment plan takes a very long time
-            </h2>
-
-            <p>
-              The calculator couldn't produce a practical
-              payoff timeline within 100 years.
-            </p>
-
-            <p>
-              Increasing the monthly payment may shorten the
-              timeline considerably.
-            </p>
-
-          `);
-
-          return;
+          month++;
 
         }
 
@@ -1777,65 +1848,59 @@ document.addEventListener("DOMContentLoaded", function () {
         if (months <= 12) {
 
           advice = `
-            This is a relatively short repayment timeline.
-            The key is keeping the payment affordable and
-            consistent.
+            You're on a relatively short repayment
+            timeline. Staying consistent should keep
+            you moving towards being debt-free.
           `;
 
         }
-
         else if (months <= 36) {
 
           advice = `
-            You're looking at a medium-term repayment plan.
-            If your budget allows, additional payments could
-            shorten the timeline and reduce interest.
+            This is a medium-term repayment plan.
+            If your budget allows, even a modest increase
+            in the monthly payment could shorten the
+            timeline.
           `;
 
         }
-
         else {
 
           advice = `
-            This is a long repayment timeline. If you're
-            comfortably able to increase the payment, even
-            a modest increase may make a meaningful difference.
-            Don't increase payments to the point where essential
-            bills become difficult to cover.
+            This is a long repayment timeline. Keeping
+            payments consistent is important, and you
+            can explore what happens if you increase the
+            payment when your budget allows.
           `;
 
         }
 
 
-        showDebtResult(`
+        showResult(
+          debtResult,
+          `
 
-          <div class="score-circle">
+            <div class="result-header">
 
-            <span>
-              ${months}
-            </span>
+              <div class="result-status good">
+                ● Estimated repayment
+              </div>
 
-            <small>
-              mo
-            </small>
+              <h2>
+                Debt-free in approximately
+                ${months} months
+              </h2>
 
-          </div>
+              <p>
+                At a monthly payment of ${money(payment)},
+                your estimated payoff date is
+                <strong>
+                  ${payoffDateText}
+                </strong>.
+              </p>
 
+            </div>
 
-          <h2>
-            Approximately ${months} months to repay
-          </h2>
-
-
-          <p>
-            At a monthly payment of
-            <strong>${money(payment)}</strong>,
-            the estimated payoff date is
-            <strong>${payoffDateText}</strong>.
-          </p>
-
-
-          <div class="stats">
 
             <div class="stat">
 
@@ -1901,109 +1966,101 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </div>
 
-          </div>
+
+            <div class="what-if-box">
+
+              <h3>
+                🚀 What if you paid more?
+              </h3>
 
 
-          <h3>
-            What if you paid more?
-          </h3>
+              <div class="what-if-grid">
+
+                <div class="what-if-card">
+
+                  <span>
+                    Pay £25 more
+                  </span>
+
+                  <strong>
+                    ${
+                      extra25 >= 1200
+                        ? "Very long"
+                        : `${extra25} months`
+                    }
+                  </strong>
+
+                  <small>
+                    ${
+                      saved25 > 0
+                        ? `About ${saved25} month${saved25 === 1 ? "" : "s"} sooner`
+                        : "No significant change"
+                    }
+                  </small>
+
+                </div>
 
 
-          <div class="what-if-box">
+                <div class="what-if-card featured">
 
-            <div class="what-if-grid">
+                  <span>
+                    Pay £50 more
+                  </span>
 
-              <div class="what-if-card">
+                  <strong>
+                    ${
+                      extra50 >= 1200
+                        ? "Very long"
+                        : `${extra50} months`
+                    }
+                  </strong>
 
-                <span>
-                  Pay £25 more
-                </span>
+                  <small>
+                    ${
+                      saved50 > 0
+                        ? `About ${saved50} month${saved50 === 1 ? "" : "s"} sooner`
+                        : "No significant change"
+                    }
+                  </small>
 
-                <strong>
-                  ${extra25}
-                  ${extra25 === 1 ? "month" : "months"}
-                </strong>
-
-                <small>
-                  ${
-                    saved25 > 0
-                      ? `${saved25} ${saved25 === 1 ? "month" : "months"} sooner`
-                      : "No change"
-                  }
-                </small>
-
-              </div>
-
-
-              <div class="what-if-card featured">
-
-                <span>
-                  Pay £50 more
-                </span>
-
-                <strong>
-                  ${extra50}
-                  ${extra50 === 1 ? "month" : "months"}
-                </strong>
-
-                <small>
-                  ${
-                    saved50 > 0
-                      ? `${saved50} ${saved50 === 1 ? "month" : "months"} sooner`
-                      : "No change"
-                  }
-                </small>
+                </div>
 
               </div>
 
             </div>
 
-          </div>
 
+            <h3>
+              🧠 WorthChex's view
+            </h3>
 
-          <h3>
-            WorthChex's advice
-          </h3>
-
-
-          <p>
-            ${advice}
-          </p>
-
-
-          <div class="info-box">
-
-            <strong>
-              Remember
-            </strong>
 
             <p>
-              This calculation is a simplified estimate. Actual
-              lender calculations can differ because of payment
-              dates, daily interest, fees, promotional rates and
-              other terms.
+              ${advice}
             </p>
 
-          </div>
 
+            <p class="disclaimer">
+              This is an estimate using monthly interest
+              calculations. Actual lender calculations can
+              differ because of payment dates, fees, interest
+              methods and other terms.
+            </p>
 
-          <p class="disclaimer">
-            Educational estimate only. This is not personalised
-            debt advice and does not recommend a particular debt
-            solution.
-          </p>
+          `
+        );
 
-        `);
-
-      });
+      }
+    );
 
   }
 
 
-  if (
-    debtResetButton &&
-    debtResult
-  ) {
+  /* =====================================================
+     DEBT RESET
+     ===================================================== */
+
+  if (debtResetButton) {
 
     debtResetButton.addEventListener(
       "click",
@@ -2015,92 +2072,26 @@ document.addEventListener("DOMContentLoaded", function () {
           "debtPayment"
         ].forEach(function (id) {
 
-          const element =
+          const input =
             document.getElementById(id);
 
-          if (element) {
-            element.value = "";
+          if (input) {
+            input.value = "";
           }
 
         });
 
 
-        debtResult.innerHTML = "";
+        if (debtResult) {
 
-        debtResult.classList.add("hidden");
+          debtResult.innerHTML = "";
+
+          debtResult.classList.add("hidden");
+
+        }
 
       }
     );
-
-  }
-
-
-  function showDebtResult(html) {
-
-    debtResult.innerHTML = html;
-
-    debtResult.classList.remove("hidden");
-
-    scrollToResult(debtResult);
-
-  }
-
-
-  /* =========================================================
-     DEBT CALCULATION HELPER
-     ========================================================= */
-
-  function calculateDebtMonths(
-    balance,
-    annualRate,
-    payment
-  ) {
-
-    const monthlyRate =
-      annualRate / 100 / 12;
-
-
-    if (
-      monthlyRate > 0 &&
-      payment <= balance * monthlyRate
-    ) {
-
-      return 1200;
-
-    }
-
-
-    let remaining = balance;
-
-    let months = 0;
-
-
-    while (
-      remaining > 0.01 &&
-      months < 1200
-    ) {
-
-      const interest =
-        remaining * monthlyRate;
-
-
-      const principal =
-        payment - interest;
-
-
-      if (principal <= 0) {
-        return 1200;
-      }
-
-
-      remaining -= principal;
-
-      months++;
-
-    }
-
-
-    return months;
 
   }
 
