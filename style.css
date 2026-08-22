@@ -1,3 +1,4 @@
+```css
 /* =========================================================
    WORTHCHEX — GLOBAL
    ========================================================= */
@@ -12,7 +13,6 @@ html {
 
 body {
   margin: 0;
-
   font-family:
     Inter,
     -apple-system,
@@ -25,7 +25,6 @@ body {
 
   color: #151827;
   background: #f7f8fc;
-
   line-height: 1.6;
 }
 
@@ -55,7 +54,6 @@ button {
   z-index: 100;
 
   background: rgba(255, 255, 255, 0.94);
-
   border-bottom: 1px solid #e8eaf0;
 
   backdrop-filter: blur(12px);
@@ -63,7 +61,6 @@ button {
 
 .nav-inner {
   width: min(1100px, calc(100% - 40px));
-
   margin: 0 auto;
 
   min-height: 72px;
@@ -97,7 +94,6 @@ button {
   justify-content: center;
 
   color: white;
-
   background: #635bff;
 
   border-radius: 10px;
@@ -109,7 +105,6 @@ button {
 .nav-links {
   display: flex;
   align-items: center;
-
   gap: 25px;
 
   color: #62697a;
@@ -133,32 +128,21 @@ button {
 
 .hero {
   width: min(850px, calc(100% - 40px));
-
   margin: 0 auto;
 
   padding: 85px 30px 65px;
 
   text-align: center;
 
-  border-radius: 0 0 28px 28px;
-
   background:
-    radial-gradient(
-      circle at 18% 25%,
-      rgba(99, 91, 255, 0.13),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 82% 20%,
-      rgba(124, 106, 255, 0.12),
-      transparent 38%
-    ),
     linear-gradient(
       135deg,
-      rgba(239, 240, 255, 0.94),
-      rgba(248, 247, 255, 0.96),
-      rgba(235, 242, 255, 0.92)
+      rgba(224, 231, 255, 0.72) 0%,
+      rgba(239, 236, 255, 0.78) 45%,
+      rgba(231, 240, 255, 0.68) 100%
     );
+
+  border-radius: 0 0 28px 28px;
 }
 
 .hero-badge,
@@ -179,7 +163,6 @@ button {
   color: #151827;
 
   font-size: clamp(38px, 6vw, 62px);
-
   line-height: 1.05;
 
   letter-spacing: -2.5px;
@@ -187,13 +170,11 @@ button {
 
 .hero > p {
   max-width: 680px;
-
   margin: 0 auto;
 
   color: #697083;
 
   font-size: 18px;
-
   line-height: 1.7;
 }
 
@@ -223,7 +204,6 @@ main {
 
 .calculator-card {
   width: min(700px, calc(100% - 40px));
-
   margin: 0 auto;
 
   padding: 42px;
@@ -231,7 +211,6 @@ main {
   background: white;
 
   border: 1px solid #e5e7ee;
-
   border-radius: 22px;
 
   box-shadow:
@@ -247,7 +226,6 @@ main {
   margin: 8px 0 10px;
 
   font-size: 30px;
-
   line-height: 1.2;
 
   letter-spacing: -0.8px;
@@ -269,7 +247,6 @@ main {
 
 .currency-selector {
   width: min(700px, calc(100% - 40px));
-
   margin: 0 auto 18px;
 
   display: flex;
@@ -281,9 +258,7 @@ main {
 
 .currency-selector label {
   margin: 0;
-
   color: #606779;
-
   font-size: 13px;
 }
 
@@ -291,11 +266,9 @@ main {
   padding: 9px 12px;
 
   color: #303548;
-
   background: white;
 
   border: 1px solid #dfe2ea;
-
   border-radius: 9px;
 
   outline: none;
@@ -315,22 +288,19 @@ main {
 
 .privacy-notice {
   margin-bottom: 35px;
-
   padding: 18px;
 
   background: #f7f7ff;
 
   border: 1px solid #e5e3ff;
-
   border-radius: 13px;
 }
 
 .privacy-notice-inner {
   display: flex;
+  align-items: flex-start;
 
   gap: 13px;
-
-  align-items: flex-start;
 }
 
 .privacy-icon {
@@ -398,7 +368,6 @@ label {
   padding: 2px 6px;
 
   color: #635bff;
-
   background: #f1f0ff;
 
   border-radius: 5px;
@@ -418,7 +387,6 @@ label {
   background: #fafbfe;
 
   border: 1px solid #dfe2ea;
-
   border-radius: 11px;
 
   transition:
@@ -436,27 +404,15 @@ label {
     0 0 0 4px rgba(99, 91, 255, 0.1);
 }
 
-
-/* =========================================================
-   CURRENCY SYMBOL — LEFT
-   ========================================================= */
-
 .input-wrapper > span:first-child {
   padding-left: 14px;
-  padding-right: 0;
 
   color: #8a91a1;
 
   user-select: none;
 }
 
-
-/* =========================================================
-   PERCENTAGE SYMBOL — RIGHT
-   ========================================================= */
-
 .input-wrapper > span:last-child {
-  padding-left: 0;
   padding-right: 14px;
 
   color: #8a91a1;
@@ -465,18 +421,15 @@ label {
 }
 
 .input-wrapper input {
-  flex: 1;
-
   width: 100%;
+  min-width: 0;
 
   padding: 13px 12px;
 
   color: #202435;
-
   background: transparent;
 
   border: 0;
-
   outline: none;
 
   font-size: 14px;
@@ -520,7 +473,6 @@ input::-webkit-outer-spin-button {
   width: 100%;
 
   margin-top: 5px;
-
   padding: 16px 20px;
 
   display: flex;
@@ -530,11 +482,9 @@ input::-webkit-outer-spin-button {
   gap: 12px;
 
   color: white;
-
   background: #635bff;
 
   border: 0;
-
   border-radius: 12px;
 
   font-size: 15px;
@@ -563,11 +513,9 @@ input::-webkit-outer-spin-button {
   width: 100%;
 
   margin-top: 10px;
-
   padding: 12px;
 
   color: #747b8d;
-
   background: transparent;
 
   border: 0;
@@ -587,7 +535,6 @@ input::-webkit-outer-spin-button {
 
 .result {
   width: min(700px, calc(100% - 40px));
-
   margin: 25px auto 0;
 
   padding: 35px;
@@ -595,7 +542,6 @@ input::-webkit-outer-spin-button {
   background: white;
 
   border: 1px solid #e5e7ee;
-
   border-radius: 20px;
 
   box-shadow:
@@ -610,7 +556,6 @@ input::-webkit-outer-spin-button {
   margin: 15px 0 10px;
 
   font-size: 27px;
-
   line-height: 1.2;
 }
 
@@ -641,7 +586,6 @@ input::-webkit-outer-spin-button {
   background: #f1f0ff;
 
   border: 7px solid #635bff;
-
   border-radius: 50%;
 
   color: #635bff;
@@ -649,7 +593,6 @@ input::-webkit-outer-spin-button {
 
 .score-circle span {
   font-size: 29px;
-
   font-weight: 800;
 
   line-height: 1;
@@ -657,7 +600,6 @@ input::-webkit-outer-spin-button {
 
 .score-circle small {
   font-size: 11px;
-
   font-weight: 700;
 }
 
@@ -684,7 +626,6 @@ input::-webkit-outer-spin-button {
 
 .stat {
   margin-top: 10px;
-
   padding: 14px 16px;
 
   display: flex;
@@ -695,7 +636,6 @@ input::-webkit-outer-spin-button {
   background: #fafbfe;
 
   border: 1px solid #eceef3;
-
   border-radius: 10px;
 
   font-size: 13px;
@@ -707,7 +647,6 @@ input::-webkit-outer-spin-button {
 
 .stat strong {
   color: #202435;
-
   text-align: right;
 }
 
@@ -718,19 +657,16 @@ input::-webkit-outer-spin-button {
 
 .info-box {
   margin-top: 20px;
-
   padding: 18px;
 
   background: #f5f6ff;
 
   border: 1px solid #e2e1ff;
-
   border-radius: 12px;
 }
 
 .good-box {
   background: #f1fbf6;
-
   border-color: #d2f0df;
 }
 
@@ -749,13 +685,11 @@ input::-webkit-outer-spin-button {
 
 .what-if-box {
   margin-top: 25px;
-
   padding: 20px;
 
   background: #fafbfe;
 
   border: 1px solid #e5e7ee;
-
   border-radius: 14px;
 }
 
@@ -783,7 +717,6 @@ input::-webkit-outer-spin-button {
   background: white;
 
   border: 1px solid #e2e4eb;
-
   border-radius: 12px;
 
   display: flex;
@@ -824,7 +757,6 @@ input::-webkit-outer-spin-button {
 
 .progress-container {
   width: 100%;
-
   height: 12px;
 
   margin: 20px 0;
@@ -868,7 +800,6 @@ input::-webkit-outer-spin-button {
 
 .calculator-privacy {
   margin: 5px 0 20px;
-
   padding: 12px;
 
   color: #737a8b;
@@ -878,7 +809,6 @@ input::-webkit-outer-spin-button {
   border-radius: 9px;
 
   font-size: 12px;
-
   text-align: center;
 }
 
@@ -889,7 +819,6 @@ input::-webkit-outer-spin-button {
 
 .how-section {
   margin-top: 100px;
-
   padding: 90px 20px;
 
   background: #151827;
@@ -899,7 +828,6 @@ input::-webkit-outer-spin-button {
 
 .how-inner {
   width: min(1100px, 100%);
-
   margin: 0 auto;
 }
 
@@ -913,7 +841,6 @@ input::-webkit-outer-spin-button {
   margin: 10px 0 18px;
 
   font-size: 36px;
-
   line-height: 1.2;
 
   letter-spacing: -1px;
@@ -943,7 +870,6 @@ input::-webkit-outer-spin-button {
   background: #202335;
 
   border: 1px solid #303448;
-
   border-radius: 15px;
 }
 
@@ -958,7 +884,6 @@ input::-webkit-outer-spin-button {
   margin-bottom: 20px;
 
   color: white;
-
   background: #635bff;
 
   border-radius: 9px;
@@ -1002,7 +927,6 @@ input::-webkit-outer-spin-button {
   margin: 10px 0 20px;
 
   font-size: 36px;
-
   line-height: 1.2;
 
   letter-spacing: -1px;
@@ -1038,7 +962,6 @@ input::-webkit-outer-spin-button {
   background: white;
 
   border: 1px solid #e5e7ee;
-
   border-radius: 14px;
 }
 
@@ -1082,7 +1005,6 @@ footer {
   padding: 55px 20px 25px;
 
   color: #b5bac8;
-
   background: #11131e;
 }
 
@@ -1113,7 +1035,6 @@ footer p {
   display: flex;
 
   flex-wrap: wrap;
-
   justify-content: flex-end;
 
   gap: 10px 22px;
@@ -1135,7 +1056,6 @@ footer p {
   width: min(1100px, 100%);
 
   margin: 40px auto 0;
-
   padding-top: 20px;
 
   display: flex;
@@ -1171,6 +1091,8 @@ footer p {
     width: min(100% - 30px, 850px);
 
     padding: 60px 18px 45px;
+
+    border-radius: 0 0 22px 22px;
   }
 
   .hero h1 {
@@ -1294,5 +1216,5 @@ footer p {
   .currency-selector select {
     width: 100%;
   }
-
 }
+```
