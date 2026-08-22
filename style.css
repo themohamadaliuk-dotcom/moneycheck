@@ -1060,10 +1060,19 @@ footer .logo {
    ========================================================= */
 
 a:focus-visible,
-button:focus-visible,
-input:focus-visible {
+button:focus-visible {
   outline: 3px solid rgba(99, 91, 255, 0.35);
   outline-offset: 3px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.input-wrapper > span {
+  border: 0;
+  outline: none;
+  text-decoration: none;
 }
 
 
