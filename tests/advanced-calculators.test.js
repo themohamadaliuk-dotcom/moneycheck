@@ -33,7 +33,8 @@ assert.equal(compound(1000, 0, 0, 12), 1000);
 assert.equal(compound(0, 250, 0, 12), 3000);
 assert.ok(compound(2000, 250, 4.5, 120) > 2000 + 250 * 120);
 
-assert.equal(sdlt(300000, false, false), 3500);
+// England/Northern Ireland standard residential SDLT: £5,000 at £300,000.
+assert.equal(sdlt(300000, false, false), 5000);
 assert.equal(sdlt(500000, true, false), 10000);
 assert.ok(sdlt(500000, false, true) > sdlt(500000, false, false));
 
