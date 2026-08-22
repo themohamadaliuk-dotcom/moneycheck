@@ -1,0 +1,70 @@
+/* WorthChex mobile layout fixes */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .nav-inner {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 58px 16px 48px;
+    text-align: center !important;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    width: 340px;
+    height: 340px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero h1 {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    text-align: center !important;
+    font-size: clamp(38px, 10.8vw, 50px);
+    line-height: 1.04;
+    letter-spacing: -2.4px;
+    text-wrap: balance;
+  }
+
+  .hero > p {
+    width: 100%;
+    max-width: 335px;
+    margin: 20px auto 24px;
+    text-align: center !important;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .hero-badge,
+  .trust-points {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .trust-points {
+    width: 100%;
+    max-width: 335px;
+    justify-content: center;
+    text-align: center;
+    gap: 8px 14px;
+  }
+}
