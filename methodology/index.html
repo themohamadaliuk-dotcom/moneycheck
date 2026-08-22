@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="See how WorthChex calculates affordability, savings and debt payoff estimates, including formulas, assumptions and why blank affordability fields are excluded."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <link
+    rel="canonical"
+    href="https://worthchex.com/methodology/"
+  >
+
+  <title>
+    WorthChex Methodology | How Our Money Calculators Work
+  </title>
+
+  <link
+    rel="icon"
+    href="../favicon.svg"
+    type="image/svg+xml"
+  >
+
+  <link
+    rel="stylesheet"
+    href="../style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <nav class="navbar">
+
+    <div class="nav-inner">
+
+      <a
+        href="../"
+        class="logo"
+      >
+
+        <span class="logo-icon">
+          £
+        </span>
+
+        WorthChex
+
+      </a>
+
+
+      <div class="nav-links">
+
+        <a href="../affordability-calculator/">
+          Affordability
+        </a>
+
+        <a href="../savings-calculator/">
+          Savings
+        </a>
+
+        <a href="../debt-payoff-calculator/">
+          Debt
+        </a>
+
+        <a href="../money-guides/">
+          Money guides
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main>
+
+    <section class="about-section">
+
+      <div class="about-inner">
+
+        <span class="step">
+          METHODOLOGY
+        </span>
+
+        <h1>
+          How WorthChex calculates its results.
+        </h1>
+
+        <p>
+          WorthChex aims to make the logic behind its calculators
+          understandable. The results are estimates based on the
+          figures entered and should not be treated as personalised
+          financial advice.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="information-section">
+
+      <div class="information-inner">
+
+
+        <span class="step">
+          AFFORDABILITY
+        </span>
+
+        <h2>
+          Affordability calculation
+        </h2>
+
+
+        <div class="method-card">
+
+          <h3>
+            Disposable income
+          </h3>
+
+          <code>
+            Disposable income =
+            monthly income − entered monthly expenses
+          </code>
+
+          <p>
+            Only expense fields actually filled in by the user
+            are included. Blank categories are excluded rather
+            than assumed to be £0.
+          </p>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Cash purchase
+          </h3>
+
+          <code>
+            Money after purchase =
+            disposable income − purchase price
+          </code>
+
+          <p>
+            This represents the effect of paying the full purchase
+            price from the monthly budget represented by the entries.
+          </p>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Financed purchase
+          </h3>
+
+          <code>
+            Money after finance =
+            disposable income − monthly finance payment
+          </code>
+
+          <p>
+            For a financed purchase, WorthChex uses the monthly payment
+            when assessing the ongoing monthly commitment instead of
+            subtracting the entire purchase price from one month.
+          </p>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Savings check
+          </h3>
+
+          <code>
+            Savings after purchase =
+            current savings − purchase price
+          </code>
+
+          <p>
+            This is shown as a separate hypothetical check. Savings
+            do not automatically make a purchase more or less affordable.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="information-section alternate-section">
+
+      <div class="information-inner">
+
+        <span class="step">
+          SAVINGS
+        </span>
+
+        <h2>
+          Savings goal calculation
+        </h2>
+
+
+        <div class="method-card">
+
+          <h3>
+            Remaining amount
+          </h3>
+
+          <code>
+            Remaining goal =
+            savings goal − current savings
+          </code>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Estimated months
+          </h3>
+
+          <code>
+            Months =
+            remaining goal ÷ monthly saving
+          </code>
+
+          <p>
+            The result is rounded up to the next whole month.
+          </p>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Important assumptions
+          </h3>
+
+          <p>
+            The calculation does not assume interest, investment returns,
+            withdrawals, missed contributions or changes to the monthly
+            saving amount.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="information-section">
+
+      <div class="information-inner">
+
+        <span class="step">
+          DEBT
+        </span>
+
+        <h2>
+          Debt payoff calculation
+        </h2>
+
+
+        <div class="method-card">
+
+          <h3>
+            Monthly interest
+          </h3>
+
+          <code>
+            Monthly interest =
+            remaining balance × APR ÷ 12
+          </code>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Principal reduction
+          </h3>
+
+          <code>
+            Principal =
+            monthly payment − monthly interest
+          </code>
+
+        </div>
+
+
+        <div class="method-card">
+
+          <h3>
+            Payoff timeline
+          </h3>
+
+          <p>
+            The calculator applies the simplified monthly calculation
+            repeatedly until the balance reaches approximately zero.
+          </p>
+
+          <p>
+            If the payment is no greater than the interest being added,
+            the balance will not fall under this model.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="about-section">
+
+      <div class="about-inner">
+
+        <span class="step">
+          LIMITATIONS
+        </span>
+
+        <h2>
+          What the calculators don't know
+        </h2>
+
+        <p>
+          WorthChex cannot automatically know about irregular spending,
+          future changes in income, taxes, fees, future commitments,
+          variable interest rates, lender-specific policies or your
+          personal priorities.
+        </p>
+
+        <p>
+          The calculator should therefore be viewed as a planning
+          tool rather than a definitive answer to a financial decision.
+        </p>
+
+        <p>
+          <a href="../">
+            Return to WorthChex →
+          </a>
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <a
+          href="../"
+          class="logo"
+        >
+
+          <span class="logo-icon">
+            £
+          </span>
+
+          WorthChex
+
+        </a>
+
+        <p>
+          Simple tools for smarter money decisions.
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+</body>
+
+</html>
