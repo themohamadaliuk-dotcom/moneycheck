@@ -1,1 +1,24 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://worthchex.com/</loc>
+  </url>
+  <url>
+    <loc>https://worthchex.com/#calculator</loc>
+  </url>
+  <url>
+    <loc>https://worthchex.com/#savings-calculator</loc>
+  </url>
+  <url>
+    <loc>https://worthchex.com/#debt-calculator</loc>
+  </url>
+  <url>
+    <loc>https://worthchex.com/#guides</loc>
+  </url>
+  <url>
+    <loc>https://worthchex.com/#methodology</loc>
+  </url>
+  <url>
+    <loc>https://worthchex.com/#faq</loc>
+  </url>
+</urlset>
