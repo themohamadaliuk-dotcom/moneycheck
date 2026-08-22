@@ -136,9 +136,29 @@ button {
 
   margin: 0 auto;
 
-  padding: 85px 0 65px;
+  padding: 85px 30px 65px;
 
   text-align: center;
+
+  border-radius: 0 0 28px 28px;
+
+  background:
+    radial-gradient(
+      circle at 18% 25%,
+      rgba(99, 91, 255, 0.13),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 82% 20%,
+      rgba(124, 106, 255, 0.12),
+      transparent 38%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(239, 240, 255, 0.94),
+      rgba(248, 247, 255, 0.96),
+      rgba(235, 242, 255, 0.92)
+    );
 }
 
 .hero-badge,
@@ -337,33 +357,83 @@ main {
 
 
 /* =========================================================
-  FORM
-  ========================================================= */
-@@ -18,12 +356,14 @@
-margin-bottom: 17px;
+   FORM
+   ========================================================= */
 
-color: #8a91a1;
+.form-section {
+  margin-bottom: 28px;
+}
 
-font-size: 13px;
+.form-section h3 {
+  margin: 0 0 17px;
+
+  color: #303548;
+
+  font-size: 16px;
+}
+
+.section-help {
+  margin: -8px 0 12px;
+
+  color: #8a91a1;
+
+  font-size: 13px;
 }
 
 label {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 
-gap: 8px;
+  gap: 8px;
 
-margin: 16px 0 7px;
-@@ -57,6 +397,7 @@ label {
-background: #fafbfe;
+  margin: 16px 0 7px;
 
-border: 1px solid #dfe2ea;
+  color: #303548;
 
-border-radius: 11px;
+  font-size: 13px;
+  font-weight: 650;
+}
 
-transition:
-@@ -78,14 +419,8 @@ label {
-0 0 0 4px rgba(99, 91, 255, 0.1);
+.optional {
+  padding: 2px 6px;
+
+  color: #635bff;
+
+  background: #f1f0ff;
+
+  border-radius: 5px;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  background: #fafbfe;
+
+  border: 1px solid #dfe2ea;
+
+  border-radius: 11px;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.input-wrapper:focus-within {
+  background: white;
+
+  border-color: #635bff;
+
+  box-shadow:
+    0 0 0 4px rgba(99, 91, 255, 0.1);
 }
 
 
@@ -372,13 +442,12 @@ transition:
    ========================================================= */
 
 .input-wrapper > span:first-child {
-padding-left: 14px;
+  padding-left: 14px;
   padding-right: 0;
 
-color: #8a91a1;
+  color: #8a91a1;
 
-@@ -96,13 +431,7 @@ label {
-user-select: none;
+  user-select: none;
 }
 
 
@@ -388,20 +457,42 @@ user-select: none;
 
 .input-wrapper > span:last-child {
   padding-left: 0;
-padding-right: 14px;
+  padding-right: 14px;
 
-color: #8a91a1;
-@@ -114,7 +443,6 @@ label {
-user-select: none;
+  color: #8a91a1;
+
+  user-select: none;
 }
 
+.input-wrapper input {
+  flex: 1;
+
+  width: 100%;
+
+  padding: 13px 12px;
+
+  color: #202435;
+
+  background: transparent;
+
+  border: 0;
+
+  outline: none;
+
+  font-size: 14px;
+}
 
 input {
-width: 100%;
+  width: 100%;
+}
 
-@@ -138,3 +466,806 @@ input::-webkit-inner-spin-button,
+input::placeholder {
+  color: #a4a9b5;
+}
+
+input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
-opacity: 0.5;
+  opacity: 0.5;
 }
 
 
@@ -1079,7 +1170,7 @@ footer p {
   .hero {
     width: min(100% - 30px, 850px);
 
-    padding: 60px 0 45px;
+    padding: 60px 18px 45px;
   }
 
   .hero h1 {
@@ -1162,7 +1253,6 @@ footer p {
 
     gap: 8px;
   }
-
 }
 
 
