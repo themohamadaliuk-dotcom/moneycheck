@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 
 <head>
 
@@ -12,7 +12,7 @@
 
   <meta
     name="description"
-    content="WorthChex offers free affordability, savings and debt calculators to help you make smarter decisions about your money."
+    content="Free UK affordability, savings and debt calculators. See what you can comfortably afford, plan savings goals and estimate how long it could take to pay off debt."
   >
 
   <meta
@@ -25,11 +25,75 @@
     content="#635bff"
   >
 
+  <link
+    rel="canonical"
+    href="https://worthchex.com/"
+  >
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:site_name"
+    content="WorthChex"
+  >
+
+  <meta
+    property="og:title"
+    content="Free UK Money Calculators | Affordability, Savings & Debt | WorthChex"
+  >
+
+  <meta
+    property="og:description"
+    content="Free UK affordability, savings and debt calculators to help you make smarter money decisions."
+  >
+
+  <meta
+    property="og:url"
+    content="https://worthchex.com/"
+  >
+
+  <meta
+    property="og:image"
+    content="https://worthchex.com/og-image.svg"
+  >
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Free UK Money Calculators | WorthChex"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Free affordability, savings and debt calculators."
+  >
+
+  <link
+    rel="icon"
+    href="favicon.svg"
+    type="image/svg+xml"
+  >
+
+  <link
+    rel="manifest"
+    href="site.webmanifest"
+  >
+
   <title>
-    Free Money Calculators | Affordability, Savings & Debt | WorthChex
+    Free UK Money Calculators | Affordability, Savings & Debt | WorthChex
   </title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
@@ -41,7 +105,10 @@
        NAVIGATION
        ===================================================== -->
 
-  <nav class="navbar">
+  <nav
+    class="navbar"
+    aria-label="Main navigation"
+  >
 
     <div class="nav-inner">
 
@@ -51,7 +118,7 @@
         aria-label="WorthChex home"
       >
 
-        <span class="logo-icon">
+        <span class="logo-icon" aria-hidden="true">
           £
         </span>
 
@@ -97,7 +164,7 @@
   <header class="hero">
 
     <div class="hero-badge">
-      FREE FINANCIAL CALCULATORS
+      FREE UK FINANCIAL CALCULATORS
     </div>
 
 
@@ -143,8 +210,6 @@
     <div class="calculator-card">
 
 
-      <!-- INTRO -->
-
       <div class="card-heading">
 
         <span class="step">
@@ -156,22 +221,26 @@
         </h2>
 
         <p>
-          Enter as much information as you can.
-          The more you enter, the more useful
-          the estimate will be.
+          Enter only the costs that apply to you.
+          Blank expense fields are excluded from the
+          calculation rather than treated as £0.
         </p>
 
       </div>
 
 
 
-      <!-- PRIVACY / TRUST -->
-
-      <section class="privacy-notice" aria-label="Privacy reassurance">
+      <section
+        class="privacy-notice"
+        aria-label="Privacy reassurance"
+      >
 
         <div class="privacy-notice-inner">
 
-          <div class="privacy-icon">
+          <div
+            class="privacy-icon"
+            aria-hidden="true"
+          >
             🔒
           </div>
 
@@ -183,8 +252,8 @@
 
             <p>
               We don't ask for bank details or require an account.
-              Your calculator inputs stay in your browser and are
-              used only to calculate your results.
+              Your calculator figures are processed in your browser
+              to calculate your results.
             </p>
 
           </div>
@@ -195,14 +264,11 @@
 
 
 
-      <!-- INCOME -->
-
       <div class="form-section">
 
         <h3>
           Monthly income
         </h3>
-
 
         <label for="income">
           Take-home income
@@ -210,14 +276,15 @@
 
         <div class="input-wrapper">
 
-          <span>
-            £
-          </span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="income"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="2,500"
           >
 
@@ -227,14 +294,11 @@
 
 
 
-      <!-- HOUSING -->
-
       <div class="form-section">
 
         <h3>
           Housing
         </h3>
-
 
         <label for="rent">
           Rent / mortgage
@@ -242,14 +306,15 @@
 
         <div class="input-wrapper">
 
-          <span>
-            £
-          </span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="rent"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="800"
           >
 
@@ -259,8 +324,6 @@
 
 
 
-      <!-- EXPENSES -->
-
       <div class="form-section">
 
         <h3>
@@ -268,10 +331,9 @@
         </h3>
 
         <p class="section-help">
-          Don't know an exact number?
-          You can leave it blank.
+          Leave a category blank if it doesn't apply to you.
+          Blank fields are not counted as £0.
         </p>
-
 
         <label for="bills">
           Bills & utilities
@@ -279,12 +341,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="bills"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="200"
           >
 
@@ -297,12 +362,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="food"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="250"
           >
 
@@ -315,12 +383,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="transport"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="150"
           >
 
@@ -333,12 +404,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="subscriptions"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="50"
           >
 
@@ -351,12 +425,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="debt"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="100"
           >
 
@@ -366,14 +443,11 @@
 
 
 
-      <!-- SAVINGS -->
-
       <div class="form-section">
 
         <h3>
           Savings
         </h3>
-
 
         <label for="savings">
           Current savings
@@ -381,12 +455,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="savings"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="2,000"
           >
 
@@ -399,12 +476,15 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="emergency"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="3,000"
           >
 
@@ -414,14 +494,11 @@
 
 
 
-      <!-- PURCHASE -->
-
       <div class="form-section purchase-section">
 
         <h3>
           What are you buying?
         </h3>
-
 
         <label for="purchase">
           Purchase price
@@ -429,12 +506,15 @@
 
         <div class="input-wrapper purchase-input">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="purchase"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="500"
           >
 
@@ -453,22 +533,28 @@
 
         <div class="input-wrapper">
 
-          <span>£</span>
+          <span aria-hidden="true">£</span>
 
           <input
             id="monthlyPayment"
             type="number"
             min="0"
+            step="0.01"
+            inputmode="decimal"
+            autocomplete="off"
             placeholder="0"
           >
 
         </div>
 
+        <p class="section-help purchase-help">
+          Add the monthly payment only if you are considering finance.
+          The purchase price is still shown separately.
+        </p>
+
       </div>
 
 
-
-      <!-- CALCULATE -->
 
       <button
         id="calculateButton"
@@ -478,13 +564,10 @@
 
         Check my affordability
 
-        <span>→</span>
+        <span aria-hidden="true">→</span>
 
       </button>
 
-
-
-      <!-- RESET -->
 
       <button
         id="resetButton"
@@ -500,11 +583,11 @@
 
 
 
-    <!-- AFFORDABILITY RESULT -->
-
     <div
       id="result"
       class="result hidden"
+      aria-live="polite"
+      aria-atomic="true"
     ></div>
 
 
@@ -538,7 +621,6 @@
 
       <div class="calculator-card savings-card">
 
-
         <div class="form-section">
 
           <label for="currentSavings">
@@ -547,19 +629,21 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span aria-hidden="true">£</span>
 
             <input
               id="currentSavings"
               type="number"
               min="0"
+              step="0.01"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="1,000"
             >
 
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -570,19 +654,21 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span aria-hidden="true">£</span>
 
             <input
               id="savingsGoal"
               type="number"
               min="0"
+              step="0.01"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="5,000"
             >
 
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -593,19 +679,26 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span aria-hidden="true">£</span>
 
             <input
               id="monthlySaving"
               type="number"
               min="0"
+              step="0.01"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="250"
             >
 
           </div>
 
-        </div>
+          <p class="section-help">
+            We'll also show the weekly equivalent to make
+            the target easier to picture.
+          </p>
 
+        </div>
 
 
         <div class="calculator-privacy">
@@ -616,7 +709,6 @@
         </div>
 
 
-
         <button
           id="savingsCalculateButton"
           class="calculate-button"
@@ -625,7 +717,7 @@
 
           Calculate my goal
 
-          <span>→</span>
+          <span aria-hidden="true">→</span>
 
         </button>
 
@@ -644,8 +736,9 @@
         <div
           id="savingsResult"
           class="result savings-result hidden"
+          aria-live="polite"
+          aria-atomic="true"
         ></div>
-
 
       </div>
 
@@ -683,7 +776,6 @@
 
       <div class="calculator-card">
 
-
         <div class="form-section">
 
           <label for="debtBalance">
@@ -692,20 +784,21 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span aria-hidden="true">£</span>
 
             <input
               id="debtBalance"
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="5,000"
             >
 
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -721,15 +814,19 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="20"
             >
 
-            <span>%</span>
+            <span
+              aria-hidden="true"
+              class="input-suffix"
+            >%</span>
 
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -740,20 +837,21 @@
 
           <div class="input-wrapper">
 
-            <span>£</span>
+            <span aria-hidden="true">£</span>
 
             <input
               id="debtPayment"
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="200"
             >
 
           </div>
 
         </div>
-
 
 
         <div class="calculator-privacy">
@@ -764,7 +862,6 @@
         </div>
 
 
-
         <button
           id="debtCalculateButton"
           class="calculate-button"
@@ -773,7 +870,7 @@
 
           Calculate my payoff
 
-          <span>→</span>
+          <span aria-hidden="true">→</span>
 
         </button>
 
@@ -792,8 +889,9 @@
         <div
           id="debtResult"
           class="result hidden"
+          aria-live="polite"
+          aria-atomic="true"
         ></div>
-
 
       </div>
 
@@ -836,7 +934,6 @@
 
       <div class="how-grid">
 
-
         <div class="how-card">
 
           <div class="how-number">
@@ -848,13 +945,12 @@
           </h3>
 
           <p>
-            Enter your income and regular costs to
-            get a clearer picture of what you have
-            available each month.
+            Enter the costs that actually apply to you.
+            Blank categories are ignored rather than
+            assumed to be zero.
           </p>
 
         </div>
-
 
 
         <div class="how-card">
@@ -869,12 +965,11 @@
 
           <p>
             Work out how long it could take to reach
-            a savings target based on what you can
-            put away each month.
+            a savings target and see how small changes
+            could shorten the timeline.
           </p>
 
         </div>
-
 
 
         <div class="how-card">
@@ -888,9 +983,9 @@
           </h3>
 
           <p>
-            Estimate how long your debt could take
-            to repay based on your balance, interest
-            rate and monthly payment.
+            Estimate your payoff timeline, interest cost
+            and what could happen if you increase your
+            monthly payment.
           </p>
 
         </div>
@@ -1078,7 +1173,6 @@
 
     <div class="footer-inner">
 
-
       <div>
 
         <a
@@ -1087,7 +1181,10 @@
           aria-label="WorthChex home"
         >
 
-          <span class="logo-icon">
+          <span
+            class="logo-icon"
+            aria-hidden="true"
+          >
             £
           </span>
 
@@ -1100,7 +1197,6 @@
         </p>
 
       </div>
-
 
 
       <div class="footer-links">
@@ -1138,7 +1234,6 @@
     </div>
 
 
-
     <div class="footer-bottom">
 
       <span>
@@ -1159,6 +1254,29 @@
   <!-- JAVASCRIPT -->
 
   <script src="script.js"></script>
+
+
+  <!-- STRUCTURED DATA -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "WorthChex",
+        "url": "https://worthchex.com/",
+        "description": "Free UK affordability, savings and debt calculators."
+      },
+      {
+        "@type": "Organization",
+        "name": "WorthChex",
+        "url": "https://worthchex.com/",
+        "logo": "https://worthchex.com/favicon.svg"
+      }
+    ]
+  }
+  </script>
 
 
 </body>
