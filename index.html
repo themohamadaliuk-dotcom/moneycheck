@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="UTF-8">
@@ -12,7 +11,7 @@
 
   <meta
     name="description"
-    content="WorthChex offers free affordability, savings and debt calculators to help you make smarter decisions about your money."
+    content="Free UK money calculators from WorthChex. Check whether a purchase fits your budget, plan a savings goal, and estimate debt payoff time."
   >
 
   <meta
@@ -26,61 +25,38 @@
   >
 
   <title>
-    Free Money Calculators | Affordability, Savings & Debt | WorthChex
+    WorthChex | Free Money Calculators
   </title>
 
   <link rel="stylesheet" href="style.css">
 
 </head>
 
-
 <body>
 
-
-  <!-- =====================================================
+  <!-- =========================
        NAVIGATION
-       ===================================================== -->
+       ========================= -->
 
   <nav class="navbar">
 
     <div class="nav-inner">
 
       <a
-        href="#"
+        href="#top"
         class="logo"
         aria-label="WorthChex home"
       >
-
-        <span class="logo-icon">
-          £
-        </span>
-
-        WorthChex
-
+        <span class="logo-icon">£</span>
+        <span>WorthChex</span>
       </a>
-
 
       <div class="nav-links">
 
-        <a href="#calculator">
-          Affordability
-        </a>
-
-        <a href="#savings-calculator">
-          Savings
-        </a>
-
-        <a href="#debt-calculator">
-          Debt
-        </a>
-
-        <a href="#how-it-works">
-          How it works
-        </a>
-
-        <a href="#about">
-          About
-        </a>
+        <a href="#calculator">Affordability</a>
+        <a href="#savings-calculator">Savings</a>
+        <a href="#debt-calculator">Debt</a>
+        <a href="#how-it-works">How it works</a>
 
       </div>
 
@@ -89,64 +65,121 @@
   </nav>
 
 
+  <div id="top"></div>
 
-  <!-- =====================================================
+
+  <!-- =========================
        HERO
-       ===================================================== -->
+       ========================= -->
 
   <header class="hero">
 
-    <div class="hero-badge">
-      FREE FINANCIAL CALCULATORS
-    </div>
+    <div class="hero-glow glow-one"></div>
+    <div class="hero-glow glow-two"></div>
 
+    <div class="hero-content">
 
-    <h1>
-      Make smarter money decisions.
-    </h1>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        FREE UK MONEY CALCULATORS
+      </div>
 
+      <h1>
+        Make money decisions<br>
+        <span>with more confidence.</span>
+      </h1>
 
-    <p>
-      Use our free calculators to see what you can
-      comfortably afford, plan your savings goals,
-      and estimate how long it could take to pay
-      off debt.
-    </p>
+      <p class="hero-text">
+        See what you can realistically afford, work towards
+        your savings goals and understand how long debt could
+        take to repay.
+      </p>
 
+      <div class="trust-points">
 
-    <div class="trust-points">
+        <span>✓ Free to use</span>
+        <span>✓ No account required</span>
+        <span>✓ No bank connection</span>
 
-      <span>
-        ✓ Free to use
-      </span>
+      </div>
 
-      <span>
-        ✓ No sign-up
-      </span>
-
-      <span>
-        ✓ No bank details required
-      </span>
+      <a
+        href="#calculator"
+        class="hero-button"
+      >
+        Check affordability
+        <span>→</span>
+      </a>
 
     </div>
 
   </header>
 
 
+  <!-- =========================
+       QUICK LINKS
+       ========================= -->
 
-  <!-- =====================================================
-       AFFORDABILITY CALCULATOR
-       ===================================================== -->
+  <section class="tool-strip">
 
-  <main id="calculator">
+    <div class="tool-strip-inner">
 
-    <div class="calculator-card">
+      <a href="#calculator" class="tool-link active">
+
+        <span class="tool-icon">£</span>
+
+        <div>
+          <strong>Affordability</strong>
+          <small>Can I afford it?</small>
+        </div>
+
+      </a>
 
 
-      <div class="card-heading">
+      <a href="#savings-calculator" class="tool-link">
 
-        <span class="step">
-          AFFORDABILITY
+        <span class="tool-icon">↗</span>
+
+        <div>
+          <strong>Savings</strong>
+          <small>Reach your goal</small>
+        </div>
+
+      </a>
+
+
+      <a href="#debt-calculator" class="tool-link">
+
+        <span class="tool-icon">↓</span>
+
+        <div>
+          <strong>Debt</strong>
+          <small>Plan your payoff</small>
+        </div>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <main>
+
+
+    <!-- =========================
+         AFFORDABILITY
+         ========================= -->
+
+    <section
+      id="calculator"
+      class="calculator-section"
+    >
+
+      <div class="section-heading">
+
+        <span class="eyebrow">
+          AFFORDABILITY CHECK
         </span>
 
         <h2>
@@ -154,399 +187,407 @@
         </h2>
 
         <p>
-          Enter as much information as you can.
-          The more you enter, the more useful
-          the estimate will be.
+          Tell us about your income, regular spending and
+          the purchase you're considering. We'll show you
+          what your budget looks like after the purchase.
         </p>
 
       </div>
 
 
+      <div class="calculator-layout">
 
-      <!-- PRIVACY -->
+        <div class="calculator-card">
 
-      <section
-        class="privacy-notice"
-        aria-label="Privacy reassurance"
-      >
 
-        <div class="privacy-notice-inner">
+          <!-- Income -->
 
-          <div class="privacy-icon">
-            🔒
-          </div>
+          <div class="form-section">
 
-          <div>
+            <div class="section-title-row">
 
-            <strong>
-              Your information stays private
-            </strong>
+              <h3>Monthly income</h3>
 
-            <p>
-              We don't ask for bank details or require an account.
-              Your calculator inputs stay in your browser and are
-              used only to calculate your results.
+              <span class="required-label">
+                REQUIRED
+              </span>
+
+            </div>
+
+            <label for="income">
+              Monthly take-home income
+            </label>
+
+            <div class="input-wrapper">
+
+              <span aria-hidden="true">£</span>
+
+              <input
+                id="income"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="2,500"
+              >
+
+            </div>
+
+            <p class="field-help">
+              Use the amount that actually reaches your bank account.
             </p>
 
           </div>
 
-        </div>
 
-      </section>
+          <!-- Housing -->
+
+          <div class="form-section">
+
+            <h3>Housing</h3>
+
+            <label for="rent">
+              Rent / mortgage
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span aria-hidden="true">£</span>
+
+              <input
+                id="rent"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="800"
+              >
+
+            </div>
+
+          </div>
 
 
+          <!-- Expenses -->
 
-      <!-- INCOME -->
+          <div class="form-section">
 
-      <div class="form-section">
+            <h3>Regular monthly spending</h3>
 
-        <h3>
-          Monthly income
-        </h3>
+            <p class="section-help">
+              Add the costs you normally pay each month.
+              Leave anything genuinely irrelevant blank.
+            </p>
 
 
-        <label for="income">
-          Take-home income
-        </label>
+            <label for="bills">
+              Bills & utilities
+              <span class="optional">OPTIONAL</span>
+            </label>
 
-        <div class="input-wrapper">
+            <div class="input-wrapper">
 
-          <span>£</span>
+              <span>£</span>
 
-          <input
-            id="income"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="2,500"
+              <input
+                id="bills"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="200"
+              >
+
+            </div>
+
+
+            <label for="food">
+              Food & groceries
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="food"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="250"
+              >
+
+            </div>
+
+
+            <label for="transport">
+              Transport
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="transport"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="150"
+              >
+
+            </div>
+
+
+            <label for="subscriptions">
+              Subscriptions & entertainment
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="subscriptions"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="50"
+              >
+
+            </div>
+
+
+            <label for="debt">
+              Existing debt payments
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="debt"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="100"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- Savings -->
+
+          <div class="form-section">
+
+            <h3>Savings & emergency buffer</h3>
+
+            <label for="savings">
+              Current savings
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="savings"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="2,000"
+              >
+
+            </div>
+
+
+            <label for="emergency">
+              Emergency fund you want to keep
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="emergency"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="3,000"
+              >
+
+            </div>
+
+            <p class="field-help">
+              This is a personal safety buffer, not a rule.
+              Enter the amount you would prefer not to dip below.
+            </p>
+
+          </div>
+
+
+          <!-- Purchase -->
+
+          <div class="form-section purchase-section">
+
+            <div class="purchase-heading">
+
+              <div>
+
+                <span class="eyebrow small">
+                  THE DECISION
+                </span>
+
+                <h3>
+                  What are you buying?
+                </h3>
+
+              </div>
+
+            </div>
+
+
+            <label for="purchase">
+              Purchase price
+              <span class="required-label">REQUIRED</span>
+            </label>
+
+            <div class="input-wrapper purchase-input">
+
+              <span>£</span>
+
+              <input
+                id="purchase"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="500"
+              >
+
+            </div>
+
+
+            <label for="monthlyPayment">
+              Monthly finance payment
+              <span class="optional">OPTIONAL</span>
+            </label>
+
+            <div class="input-wrapper">
+
+              <span>£</span>
+
+              <input
+                id="monthlyPayment"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="0"
+              >
+
+            </div>
+
+            <p class="field-help">
+              If you're financing the purchase, enter the proposed
+              monthly payment. The calculator does not assume finance
+              terms you haven't provided.
+            </p>
+
+          </div>
+
+
+          <div class="privacy-inline">
+
+            <span>🔒</span>
+
+            <div>
+              <strong>Your figures stay in your browser.</strong>
+              <p>No account or bank connection is required.</p>
+            </div>
+
+          </div>
+
+
+          <button
+            id="calculateButton"
+            class="calculate-button"
+            type="button"
           >
+            <span>Check my affordability</span>
+            <span class="button-arrow">→</span>
+          </button>
+
+
+          <button
+            id="resetButton"
+            class="reset-button"
+            type="button"
+          >
+            Clear everything
+          </button>
 
         </div>
+
+
+        <!-- AFFORDABILITY RESULT -->
+
+        <div
+          id="result"
+          class="result hidden"
+          aria-live="polite"
+        ></div>
 
       </div>
 
+    </section>
 
 
-      <!-- HOUSING -->
-
-      <div class="form-section">
-
-        <h3>
-          Housing
-        </h3>
-
-
-        <label for="rent">
-          Rent / mortgage
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="rent"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="800"
-          >
-
-        </div>
-
-      </div>
-
-
-
-      <!-- EXPENSES -->
-
-      <div class="form-section">
-
-        <h3>
-          Monthly expenses
-        </h3>
-
-        <p class="section-help">
-          Don't know an exact number?
-          You can leave it blank.
-        </p>
-
-
-        <label for="bills">
-          Bills & utilities
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="bills"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="200"
-          >
-
-        </div>
-
-
-        <label for="food">
-          Food & groceries
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="food"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="250"
-          >
-
-        </div>
-
-
-        <label for="transport">
-          Transport
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="transport"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="150"
-          >
-
-        </div>
-
-
-        <label for="subscriptions">
-          Subscriptions
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="subscriptions"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="50"
-          >
-
-        </div>
-
-
-        <label for="debt">
-          Debt payments
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="debt"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="100"
-          >
-
-        </div>
-
-      </div>
-
-
-
-      <!-- SAVINGS -->
-
-      <div class="form-section">
-
-        <h3>
-          Savings
-        </h3>
-
-
-        <label for="savings">
-          Current savings
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="savings"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="2,000"
-          >
-
-        </div>
-
-
-        <label for="emergency">
-          Emergency fund target
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="emergency"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="3,000"
-          >
-
-        </div>
-
-      </div>
-
-
-
-      <!-- PURCHASE -->
-
-      <div class="form-section purchase-section">
-
-        <h3>
-          What are you buying?
-        </h3>
-
-
-        <label for="purchase">
-          Purchase price
-        </label>
-
-        <div class="input-wrapper purchase-input">
-
-          <span>£</span>
-
-          <input
-            id="purchase"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="500"
-          >
-
-        </div>
-
-
-        <label for="monthlyPayment">
-
-          Monthly finance payment
-
-          <span class="optional">
-            OPTIONAL
-          </span>
-
-        </label>
-
-        <div class="input-wrapper">
-
-          <span>£</span>
-
-          <input
-            id="monthlyPayment"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="0"
-          >
-
-        </div>
-
-      </div>
-
-
-
-      <!-- CALCULATE -->
-
-      <button
-        id="calculateButton"
-        class="calculate-button"
-        type="button"
-      >
-
-        Check my affordability
-
-        <span>→</span>
-
-      </button>
-
-
-
-      <!-- RESET -->
-
-      <button
-        id="resetButton"
-        class="reset-button"
-        type="button"
-      >
-
-        Clear everything
-
-      </button>
-
-    </div>
-
-
-
-    <!-- AFFORDABILITY RESULT -->
-
-    <div
-      id="result"
-      class="result hidden"
-      aria-live="polite"
-    ></div>
-
-
-
-    <!-- =====================================================
-         SAVINGS GOAL CALCULATOR
-         ===================================================== -->
+    <!-- =========================
+         SAVINGS
+         ========================= -->
 
     <section
       id="savings-calculator"
-      class="savings-section"
+      class="alternate-section savings-section"
     >
 
-      <div class="savings-heading">
+      <div class="section-heading">
 
-        <span class="step">
+        <span class="eyebrow">
           SAVINGS GOAL
         </span>
 
         <h2>
-          How long will it take?
+          How long will it take to reach your goal?
         </h2>
 
         <p>
-          Set a savings goal and we'll work out
-          how long it could take to reach it.
+          Choose a target, tell us what you already have and
+          see how long your current monthly saving could take.
         </p>
 
       </div>
 
 
-      <div class="calculator-card savings-card">
-
+      <div class="calculator-card narrow-card">
 
         <div class="form-section">
 
@@ -563,13 +604,13 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
               placeholder="1,000"
             >
 
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -587,13 +628,13 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
               placeholder="5,000"
             >
 
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -611,6 +652,7 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
               placeholder="250"
             >
 
@@ -619,14 +661,16 @@
         </div>
 
 
+        <div class="privacy-inline">
 
-        <div class="calculator-privacy">
+          <span>🔒</span>
 
-          🔒 Your figures stay in your browser.
-          No account required.
+          <div>
+            <strong>Private by design.</strong>
+            <p>Your figures are processed in your browser.</p>
+          </div>
 
         </div>
-
 
 
         <button
@@ -634,11 +678,8 @@
           class="calculate-button"
           type="button"
         >
-
-          Calculate my goal
-
-          <span>→</span>
-
+          <span>Calculate my goal</span>
+          <span class="button-arrow">→</span>
         </button>
 
 
@@ -647,9 +688,7 @@
           class="reset-button"
           type="button"
         >
-
           Clear everything
-
         </button>
 
 
@@ -659,43 +698,40 @@
           aria-live="polite"
         ></div>
 
-
       </div>
 
     </section>
 
 
-
-    <!-- =====================================================
-         DEBT PAYOFF CALCULATOR
-         ===================================================== -->
+    <!-- =========================
+         DEBT
+         ========================= -->
 
     <section
       id="debt-calculator"
-      class="debt-section"
+      class="alternate-section debt-section"
     >
 
-      <div class="savings-heading">
+      <div class="section-heading">
 
-        <span class="step">
+        <span class="eyebrow">
           DEBT PAYOFF
         </span>
 
         <h2>
-          How quickly can you become debt-free?
+          Understand your debt payoff timeline.
         </h2>
 
         <p>
-          Enter your current balance, interest rate
-          and monthly payment to estimate how long
-          it could take to pay off your debt.
+          Enter your balance, APR and monthly payment.
+          We'll estimate how long repayment could take and
+          how additional payments might change the timeline.
         </p>
 
       </div>
 
 
-      <div class="calculator-card">
-
+      <div class="calculator-card narrow-card">
 
         <div class="form-section">
 
@@ -712,6 +748,7 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
               placeholder="5,000"
             >
 
@@ -720,11 +757,10 @@
         </div>
 
 
-
         <div class="form-section">
 
           <label for="interestRate">
-            Interest rate (APR)
+            Interest rate / APR
           </label>
 
           <div class="input-wrapper">
@@ -734,6 +770,7 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
               placeholder="20"
             >
 
@@ -742,7 +779,6 @@
           </div>
 
         </div>
-
 
 
         <div class="form-section">
@@ -760,6 +796,7 @@
               type="number"
               min="0"
               step="0.01"
+              inputmode="decimal"
               placeholder="200"
             >
 
@@ -768,14 +805,16 @@
         </div>
 
 
+        <div class="privacy-inline">
 
-        <div class="calculator-privacy">
+          <span>🔒</span>
 
-          🔒 Your figures stay in your browser.
-          No account or bank details required.
+          <div>
+            <strong>No bank details required.</strong>
+            <p>This is an estimate, not a lender calculation.</p>
+          </div>
 
         </div>
-
 
 
         <button
@@ -783,11 +822,8 @@
           class="calculate-button"
           type="button"
         >
-
-          Calculate my payoff
-
-          <span>→</span>
-
+          <span>Calculate my payoff</span>
+          <span class="button-arrow">→</span>
         </button>
 
 
@@ -796,9 +832,7 @@
           class="reset-button"
           type="button"
         >
-
           Clear everything
-
         </button>
 
 
@@ -808,6 +842,263 @@
           aria-live="polite"
         ></div>
 
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+         ========================= -->
+
+    <section
+      id="how-it-works"
+      class="how-section"
+    >
+
+      <div class="how-inner">
+
+        <div class="section-heading left-heading">
+
+          <span class="eyebrow">
+            WHY WORTHCHEX
+          </span>
+
+          <h2>
+            Simple numbers. Clearer decisions.
+          </h2>
+
+          <p>
+            WorthChex is designed to help you understand
+            the numbers before making a financial decision.
+          </p>
+
+        </div>
+
+
+        <div class="how-grid">
+
+          <article class="how-card">
+
+            <div class="how-number">01</div>
+
+            <h3>
+              Start with what you know
+            </h3>
+
+            <p>
+              You don't need a spreadsheet. Enter your income,
+              regular costs and the purchase or goal you're
+              considering.
+            </p>
+
+          </article>
+
+
+          <article class="how-card">
+
+            <div class="how-number">02</div>
+
+            <h3>
+              See the impact
+            </h3>
+
+            <p>
+              We show what your numbers mean rather than
+              simply giving you a yes-or-no answer.
+            </p>
+
+          </article>
+
+
+          <article class="how-card">
+
+            <div class="how-number">03</div>
+
+            <h3>
+              Keep some breathing room
+            </h3>
+
+            <p>
+              A purchase can technically fit your budget and
+              still leave you uncomfortably close to the edge.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+         ========================= -->
+
+    <section
+      id="about"
+      class="information-section"
+    >
+
+      <div class="information-inner">
+
+        <span class="eyebrow">
+          ABOUT WORTHCHEX
+        </span>
+
+        <h2>
+          Money decisions should feel simpler.
+        </h2>
+
+        <p>
+          WorthChex was built around a simple idea:
+          useful money tools should be easy to understand.
+        </p>
+
+        <p>
+          Whether you're thinking about a purchase,
+          building savings or paying down debt, our
+          calculators help you explore the numbers before
+          you commit.
+        </p>
+
+        <div class="principles">
+
+          <div>
+            <strong>Clear</strong>
+            <span>No unnecessary jargon.</span>
+          </div>
+
+          <div>
+            <strong>Private</strong>
+            <span>No bank connection required.</span>
+          </div>
+
+          <div>
+            <strong>Practical</strong>
+            <span>Focused on real-world decisions.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRIVACY
+         ========================= -->
+
+    <section class="privacy-section">
+
+      <div class="information-inner">
+
+        <span class="eyebrow">
+          PRIVACY
+        </span>
+
+        <h2>
+          Your financial figures are yours.
+        </h2>
+
+        <div class="privacy-grid">
+
+          <div class="privacy-card">
+
+            <span class="privacy-card-icon">🔒</span>
+
+            <h3>
+              No bank connection
+            </h3>
+
+            <p>
+              WorthChex does not require access to your
+              bank account or online banking.
+            </p>
+
+          </div>
+
+
+          <div class="privacy-card">
+
+            <span class="privacy-card-icon">👤</span>
+
+            <h3>
+              No account required
+            </h3>
+
+            <p>
+              You can use the calculators without creating
+              a WorthChex account.
+            </p>
+
+          </div>
+
+
+          <div class="privacy-card">
+
+            <span class="privacy-card-icon">💻</span>
+
+            <h3>
+              Browser calculations
+            </h3>
+
+            <p>
+              The calculator logic runs in your browser.
+              We don't need your financial figures to provide
+              the calculation.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DISCLAIMER
+         ========================= -->
+
+    <section class="disclaimer-section">
+
+      <div class="information-inner">
+
+        <span class="eyebrow">
+          IMPORTANT
+        </span>
+
+        <h2>
+          A calculator is a starting point, not a guarantee.
+        </h2>
+
+        <p>
+          WorthChex provides estimates for educational and
+          informational purposes. Results depend on the
+          information you enter and may not reflect every
+          expense, commitment, fee, tax, interest charge or
+          change in your circumstances.
+        </p>
+
+        <p>
+          Affordability results should not be treated as a
+          promise that a purchase, loan or finance agreement
+          is suitable for you. For debt calculations, actual
+          lender results can differ because of payment dates,
+          interest calculations, fees and other terms.
+        </p>
+
+        <p>
+          If you're struggling to keep up with essential
+          payments or debt, consider getting free,
+          confidential debt guidance rather than relying
+          solely on a calculator.
+        </p>
 
       </div>
 
@@ -816,297 +1107,22 @@
   </main>
 
 
-
-  <!-- =====================================================
-       WHY WORTHCHEX
-       ===================================================== -->
-
-  <section
-    id="how-it-works"
-    class="how-section"
-    aria-labelledby="why-worthchex"
-  >
-
-    <div class="how-inner">
-
-      <div>
-
-        <span class="step">
-          WHY WORTHCHEX
-        </span>
-
-        <h2 id="why-worthchex">
-          Simple tools for smarter money decisions.
-        </h2>
-
-        <p>
-          WorthChex turns a few numbers into a simple
-          way to understand your budget before making
-          an important financial decision.
-        </p>
-
-      </div>
-
-
-      <div class="how-grid">
-
-
-        <div class="how-card">
-
-          <div class="how-number">
-            1
-          </div>
-
-          <h3>
-            Understand your budget
-          </h3>
-
-          <p>
-            Enter your income and regular costs to
-            get a clearer picture of what you have
-            available each month.
-          </p>
-
-        </div>
-
-
-
-        <div class="how-card">
-
-          <div class="how-number">
-            2
-          </div>
-
-          <h3>
-            Plan your goals
-          </h3>
-
-          <p>
-            Work out how long it could take to reach
-            a savings target based on what you can
-            put away each month.
-          </p>
-
-        </div>
-
-
-
-        <div class="how-card">
-
-          <div class="how-number">
-            3
-          </div>
-
-          <h3>
-            Understand your debt
-          </h3>
-
-          <p>
-            Estimate how long your debt could take
-            to repay based on your balance, interest
-            rate and monthly payment.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       ABOUT WORTHCHEX
-       ===================================================== -->
-
-  <section
-    id="about"
-    class="about-section"
-    aria-labelledby="about-title"
-  >
-
-    <div class="about-inner">
-
-      <span class="step">
-        ABOUT WORTHCHEX
-      </span>
-
-      <h2 id="about-title">
-        Money decisions should feel simpler.
-      </h2>
-
-      <p>
-        WorthChex was created to make everyday financial
-        decisions easier to understand.
-      </p>
-
-      <p>
-        Whether you're thinking about buying something,
-        building your savings or paying down debt, our
-        calculators give you a quick way to explore the
-        numbers before making a decision.
-      </p>
-
-      <p>
-        We believe useful financial tools shouldn't require
-        complicated spreadsheets, an account or access to
-        your bank information.
-      </p>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       PRIVACY
-       ===================================================== -->
-
-  <section
-    id="privacy"
-    class="information-section"
-    aria-labelledby="privacy-title"
-  >
-
-    <div class="information-inner">
-
-      <span class="step">
-        PRIVACY
-      </span>
-
-      <h2 id="privacy-title">
-        Your privacy matters.
-      </h2>
-
-      <p>
-        WorthChex is designed so that you can use the
-        calculators without creating an account or giving
-        us your bank details.
-      </p>
-
-      <div class="privacy-grid">
-
-        <div class="privacy-card">
-
-          <strong>
-            No bank details
-          </strong>
-
-          <p>
-            We don't ask you to connect a bank account or
-            provide online banking information.
-          </p>
-
-        </div>
-
-
-        <div class="privacy-card">
-
-          <strong>
-            No sign-up
-          </strong>
-
-          <p>
-            You can use the calculators without creating
-            an account.
-          </p>
-
-        </div>
-
-
-        <div class="privacy-card">
-
-          <strong>
-            Calculator inputs
-          </strong>
-
-          <p>
-            The figures you enter into the calculators are
-            processed by the calculator in your browser.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       DISCLAIMER
-       ===================================================== -->
-
-  <section
-    id="disclaimer"
-    class="information-section disclaimer-section"
-    aria-labelledby="disclaimer-title"
-  >
-
-    <div class="information-inner">
-
-      <span class="step">
-        DISCLAIMER
-      </span>
-
-      <h2 id="disclaimer-title">
-        Important information.
-      </h2>
-
-      <p>
-        WorthChex calculators provide estimates for
-        educational and informational purposes only.
-      </p>
-
-      <p>
-        Calculator results are based on the information
-        you enter and may not reflect your actual financial
-        circumstances. Real-world costs, interest rates,
-        fees, taxes and other factors can affect the outcome.
-      </p>
-
-      <p>
-        WorthChex does not provide personalised financial,
-        investment, mortgage, tax or debt advice. You should
-        consider your own circumstances and, where appropriate,
-        seek advice from a qualified professional before
-        making an important financial decision.
-      </p>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
+  <!-- =========================
        FOOTER
-       ===================================================== -->
+       ========================= -->
 
   <footer>
 
     <div class="footer-inner">
 
-
       <div>
 
         <a
-          href="#"
+          href="#top"
           class="logo"
-          aria-label="WorthChex home"
         >
-
-          <span class="logo-icon">
-            £
-          </span>
-
-          WorthChex
-
+          <span class="logo-icon">£</span>
+          <span>WorthChex</span>
         </a>
 
         <p>
@@ -1116,41 +1132,17 @@
       </div>
 
 
-
       <div class="footer-links">
 
-        <a href="#calculator">
-          Affordability
-        </a>
-
-        <a href="#savings-calculator">
-          Savings
-        </a>
-
-        <a href="#debt-calculator">
-          Debt
-        </a>
-
-        <a href="#how-it-works">
-          Why WorthChex
-        </a>
-
-        <a href="#about">
-          About
-        </a>
-
-        <a href="#privacy">
-          Privacy
-        </a>
-
-        <a href="#disclaimer">
-          Disclaimer
-        </a>
+        <a href="#calculator">Affordability</a>
+        <a href="#savings-calculator">Savings</a>
+        <a href="#debt-calculator">Debt</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#about">About</a>
 
       </div>
 
     </div>
-
 
 
     <div class="footer-bottom">
@@ -1160,8 +1152,7 @@
       </span>
 
       <span>
-        For educational purposes only.
-        Not financial advice.
+        Educational information only · Not financial advice
       </span>
 
     </div>
@@ -1169,14 +1160,7 @@
   </footer>
 
 
-
-  <!-- =====================================================
-       JAVASCRIPT
-       ===================================================== -->
-
   <script src="script.js"></script>
 
-
 </body>
-
 </html>
