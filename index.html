@@ -143,8 +143,6 @@
     <div class="calculator-card">
 
 
-      <!-- INTRO -->
-
       <div class="card-heading">
 
         <span class="step">
@@ -165,9 +163,12 @@
 
 
 
-      <!-- PRIVACY / TRUST -->
+      <!-- PRIVACY -->
 
-      <section class="privacy-notice" aria-label="Privacy reassurance">
+      <section
+        class="privacy-notice"
+        aria-label="Privacy reassurance"
+      >
 
         <div class="privacy-notice-inner">
 
@@ -210,14 +211,13 @@
 
         <div class="input-wrapper">
 
-          <span>
-            £
-          </span>
+          <span>£</span>
 
           <input
             id="income"
             type="number"
             min="0"
+            step="0.01"
             placeholder="2,500"
           >
 
@@ -242,14 +242,13 @@
 
         <div class="input-wrapper">
 
-          <span>
-            £
-          </span>
+          <span>£</span>
 
           <input
             id="rent"
             type="number"
             min="0"
+            step="0.01"
             placeholder="800"
           >
 
@@ -285,6 +284,7 @@
             id="bills"
             type="number"
             min="0"
+            step="0.01"
             placeholder="200"
           >
 
@@ -303,6 +303,7 @@
             id="food"
             type="number"
             min="0"
+            step="0.01"
             placeholder="250"
           >
 
@@ -321,6 +322,7 @@
             id="transport"
             type="number"
             min="0"
+            step="0.01"
             placeholder="150"
           >
 
@@ -339,6 +341,7 @@
             id="subscriptions"
             type="number"
             min="0"
+            step="0.01"
             placeholder="50"
           >
 
@@ -357,6 +360,7 @@
             id="debt"
             type="number"
             min="0"
+            step="0.01"
             placeholder="100"
           >
 
@@ -387,6 +391,7 @@
             id="savings"
             type="number"
             min="0"
+            step="0.01"
             placeholder="2,000"
           >
 
@@ -405,6 +410,7 @@
             id="emergency"
             type="number"
             min="0"
+            step="0.01"
             placeholder="3,000"
           >
 
@@ -435,6 +441,7 @@
             id="purchase"
             type="number"
             min="0"
+            step="0.01"
             placeholder="500"
           >
 
@@ -459,6 +466,7 @@
             id="monthlyPayment"
             type="number"
             min="0"
+            step="0.01"
             placeholder="0"
           >
 
@@ -505,6 +513,7 @@
     <div
       id="result"
       class="result hidden"
+      aria-live="polite"
     ></div>
 
 
@@ -553,6 +562,7 @@
               id="currentSavings"
               type="number"
               min="0"
+              step="0.01"
               placeholder="1,000"
             >
 
@@ -576,6 +586,7 @@
               id="savingsGoal"
               type="number"
               min="0"
+              step="0.01"
               placeholder="5,000"
             >
 
@@ -599,6 +610,7 @@
               id="monthlySaving"
               type="number"
               min="0"
+              step="0.01"
               placeholder="250"
             >
 
@@ -644,6 +656,7 @@
         <div
           id="savingsResult"
           class="result savings-result hidden"
+          aria-live="polite"
         ></div>
 
 
@@ -792,6 +805,7 @@
         <div
           id="debtResult"
           class="result hidden"
+          aria-live="polite"
         ></div>
 
 
@@ -1156,7 +1170,9 @@
 
 
 
-  <!-- JAVASCRIPT -->
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
 
   <script src="script.js"></script>
 
