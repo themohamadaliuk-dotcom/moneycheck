@@ -1,0 +1,15 @@
+/* WorthChex V2 calculator controls and result enhancements */
+select{width:100%;min-width:0;padding:14px 13px;border:0;outline:0;background:transparent;color:#151827;font-size:16px;appearance:auto}
+.field-note{margin:6px 0 0;color:#8a91a1;font-size:12px;line-height:1.55}
+.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.option-card{padding:16px;background:#f8f9fc;border:1px solid #e5e7ef;border-radius:14px}
+.option-card strong{display:block;margin-bottom:6px}
+.control-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.result .big-number{font-size:30px}
+.result .stat:last-of-type{border-bottom:0}
+.result .scenario-heading{margin:26px 0 10px;font-size:15px;color:#303548}
+.result .method-note{margin-top:18px;padding:14px 16px;border-radius:12px;background:#f7f8fc;border:1px solid #e8eaf1;color:#687186;font-size:12px;line-height:1.6}
+.result .result-message strong{color:inherit}
+.result .source-note{margin-top:18px;color:#8a91a1;font-size:11px;line-height:1.6}
+.hidden[hidden]{display:none!important}
+@media (max-width:700px){.option-grid,.control-row{grid-template-columns:1fr}.calculator-card{padding:24px 18px}.page-header h1{letter-spacing:-1.5px}}
