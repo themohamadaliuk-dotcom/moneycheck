@@ -869,6 +869,15 @@ input {
   appearance: textfield;
 }
 
+.input-wrapper input:focus,
+.input-wrapper input:focus-visible {
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  border: 0;
+}
+
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
   opacity: 0.5;
