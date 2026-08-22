@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Free UK savings goal calculator. See how long it could take to reach a savings target based on what you already have and how much you can save each month."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <link
+    rel="canonical"
+    href="https://worthchex.com/savings-calculator/"
+  >
+
+  <title>
+    Savings Goal Calculator UK | How Long Will It Take? | WorthChex
+  </title>
+
+  <link
+    rel="icon"
+    href="../favicon.svg"
+    type="image/svg+xml"
+  >
+
+  <link
+    rel="stylesheet"
+    href="../style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <nav class="navbar">
+
+    <div class="nav-inner">
+
+      <a
+        href="../"
+        class="logo"
+      >
+
+        <span class="logo-icon">
+          £
+        </span>
+
+        WorthChex
+
+      </a>
+
+
+      <div class="nav-links">
+
+        <a href="../affordability-calculator/">
+          Affordability
+        </a>
+
+        <a href="../debt-payoff-calculator/">
+          Debt
+        </a>
+
+        <a href="../methodology/">
+          Methodology
+        </a>
+
+        <a href="../money-guides/">
+          Money guides
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <main class="calculator-page">
+
+
+    <div class="breadcrumbs">
+      <a href="../">
+        WorthChex
+      </a>
+      /
+      Savings calculator
+    </div>
+
+
+    <header class="page-header">
+
+      <span class="step">
+        SAVINGS GOAL CALCULATOR
+      </span>
+
+      <h1>
+        How long will it take to save?
+      </h1>
+
+      <p>
+        Enter what you already have, your savings target and
+        the amount you can save each month to estimate how
+        long it could take to reach your goal.
+      </p>
+
+    </header>
+
+
+    <section class="calculator-card">
+
+
+      <div class="form-section">
+
+        <label for="currentSavings">
+          Current savings
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>
+            £
+          </span>
+
+          <input
+            id="currentSavings"
+            type="number"
+            min="0"
+            step="0.01"
+            inputmode="decimal"
+            placeholder="1,000"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="form-section">
+
+        <label for="savingsGoal">
+          Savings goal
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>
+            £
+          </span>
+
+          <input
+            id="savingsGoal"
+            type="number"
+            min="0"
+            step="0.01"
+            inputmode="decimal"
+            placeholder="10,000"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="form-section">
+
+        <label for="monthlySaving">
+          How much can you save each month?
+        </label>
+
+        <div class="input-wrapper">
+
+          <span>
+            £
+          </span>
+
+          <input
+            id="monthlySaving"
+            type="number"
+            min="0"
+            step="0.01"
+            inputmode="decimal"
+            placeholder="250"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="calculator-privacy">
+
+        🔒 Your figures stay in your browser.
+        No account required.
+
+      </div>
+
+
+      <button
+        id="savingsCalculateButton"
+        class="calculate-button"
+        type="button"
+      >
+
+        Calculate my goal
+
+        <span>
+          →
+        </span>
+
+      </button>
+
+
+      <button
+        id="savingsResetButton"
+        class="reset-button"
+        type="button"
+      >
+
+        Clear everything
+
+      </button>
+
+
+      <div
+        id="savingsResult"
+        class="result hidden"
+        aria-live="polite"
+      ></div>
+
+
+    </section>
+
+
+    <section class="information-section">
+
+      <div class="information-inner narrow">
+
+        <span class="step">
+          SAVINGS EXPLAINED
+        </span>
+
+        <h2>
+          How much should I save each month?
+        </h2>
+
+        <p>
+          There isn't one monthly savings amount that works for
+          everyone. A useful target is one that you can repeat
+          consistently without putting essential costs or your
+          wider budget under unnecessary pressure.
+        </p>
+
+        <p>
+          WorthChex calculates the amount still required and
+          divides it by your monthly contribution. The answer is
+          rounded up to a whole month.
+        </p>
+
+        <p>
+          This basic estimate doesn't assume investment returns,
+          savings interest, missed payments or changes to your
+          monthly saving amount.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="information-section alternate-section">
+
+      <div class="information-inner narrow">
+
+        <span class="step">
+          RELATED
+        </span>
+
+        <h2>
+          Related WorthChex tools
+        </h2>
+
+        <p>
+          Thinking about buying something?
+          <a href="../affordability-calculator/">
+            Try the affordability calculator
+          </a>.
+        </p>
+
+        <p>
+          Already carrying debt?
+          <a href="../debt-payoff-calculator/">
+            Calculate your debt payoff timeline
+          </a>.
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div>
+
+        <a
+          href="../"
+          class="logo"
+        >
+
+          <span class="logo-icon">
+            £
+          </span>
+
+          WorthChex
+
+        </a>
+
+        <p>
+          Simple tools for smarter money decisions.
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="../script.js"></script>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Savings Goal Calculator UK | How Long Will It Take? | WorthChex",
+    "url": "https://worthchex.com/savings-calculator/"
+  }
+  </script>
+
+</body>
+
+</html>
